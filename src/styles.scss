@@ -1,1 +1,23 @@
 /* You can add global styles to this file, and also import other style files */
+* {
+  margin: 0;
+}
+
+.max-width {
+  max-width: 1440px;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  display: flex;
+  overflow-x: hidden;
+  justify-content: center;
+  font-family: Inter, sans-serif;
+  background-color: #f6f7f8;
+  min-height: 100vh;
+  margin: 0;
+  cursor: default;
+}
