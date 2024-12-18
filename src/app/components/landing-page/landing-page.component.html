@@ -1,6 +1,10 @@
-<router-outlet></router-outlet>
-<div>
-    <a [routerLink]="['join/privacy_policy']">Privacy Policy</a>
-    <a [routerLink]="['join/legal_notice']">Legal notice</a>
+<main>
+<section>
+    <router-outlet></router-outlet>
+</section>
 
+<div>
+  <a [routerLink]="['join/privacy_policy']">Privacy Policy</a>
+  <a [routerLink]="['join/legal_notice']">Legal notice</a>
 </div>
+</main>

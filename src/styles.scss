@@ -1,4 +1,13 @@
-@import './fonts/font.scss';
+@import './assets/styles/font.scss';
+@import './assets/styles/buttons.scss';
+
+@mixin arrangement($d:flex, $jc:center, $ai:center, $g:0, $fd:unset){
+  display: $d;
+  justify-content: $jc;
+  align-items: $ai;
+  gap: $g;
+  flex-direction: $fd;
+}
 
 * {
   margin: 0;
@@ -13,7 +22,6 @@ html {
 }
 
 body {
-  display: flex;
   overflow-x: hidden;
   font-family: Inter, Arial, Helvetica, sans-serif;
   background-color: #f6f7f8;
