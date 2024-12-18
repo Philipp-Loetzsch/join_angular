@@ -33,8 +33,8 @@
     color: #2A3647;
     
     &--default {
-      @extend .btn-primary;
-      background-color: #2A3647;
+      @extend .btn-secondary;
+      background-color: #FFFFFF;
       border: 1px solid #2A3647;
       &:hover {
         transition: all ease-in 100ms;
@@ -43,7 +43,7 @@
       }
     }
     &--click {
-      @extend .btn-primary;
+      @extend .btn-secondary;
       color: #091931;
       border: 1px solid #091931
     }

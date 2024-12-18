@@ -8,8 +8,23 @@
       <h1>Log In</h1>
       <div class="underline"></div>
     </div>
-    <form>
-      <input type="text" />
+    <form [formGroup]="loginForm" (ng-submit)="onSubmit()">
+      <div class="input-field">
+        <input type="text" placeholder="email" required/>
+        <img src="img/mail.svg" alt="mail">
+      </div>
+      <div class="input-field">
+        <input type="password" placeholder="password" required/>
+        <img src="img/lock.svg" alt="password">
+      </div>
+      <div class="btns-log-in">
+        <button class="btn-primary--default" type="submit">Log in</button>
+        <button class="btn-secondary--default" type="button">Guest Log in</button>
+      </div>
     </form>
   </section>
+  <div class="footer">
+    <a [routerLink]="['join/privacy_policy']">Privacy Policy</a>
+    <a [routerLink]="['join/legal_notice']">Legal notice</a>
+  </div>
 </main>
