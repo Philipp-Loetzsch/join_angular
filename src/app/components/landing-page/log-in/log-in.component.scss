@@ -1,43 +1,84 @@
-@import './../../../../styles.scss';
+@import "./../../../../styles.scss";
 
-header{
+header {
   width: 100%;
-  @include arrangement($jc:end)
+  @include arrangement($jc: end);
 }
 
-main{
-  @include arrangement($fd:column, $jc:space-between);
+.gap {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+}
+
+.logo {
+  position: absolute;
+  top: 40px;
+  left: 40px;
+  animation: greetingScreen 5s linear forwards;
+  img {
+    width: 80px;
+  }
+}
+
+main {
+  @include arrangement($fd: column, $jc: space-between);
   min-height: 100vh;
   padding: 24px 32px;
   box-sizing: border-box;
 }
 
-section{
-  @include arrangement($fd:column, $g:24px);
+section {
+  @include arrangement($fd: column, $g: 24px);
   background-color: white;
   padding: 48px;
   box-sizing: border-box;
   border-radius: 30px;
-  form{
-    @include arrangement($fd:column, $g:24px)
+  form {
+    @include arrangement($fd: column);
   }
 }
 
-h1{
+h1 {
   font-size: 48px;
 }
 
-.underline{
+.underline {
   margin-top: 8px;
   height: 3px;
-  background-color: blue;
+  background-color: #29ABE2;
   width: 100%;
 }
 
-.btns-log-in{
-  @include arrangement($g:24px)
+.btns-log-in {
+  @include arrangement($g: 24px);
 }
 
-.footer{
-  @include arrangement()
+.footer {
+  @include arrangement();
+}
+
+.empty-label {
+  min-height: 24px;
+  width: 100%;
+}
+
+.error-label {
+  color: red;
+  font-size: 10px;
+  min-height: 24px;
+  width: 100%;
+  margin-left: 10px;
+}
+
+.footer {
+  display: flex;
+  gap: 24px;
+  a {
+    color: #A8A8A8;
+    text-decoration: none;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 }
