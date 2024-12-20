@@ -25,7 +25,7 @@
       </div>
 
       @if (loginForm.get('email')?.errors?.['required'] && loginForm.touched) {
-      <label for="email" class="error-label">please insert a email</label>
+      <label for="email" class="error-label">This field is required</label>
       } @else if(loginForm.get('email')?.errors?.['pattern'] &&
       loginForm.touched){
       <label for="email" class="error-label"
@@ -47,7 +47,7 @@
 
       @if (loginForm.get('password')?.errors?.['required'] && loginForm.touched)
       {
-      <label for="password" class="error-label">please insert a password</label>
+      <label for="password" class="error-label">This field is required</label>
       } @else if (loginForm.get('password')?.errors?.['minlength'] &&
       loginForm.touched) {
       <label for="password" class="error-label">min length 6</label>
@@ -64,7 +64,7 @@
     </form>
   </section>
   <div class="footer">
-    <a [routerLink]="['join/privacy_policy']">Privacy Policy</a>
-    <a [routerLink]="['join/legal_notice']">Legal notice</a>
+    <a [routerLink]="['main/privacy_policy']">Privacy Policy</a>
+    <a [routerLink]="['main/legal_notice']">Legal notice</a>
   </div>
 </main>

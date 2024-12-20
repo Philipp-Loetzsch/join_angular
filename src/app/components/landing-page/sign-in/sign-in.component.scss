@@ -1,0 +1,26 @@
+@import "./../log-in/log-in.component.scss";
+
+.headline {
+  display: flex;
+  align-items: center;
+  position: relative;
+  a {
+    position: absolute;
+    left: -120px;
+  }
+}
+
+.accept-terms {
+  @include arrangement($g: 8px);
+  button {
+    background-color: transparent;
+    border: 0;
+    img {
+      &:hover {
+        cursor: pointer;
+        background-color: rgba(0, 0, 0, 0.1);
+        border-radius: 50%;
+      }
+    }
+  }
+}

@@ -1,1 +1,123 @@
-<p>sign-in works!</p>
+<main>
+  <header>
+    <div class="logo">
+      <img src="img/join_logo_header.svg" alt="" />
+    </div>
+  </header>
+  <section>
+    <div class="headline">
+      <a [routerLink]="['/']"><img src="img/arrow-left-line.svg" alt="" /></a>
+      <div>
+        <h1>Sign up</h1>
+        <div class="underline"></div>
+      </div>
+    </div>
+    <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+      <div class="input-field">
+        <input
+          id="name"
+          formControlName="name"
+          type="text"
+          placeholder="Name"
+        />
+        <img src="img/person.svg" alt="name" />
+      </div>
+
+      @if (signupForm.get('name')?.errors?.['required'] && signupForm.touched) {
+      <label for="name" class="error-label">This field is required</label>
+      } @else(){
+      <label for="name" class="empty-label"></label>
+      }
+
+      <div class="input-field">
+        <input
+          id="email"
+          formControlName="email"
+          type="email"
+          placeholder="Email"
+        />
+        <img src="img/mail.svg" alt="mail" />
+      </div>
+
+      @if (signupForm.get('email')?.errors?.['required'] && signupForm.touched)
+      {
+      <label for="email" class="error-label">This field is required</label>
+      } @else if(signupForm.get('email')?.errors?.['pattern'] &&
+      signupForm.touched){
+      <label for="email" class="error-label"
+        >please insert a valid email (example&#64;your-email.com)</label
+      >
+      } @else(){
+      <label for="email" class="empty-label"></label>
+      }
+
+      <div class="input-field">
+        <input
+          id="password"
+          formControlName="password"
+          type="password"
+          placeholder="Password"
+        />
+        <img src="img/lock.svg" alt="password" />
+      </div>
+
+      @if (signupForm.get('password')?.errors?.['required'] &&
+      signupForm.touched) {
+      <label for="password" class="error-label">This field is required</label>
+      } @else if (signupForm.get('password')?.errors?.['minlength'] &&
+      signupForm.touched) {
+      <label for="password" class="error-label">min length 6</label>
+      } @else(){
+      <label for="password" class="empty-label"></label>
+      }
+
+      <div class="input-field">
+        <input
+          id="conf_password"
+          formControlName="conf_password"
+          type="password"
+          placeholder="Confirm Password"
+        />
+        <img src="img/lock.svg" alt="password" />
+      </div>
+
+      @if (signupForm.get('conf_password')?.errors?.['required'] &&
+      signupForm.touched) {
+      <label for="conf_password" class="error-label"
+        >This field is required</label
+      >
+      } @else if (signupForm.get('conf_password')?.errors?.['minlength'] &&
+      signupForm.touched) {
+      <label for="conf_password" class="error-label">min length 6</label>
+      } @else(){
+      <label for="conf_password" class="empty-label"></label>
+      }
+
+      <div class="accept-terms">
+        <button 
+          type="button" 
+          [class.active]="signupForm.get('check')?.value" 
+          (click)="toggleCheck()">
+          <img 
+            [src]="signupForm.get('check')?.value ? 'img/Property checked.svg' : 'img/Property Default.svg'" 
+            alt="Check Icon" 
+          />
+        </button>
+        <span>I accept the</span>
+        <a [routerLink]="['/main/privacy_policy']">Privacy Policy</a>
+      </div>
+      
+
+      <div class="btns-log-in">
+        <button class="btn-primary--default" type="submit">Log in</button>
+        <button class="btn-secondary--default" type="button">
+          Guest Log in
+        </button>
+      </div>
+    </form>
+  </section>
+  <div class="footer">
+    <a [routerLink]="['/main/privacy_policy']">Privacy Policy</a>
+    <a [routerLink]="['/main/legal_notice']">Legal notice</a>
+  </div>
+</main>

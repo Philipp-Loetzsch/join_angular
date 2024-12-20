@@ -19,7 +19,7 @@ export const routes: Routes = [
     ]
   },
 
-  { path: 'join', component: MainComponent,
+  { path: 'main', component: MainComponent,
     children: [
         {path:'summary', component: SummaryComponent},
         {path:'add_task', component: AddTaskComponent},

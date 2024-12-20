@@ -46,6 +46,7 @@ input{
   border: 1px solid #D1D1D1;
   border-radius: 10px;
   padding: 12px 21px;
-  @include arrangement($d:flex, $jc:space-between)
+  @include arrangement($d:flex, $jc:space-between);
+  width: 100%;
 }
 

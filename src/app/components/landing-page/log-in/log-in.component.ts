@@ -15,7 +15,7 @@ import {
   styleUrl: './log-in.component.scss',
 })
 export class LogInComponent {
-  loginForm = new FormGroup({
+   loginForm = new FormGroup({
     email: new FormControl('', [
       Validators.required,
       Validators.email,
