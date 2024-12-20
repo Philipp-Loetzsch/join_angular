@@ -1,0 +1,34 @@
+@import "./../../../styles.scss";
+
+.main-container {
+  display: flex;
+  height: 100vh;
+  .main-container_nav_side {
+    min-width: 20%;
+    background-color: #2a3647;
+    @include arrangement($fd: column, $jc: space-between);
+    padding: 24px 0;
+    .main-container_nav_side_navigation {
+      @include arrangement($fd: column, $ai: center);
+      width: 100%;
+
+      a {
+        width: 100%;
+        color: #cdcdcd;
+        font-weight: 400;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        margin-top: 24px;
+        padding: 16px 0  0  25%;
+        box-sizing: border-box;
+        &:hover {
+          background-color: #091931;
+        }
+      }
+    }
+    .main-container_nav_side_footer {
+      @include arrangement($fd: column, $ai: start);
+    }
+  }
+}
