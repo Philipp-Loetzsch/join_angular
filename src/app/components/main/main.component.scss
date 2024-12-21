@@ -3,15 +3,20 @@
 .main-container {
   display: flex;
   height: 100vh;
+  width: 100%;
   .main-container_nav_side {
-    min-width: 20%;
+    width: 230px;
     background-color: #2a3647;
     @include arrangement($fd: column, $jc: space-between);
-    padding: 24px 0;
+    padding: 32px 0;
     .main-container_nav_side_navigation {
       @include arrangement($fd: column, $ai: center);
       width: 100%;
-
+      .logo {
+        width: 100px;
+        height: 120px;
+        padding: 42px 0;
+      }
       a {
         width: 100%;
         color: #cdcdcd;
@@ -19,8 +24,8 @@
         text-decoration: none;
         display: flex;
         align-items: center;
-        margin-top: 24px;
-        padding: 16px 0  0  25%;
+        gap: 16px;
+        padding: 16px 0 16px 25%;
         box-sizing: border-box;
         &:hover {
           background-color: #091931;
@@ -28,7 +33,45 @@
       }
     }
     .main-container_nav_side_footer {
-      @include arrangement($fd: column, $ai: start);
+      @include arrangement($fd: column, $ai: start, $g:16px);
+      a {
+        color: #a8a8a8;
+        text-decoration: none;
+        &:hover{
+          transform: scale(1.1);
+          text-decoration: underline;
+        }
+      }
     }
   }
 }
+
+.chosen{
+  background-color: #091931;
+}
+
+.main-container_content_nav_header{
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  .menu{
+    position: relative;
+    display: flex;
+    .menu-navigation{
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      background-color: #2A3647;
+      border-radius: 20px 0 20px 20px;
+      padding: 10px;
+      box-sizing: border-box;
+      a{
+      padding: 8px 16px;
+      color: #CDCDCD;
+      text-decoration: none;
+      }
+    }
+  }
+  
+}
+

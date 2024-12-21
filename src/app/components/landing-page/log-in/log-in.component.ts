@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
 import {
   ReactiveFormsModule,
   FormGroup,
@@ -15,6 +15,7 @@ import {
   styleUrl: './log-in.component.scss',
 })
 export class LogInComponent {
+  constructor(private router:Router){}
    loginForm = new FormGroup({
     email: new FormControl('', [
       Validators.required,
@@ -28,6 +29,7 @@ export class LogInComponent {
   });
 
   onSubmit() {
+    this.router.navigate(['/main/summary'])
     if (this.loginForm.invalid) {
       // Markiere alle Felder als "touched", um die Fehlermeldungen anzuzeigen
       this.loginForm.markAllAsTouched();

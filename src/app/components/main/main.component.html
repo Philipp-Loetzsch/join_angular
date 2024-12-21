@@ -1,19 +1,36 @@
 <div class="main-container">
   <div class="main-container_nav_side">
     <div class="main-container_nav_side_navigation">
-      <img src="img/join_logo.svg" alt="" />
-      <a [routerLink]="['/main', link.img]" *ngFor="let link of nameLinks; index as i">
+      <img class="logo" src="img/join_logo.svg" alt="" />
+      <a
+        [routerLink]="['/main', link.img]"
+        *ngFor="let link of nameLinks; index as i"
+        [ngClass]="{ chosen: isActive(link.img) }"
+      >
         <img [src]="'img/icon_' + link.img + '.svg'" alt="icon" />
-        <span>{{link.name}}</span>
+        <span>{{ link.name }}</span>
       </a>
     </div>
     <div class="main-container_nav_side_footer">
-    <a [routerLink]="['/main/privacy_policy']">Privacy Policy</a>
-    <a [routerLink]="['/main/legal_notice']">Legal notice</a>
+      <a [routerLink]="['/main/privacy_policy']">Privacy Policy</a>
+      <a [routerLink]="['/main/legal_notice']">Legal notice</a>
     </div>
   </div>
   <div div="main-container_content">
-    <div class="main-container_content_nav_header"></div>
+    <div class="main-container_content_nav_header">
+      <span>Kanban Project Management Tool</span>
+      <div>
+        <button><img src="img/help.svg" alt="" /></button>
+        <div class="menu">
+          <button (click)="toggleMenu()">menu</button>
+            <div *ngIf="showMenu" class="menu-navigation">
+              <a [routerLink]="['/main/privacy_policy']">Privacy Policy</a>
+              <a [routerLink]="['/main/legal_notice']">Legal notice</a>
+              <a [routerLink]="['/']">Log out</a>
+            </div>
+        </div>
+      </div>
+    </div>
     <div class="main-container_content_routes">
       <router-outlet></router-outlet>
     </div>
