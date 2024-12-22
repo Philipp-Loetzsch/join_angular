@@ -1,4 +1,4 @@
-<div class="main-container">
+<div class="main-container" (click)="closePopup()">
   <div class="main-container_nav_side">
     <div class="main-container_nav_side_navigation">
       <img class="logo" src="img/join_logo.svg" alt="" />
@@ -20,12 +20,12 @@
     <div class="main-container_content_nav_header">
       <span>Kanban Project Management Tool</span>
       <div>
-        <button><img src="img/help.svg" alt="" /></button>
+        <a [routerLink]="['/main/help']"><img src="img/help.svg" alt="" /></a>
         <div class="menu">
-          <button (click)="toggleMenu()">PL</button>
-            <div *ngIf="showMenu" class="menu-navigation">
-              <a [routerLink]="['/main/privacy_policy']">Privacy Policy</a>
-              <a [routerLink]="['/main/legal_notice']">Legal notice</a>
+          <button (click)="toggleMenu($event)">{{initials}}</button>
+            <div *ngIf="showMenu" class="menu-navigation" (click)="notClose($event)">
+              <a [routerLink]="['/main/privacy_policy']" (click)="toggleMenu($event)">Privacy Policy</a>
+              <a [routerLink]="['/main/legal_notice']" (click)="toggleMenu($event)">Legal notice</a>
               <a [routerLink]="['/']">Log out</a>
             </div>
         </div>

@@ -29,7 +29,7 @@ export class MainComponent implements OnInit {
   ];
   activeUrl: string = '';
   showMenu: boolean = false;
-
+  initials:string = '?'
   ngOnInit(): void {
     this.activeUrl = this.router.url;
     this.router.events
@@ -44,7 +44,15 @@ export class MainComponent implements OnInit {
     return this.activeUrl.includes(`/main/${linkImg}`);
   }
 
-  toggleMenu(): void{
+  toggleMenu(event:MouseEvent): void{
     this.showMenu = !this.showMenu
+    event?.preventDefault()
+    event?.stopPropagation();
+  }
+  notClose(event:MouseEvent){
+    event?.stopPropagation();
+  }
+  closePopup(){
+    this.showMenu = false;
   }
 }

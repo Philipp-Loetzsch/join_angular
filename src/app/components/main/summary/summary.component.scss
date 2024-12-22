@@ -1,0 +1,36 @@
+@import './../../../../styles.scss';
+
+h1{
+    font-size: 61px;
+    font-weight: 700;
+}
+
+.headline{
+    @include arrangement($jc:start, $g:30px);
+    >span{
+        font-size: 27px;
+    }
+    .headline_separator{
+        height: 60px;
+        width: 3px;
+        background-color: #29ABE2;
+    }
+}
+
+.content{
+    @include arrangement($jc: space-between);
+    width: 100%;
+    .content_cards{
+        width: 50%;
+        .content_cards_row{
+            display: flex;
+            width: 100%;
+            justify-content: space-between;
+        }
+    }
+
+    .content_greeting{
+        width: 50%;
+        @include arrangement();
+    }
+}
