@@ -1,8 +1,8 @@
 @import './../../../../styles.scss';
 
-h1{
-    font-size: 61px;
-    font-weight: 700;
+h2{
+    font-size: 64px;
+    font-weight: 600;
 }
 
 .headline{
@@ -22,15 +22,44 @@ h1{
     width: 100%;
     .content_cards{
         width: 50%;
+      
         .content_cards_row{
             display: flex;
             width: 100%;
             justify-content: space-between;
         }
     }
-
+   
     .content_greeting{
         width: 50%;
         @include arrangement();
     }
 }
+
+.content_single-card{
+    background-color: #FFFFFF;
+    border-radius: 30px;
+    padding: 48px 28px;
+    display: flex;
+    justify-content: space-between;
+
+    .urgent-separator{
+        width: 2px;
+        background-color: #D1D1D1;
+        height: 100px;
+    }
+    >div{
+        @include arrangement($fd:column);
+    }
+    span{
+        font-size: 20px;
+    }
+    .date{
+        font-size: 21px;
+        font-weight: 700;
+    }
+    .normal-text{
+        font-size: 16px;
+    }
+}
+
