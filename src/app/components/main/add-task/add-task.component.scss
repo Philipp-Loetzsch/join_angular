@@ -1,0 +1,13 @@
+@import './../../../../styles.scss';
+form{
+    display: flex;
+    width: 100%;
+}
+
+.requierd{
+    color: red;
+}
+
+.assigned-to{
+    display: flex;
+}

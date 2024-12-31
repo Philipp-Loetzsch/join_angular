@@ -20,7 +20,6 @@
 html {
   scroll-behavior: smooth;
 }
-
 body {
   overflow-x: hidden;
   font-family: Inter, Arial, Helvetica, sans-serif;
@@ -35,12 +34,13 @@ h1{
   font-weight: 700;
 }
 
-input{
+input, textarea{
   border: none;
   background-color: transparent;
   font-size: 20px;
   &::placeholder{
     color: #D1D1D1;
+    font-family: 'inter', Arial, Helvetica, sans-serif;
   }
   &:focus{
     outline: none;
@@ -51,6 +51,7 @@ input{
   border: 1px solid #D1D1D1;
   border-radius: 10px;
   padding: 12px 21px;
+  box-sizing: border-box;
   @include arrangement($d:flex, $jc:space-between);
   width: 100%;
 }

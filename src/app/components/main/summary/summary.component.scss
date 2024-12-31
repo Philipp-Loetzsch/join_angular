@@ -1,65 +1,107 @@
-@import './../../../../styles.scss';
+@import "./../../../../styles.scss";
 
-h2{
+h2 {
+  font-size: 64px;
+  font-weight: 600;
+}
+
+h3{
+    font-size: 47px;
+    font-weight: 500;
+}
+
+h4{
     font-size: 64px;
-    font-weight: 600;
+    font-weight: 700;
+    color: #29abe2;
 }
 
-.headline{
-    @include arrangement($jc:start, $g:30px);
-    >span{
-        font-size: 27px;
-    }
-    .headline_separator{
-        height: 60px;
-        width: 3px;
-        background-color: #29ABE2;
-    }
+.headline {
+  @include arrangement($jc: start, $g: 30px);
+  padding-bottom: 48px;
+  box-sizing: border-box;
+  > span {
+    font-size: 27px;
+  }
+  .headline_separator {
+    height: 60px;
+    width: 3px;
+    background-color: #29abe2;
+  }
 }
 
-.content{
-    @include arrangement($jc: space-between);
-    width: 100%;
-    .content_cards{
-        width: 50%;
-      
-        .content_cards_row{
-            display: flex;
-            width: 100%;
-            justify-content: space-between;
-        }
-    }
-   
-    .content_greeting{
-        width: 50%;
-        @include arrangement();
-    }
-}
-
-.content_single-card{
-    background-color: #FFFFFF;
-    border-radius: 30px;
-    padding: 48px 28px;
+.content {
+  @include arrangement($jc: space-between);
+  width: 100%;
+  .content_cards {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    width: 50%;
+    gap: 30px;
+    .content_cards_row {
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+      gap: 30px;
+    }
+  }
 
-    .urgent-separator{
-        width: 2px;
-        background-color: #D1D1D1;
-        height: 100px;
-    }
-    >div{
-        @include arrangement($fd:column);
-    }
-    span{
-        font-size: 20px;
-    }
-    .date{
-        font-size: 21px;
-        font-weight: 700;
-    }
-    .normal-text{
-        font-size: 16px;
-    }
+  .content_greeting {
+    width: 50%;
+    @include arrangement();
+  }
 }
 
+.content_single-card {
+  background-color: #ffffff;
+  border-radius: 30px;
+  padding: 25px;
+  box-sizing: border-box;
+  display: flex;
+
+  width: 100%;
+  > img {
+    max-width: 69px;
+  }
+  span {
+    font-size: 20px;
+    text-align: center
+  }
+
+  &--short {
+    @extend .content_single-card;
+    justify-content: space-between;
+    > div {
+      @include arrangement($fd: column);
+      width: 100%;
+    }
+  }
+
+  &--long {
+    @extend .content_single-card;
+    justify-content: space-around;
+    .date {
+      font-size: 21px;
+      font-weight: 700;
+    }
+    .normal-text {
+      font-size: 16px;
+    }
+    .urgent-separator {
+      width: 2px;
+      background-color: #d1d1d1;
+      height: 100px;
+    }
+  }
+}
+
+.urgent_status{
+    display: flex;
+    gap: 20px;
+}
+
+.urgent_date{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}

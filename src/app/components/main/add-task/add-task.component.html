@@ -1,1 +1,42 @@
-<p>add-task works!</p>
+<h1>Add Task</h1>
+<form>
+  <div>
+    <label for="title">Title<span class="requierd">*</span></label>
+    <input
+      type="text"
+      name="title"
+      id="title"
+      placeholder="Enter a title"
+      class="input-field"
+    />
+    <label for="description">Description</label>
+    <textarea
+      name="description"
+      id="description"
+      class="input-field"
+      placeholder="Enter a Description"
+    ></textarea>
+    <label for="assigned">Assigned to</label>
+    <div class="input-field">
+      <input type="search" name="assigned" id="assigned" placeholder="Select contacts to assign">
+      <img src="img/arrow_drop_down.svg" alt="" />
+    </div>
+  </div>
+  <div>
+    <label for="date">Due date<span class="requierd">*</span></label>
+    <input type="text" class="input-field" placeholder="dd/m/yyyy"/>
+    <div>
+      <span>Prio</span>
+      <button>Urgent</button>
+      <button>Medium</button>
+      <button>Low</button>
+    </div>
+    <label for="category">Category<span class="requierd">*</span></label>
+    <div class="input-field">
+      <input type="search" name="category" id="category" placeholder="Select task category"/>
+      <img src="img/arrow_drop_down.svg" alt="" />
+    </div>
+    <label for="subtasks"></label>
+    <input type="text" name="subtasks" id="subtasks" placeholder="Add new subtask" class="input-field">
+  </div>
+</form>
