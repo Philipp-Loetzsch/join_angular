@@ -1,13 +1,85 @@
-@import './../../../../styles.scss';
-form{
+@import "./../../../../styles.scss";
+form {
+  display: flex;
+  flex-direction: column;
+  width: max-content;
+  height: calc(100% - 74px);
+  justify-content: space-around;
+  > div {
     display: flex;
     width: 100%;
+    gap: 30px;
+  }
 }
 
-.requierd{
-    color: red;
+.requierd {
+  color: red;
 }
 
-.assigned-to{
+.requierd-text {
+  color: red;
+  font-size: 12px;
+  min-height: 20px;
+  display: flex;
+  align-items: start;
+}
+
+.empty-field {
+  display: flex;
+  min-height: 20px;
+}
+
+.assigned-to {
+  display: flex;
+}
+
+.separator {
+  min-height: 100%;
+  width: 1px;
+  background-color: #d1d1d1;
+}
+
+.prio {
+  margin-bottom: 20px;
+}
+
+.btn-prio {
+  display: flex;
+  gap: 10px;
+  > button {
     display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    min-width: 140px;
+    font-size: 20px;
+    padding: 16px 10px;
+    box-sizing: border-box;
+    border-radius: 10px;
+    background-color: #ffffff;
+    &:hover {
+      box-shadow: 0 4px 4px #00000040;
+      cursor: pointer;
+    }
+  }
 }
+
+.description {
+  margin-bottom: 20px;
+}
+
+.submit-field {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  >div{
+    display: flex;
+    gap: 10px;
+    >button{
+        font-size: 20px;
+        &:first-child{
+            font-weight: 400;
+        }
+    }
+  }
+}
+

@@ -1,42 +1,94 @@
 <h1>Add Task</h1>
 <form>
   <div>
-    <label for="title">Title<span class="requierd">*</span></label>
-    <input
-      type="text"
-      name="title"
-      id="title"
-      placeholder="Enter a title"
-      class="input-field"
-    />
-    <label for="description">Description</label>
-    <textarea
-      name="description"
-      id="description"
-      class="input-field"
-      placeholder="Enter a Description"
-    ></textarea>
-    <label for="assigned">Assigned to</label>
-    <div class="input-field">
-      <input type="search" name="assigned" id="assigned" placeholder="Select contacts to assign">
-      <img src="img/arrow_drop_down.svg" alt="" />
+    <div>
+      <div>
+        <label for="title">Title<span class="requierd">*</span></label>
+        <input
+          type="text"
+          name="title"
+          id="title"
+          placeholder="Enter a title"
+          class="input-field"
+        />
+        <label for="title" *ngIf="required" class="requierd-text">
+          This field is required</label
+        >
+        <label for="title" *ngIf="!required" class="empty-field"></label>
+      </div>
+      <label for="description">Description</label>
+      <textarea
+        name="description"
+        id="description"
+        class="input-field description"
+        placeholder="Enter a Description"
+        rows="3"
+        cols="25"
+      ></textarea>
+      <label for="assigned">Assigned to</label>
+      <div class="input-field">
+        <input
+          type="search"
+          name="assigned"
+          id="assigned"
+          placeholder="Select contacts to assign"
+        />
+        <img src="img/arrow_drop_down.svg" alt="" />
+      </div>
+    </div>
+    <div class="separator"></div>
+    <div>
+      <div>
+        <label for="date">Due date<span class="requierd">*</span></label>
+        <input type="text" class="input-field" placeholder="dd/m/yyyy" />
+        <label for="date" *ngIf="required" class="requierd-text">
+          This field is required</label
+        >
+        <label for="date" *ngIf="!required" class="empty-field"></label>
+      </div>
+      <div class="prio">
+        <span>Prio</span>
+        <div class="btn-prio">
+          <button>Urgent <img src="img/add_task/urgent.svg" alt="" /></button>
+          <button>Medium <img src="img/add_task/medium.svg" alt="" /></button>
+          <button>Low <img src="img/add_task/low.svg" alt="" /></button>
+        </div>
+      </div>
+      <div>
+        <label for="category">Category<span class="requierd">*</span></label>
+        <div class="input-field">
+          <input
+            type="search"
+            name="category"
+            id="category"
+            placeholder="Select task category"
+          />
+          <img src="img/arrow_drop_down.svg" alt="" />
+        </div>
+        <label for="date" *ngIf="required" class="requierd-text">
+          This field is required</label
+        >
+        <label for="date" *ngIf="!required" class="empty-field"></label>
+      </div>
+      <label for="subtasks">Subtasks</label>
+      <input
+        type="text"
+        name="subtasks"
+        id="subtasks"
+        placeholder="Add new subtask"
+        class="input-field"
+      />
     </div>
   </div>
-  <div>
-    <label for="date">Due date<span class="requierd">*</span></label>
-    <input type="text" class="input-field" placeholder="dd/m/yyyy"/>
+  <div class="submit-field">
+    <span>
+      <span class="requierd">*</span>
+      This field is required
+    </span>
     <div>
-      <span>Prio</span>
-      <button>Urgent</button>
-      <button>Medium</button>
-      <button>Low</button>
+      <button class="btn-secondary--default">Clear X</button>
+      <button class="btn-primary--default">Create Task </button>
     </div>
-    <label for="category">Category<span class="requierd">*</span></label>
-    <div class="input-field">
-      <input type="search" name="category" id="category" placeholder="Select task category"/>
-      <img src="img/arrow_drop_down.svg" alt="" />
-    </div>
-    <label for="subtasks"></label>
-    <input type="text" name="subtasks" id="subtasks" placeholder="Add new subtask" class="input-field">
+  
   </div>
 </form>
