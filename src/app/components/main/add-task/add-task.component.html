@@ -32,15 +32,20 @@
           name="assigned"
           id="assigned"
           placeholder="Select contacts to assign"
+          class="font-black"
         />
         <img src="img/arrow_drop_down.svg" alt="" />
       </div>
     </div>
     <div class="separator"></div>
     <div>
-      <div>
+      <div >
         <label for="date">Due date<span class="requierd">*</span></label>
-        <input type="text" class="input-field" placeholder="dd/m/yyyy" />
+        <div class="input-field">
+          <input type="text" placeholder="dd/m/yyyy" />
+          <img src="img/add_task/calender.svg" alt="">
+        </div>
+       
         <label for="date" *ngIf="required" class="requierd-text">
           This field is required</label
         >
@@ -62,6 +67,7 @@
             name="category"
             id="category"
             placeholder="Select task category"
+            class="font-black"
           />
           <img src="img/arrow_drop_down.svg" alt="" />
         </div>

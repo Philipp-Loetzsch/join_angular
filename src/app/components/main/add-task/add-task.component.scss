@@ -33,11 +33,7 @@ form {
   display: flex;
 }
 
-.separator {
-  min-height: 100%;
-  width: 1px;
-  background-color: #d1d1d1;
-}
+
 
 .prio {
   margin-bottom: 20px;
@@ -83,3 +79,8 @@ form {
   }
 }
 
+.font-black{
+  &::placeholder{
+    color: black;
+  }
+}

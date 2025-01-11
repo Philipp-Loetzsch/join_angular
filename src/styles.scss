@@ -56,3 +56,9 @@ input, textarea{
   @include arrangement($d:flex, $jc:space-between);
   width: 100%;
 }
+
+.separator {
+  min-height: 100%;
+  width: 1px;
+  background-color: #d1d1d1;
+}

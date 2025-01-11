@@ -1,0 +1,47 @@
+@import "./../../../../styles.scss";
+
+.board-header {
+  display: flex;
+  justify-content: space-between;
+  max-width: 1400px;
+  .board-header_search {
+    display: flex;
+    max-height: 50px;
+    gap: 30px;
+    .search-icon {
+      margin-left: 20px;
+      cursor: pointer;
+    }
+
+    > button {
+      white-space: nowrap;
+      gap: 10px;
+    }
+  }
+}
+
+.board {
+  max-width: 1400px;
+  @include arrangement($jc: space-between);
+  .board-content {
+     .board-content_header {
+      @include arrangement($jc: space-between);
+    }
+    .btn-add-task {
+      border: 2px solid black;
+      border-radius: 5px;
+      width: 24px;
+      height: 24px;
+      @include arrangement();
+    }
+    .no-task{
+        background-color: #E7E7E7;
+        border: 1px dotted #A8A8A8;
+        color: #A8A8A8;
+        border-radius: 10px;
+        width: 240px;
+        padding: 20px;
+        text-align: center;
+    }
+  }
+}
