@@ -1,60 +1,96 @@
-@import './../../../../styles.scss';
+@import "./../../../../styles.scss";
 
-.contacts-list{
-    background-color: white;
-    padding: 10px 20px;
-    box-sizing: border-box;
-    min-width: 30%;
-    height: 100%;
-    overflow-y: auto;
-    >button{
-        width: 100%;
-        @include arrangement($g:20px)
-    }
+.contacts-list {
+  background-color: white;
+  padding: 10px 20px;
+  box-sizing: border-box;
+  min-width: 30%;
+  height: 100%;
+  overflow-y: auto;
+  > button {
+    width: 100%;
+    @include arrangement($g: 20px);
+  }
 }
 
-.contacts-details{
-    padding: 110px 0 0 90px;
-    box-sizing: border-box;
-    .contacts-details_header{
-        display: flex;
-        gap: 20px;
-        >span{
-            min-height: 100%;
-            display: flex;
-            align-items: center;
-        }
+.contacts-details {
+  padding: 110px 0 0 90px;
+  box-sizing: border-box;
+  .contacts-details_header {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 20px;
+    > span {
+      min-height: 100%;
+      display: flex;
+      align-items: center;
     }
-    .contacts-details_content{
-        @include arrangement($fd:column, $g:14px, $ai:start);
+  }
+  .contacts-details_content {
+    @include arrangement($fd: column, $g: 14px, $ai: start);
 
-        .content_menu{
-            display: flex;
-            align-items: center;
-            gap: 54px;
-            .shortcut{
-                background-color: orange;
-                color: white;
-                border-radius: 50%;
-                @include arrangement();
-                &--big{
-                    @extend .shortcut;
-                    font-size: 40px;
-                    width: 120px;
-                    height: 120px;
-                }
-            }
-            h3{
-                font-size: 47px;
-                font-weight: 500;
-            }
-            .menu_buttons{
-                display: flex;
-                >button{
-                    display: flex;
-                    align-items: center;
-                }
-            }
+    .content_menu {
+      display: flex;
+      align-items: center;
+      gap: 54px;
+      .shortcut {
+        background-color: orange;
+        color: white;
+        border-radius: 50%;
+        @include arrangement();
+        &--big {
+          @extend .shortcut;
+          font-size: 40px;
+          width: 120px;
+          height: 120px;
         }
+      }
+      h3 {
+        font-size: 47px;
+        font-weight: 500;
+      }
+      .menu_buttons {
+        padding: 10px 0px;
+        display: flex;
+
+        > button {
+          display: flex;
+          align-items: center;
+          padding: 10px;
+          box-sizing: border-box;
+          gap: 10px;
+          width: 80px;
+          &:hover {
+            cursor: pointer;
+            color: #29abe2;
+            font-weight: 700;
+            filter: invert(58%) sepia(28%) saturate(1464%) hue-rotate(158deg)
+              brightness(96%) contrast(83%);
+          }
+          > img {
+            width: 18px;
+            height: 18px;
+          }
+        }
+      }
     }
+    .contact-information {
+      font-size: 20px;
+      padding: 20px 0px;
+    }
+    .contact-links {
+      display: grid;
+      gap: 10px;
+      > span {
+        font-weight: 700;
+      }
+      > a {
+        text-decoration: none;
+        color: #007cee;
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
 }
