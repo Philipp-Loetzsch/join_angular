@@ -61,4 +61,18 @@ input, textarea{
   min-height: 100%;
   width: 1px;
   background-color: #d1d1d1;
+  &--blue{
+    @extend .separator;
+    background-color: #29ABE2;
+    width: 2px;
+  }
+}
+
+app-summary, app-board, app-add-task{
+  padding: 110px 0 0 90px;
+  box-sizing: border-box;
+}
+
+app-contacts{
+  display: flex;
 }
