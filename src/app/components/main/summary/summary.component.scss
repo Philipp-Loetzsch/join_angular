@@ -5,15 +5,15 @@ h2 {
   font-weight: 600;
 }
 
-h3{
-    font-size: 47px;
-    font-weight: 500;
+h3 {
+  font-size: 47px;
+  font-weight: 500;
 }
 
-h4{
-    font-size: 64px;
-    font-weight: 700;
-    color: #29abe2;
+h4 {
+  font-size: 64px;
+  font-weight: 700;
+  color: #29abe2;
 }
 
 .headline {
@@ -58,19 +58,24 @@ h4{
   padding: 25px;
   box-sizing: border-box;
   display: flex;
-
   width: 100%;
+  &:hover {
+    background-color: #2a3647;
+    color: white;
+    cursor: pointer;
+  }
   > img {
     max-width: 69px;
   }
   span {
     font-size: 20px;
-    text-align: center
+    text-align: center;
   }
 
   &--short {
     @extend .content_single-card;
     justify-content: space-between;
+
     > div {
       @include arrangement($fd: column);
       width: 100%;
@@ -95,13 +100,13 @@ h4{
   }
 }
 
-.urgent_status{
-    display: flex;
-    gap: 20px;
+.urgent_status {
+  display: flex;
+  gap: 20px;
 }
 
-.urgent_date{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+.urgent_date {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
