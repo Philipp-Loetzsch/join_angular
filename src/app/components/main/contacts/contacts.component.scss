@@ -1,5 +1,23 @@
 @import "./../../../../styles.scss";
 
+.shortcut {
+  color: white;
+  border-radius: 50%;
+  @include arrangement();
+  &--big {
+    @extend .shortcut;
+    font-size: 40px;
+    width: 120px;
+    height: 120px;
+  }
+  &--small{
+    @extend .shortcut;
+    font-size: 12px;
+    width: 42px;
+    height: 42px;
+  }
+}
+
 .contacts-list {
   background-color: white;
   padding: 10px 20px;
@@ -11,6 +29,25 @@
     width: 100%;
     @include arrangement($g: 20px);
   }
+  .contacts-list_contact {
+    @include arrangement($g:35px, $jc:start);
+    padding: 15px 24px;
+    border-radius: 10px;
+    &:hover{
+      cursor: pointer;
+      background-color:#2A3647;
+      color: white;
+    }
+    .contacts-list_info{
+      .contacts-list_info-name{
+        font-size: 20px;
+      }
+      .contacts-list_info-email{
+        color: #007CEE;
+      }
+    }
+  }
+  
 }
 
 .contacts-details {
@@ -33,63 +70,51 @@
       display: flex;
       align-items: center;
       gap: 54px;
-      .shortcut {
-        background-color: orange;
-        color: white;
-        border-radius: 50%;
-        @include arrangement();
-        &--big {
-          @extend .shortcut;
-          font-size: 40px;
-          width: 120px;
-          height: 120px;
-        }
-      }
-      h3 {
-        font-size: 47px;
-        font-weight: 500;
-      }
-      .menu_buttons {
-        padding: 10px 0px;
-        display: flex;
+    }
+    h3 {
+      font-size: 47px;
+      font-weight: 500;
+    }
+    .menu_buttons {
+      padding: 10px 0px;
+      display: flex;
 
-        > button {
-          display: flex;
-          align-items: center;
-          padding: 10px;
-          box-sizing: border-box;
-          gap: 10px;
-          width: 80px;
-          &:hover {
-            cursor: pointer;
-            color: #29abe2;
-            font-weight: 700;
-            filter: invert(58%) sepia(28%) saturate(1464%) hue-rotate(158deg)
-              brightness(96%) contrast(83%);
-          }
-          > img {
-            width: 18px;
-            height: 18px;
-          }
-        }
-      }
-    }
-    .contact-information {
-      font-size: 20px;
-      padding: 20px 0px;
-    }
-    .contact-links {
-      display: grid;
-      gap: 10px;
-      > span {
-        font-weight: 700;
-      }
-      > a {
-        text-decoration: none;
-        color: #007cee;
+      > button {
+        display: flex;
+        align-items: center;
+        padding: 10px;
+        box-sizing: border-box;
+        gap: 10px;
+        width: 80px;
         &:hover {
-          text-decoration: underline;
+          cursor: pointer;
+          color: #29abe2;
+          font-weight: 700;
+          filter: invert(58%) sepia(28%) saturate(1464%) hue-rotate(158deg)
+            brightness(96%) contrast(83%);
         }
+        > img {
+          width: 18px;
+          height: 18px;
+        }
+      }
+    }
+  }
+  .contact-information {
+    font-size: 20px;
+    padding: 20px 0px;
+  }
+  .contact-links {
+    display: grid;
+    gap: 10px;
+    > span {
+      font-weight: 700;
+    }
+    > a {
+      text-decoration: none;
+      color: #007cee;
+      &:hover {
+        text-decoration: underline;
       }
     }
   }
