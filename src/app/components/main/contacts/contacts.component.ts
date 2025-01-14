@@ -12,12 +12,16 @@ import { CommonModule } from '@angular/common';
 })
 export class ContactsComponent implements OnInit {
   contactsList!:Contact[]
+  contactFirstLetters: string[] = [];
+  chosenContact!: Contact
   lastLetter!:string
   constructor(private userDataService: UserDatasService){
   }
   async ngOnInit(): Promise<void> {
    this.contactsList = await this.userDataService.getUserContacts()
    console.log(this.contactsList);
+   this.prepareContactFirstLetters();
+   console.log(this.contactFirstLetters);
    
   }
 
@@ -33,13 +37,22 @@ export class ContactsComponent implements OnInit {
     return initials.toUpperCase();
   }
 
-  getFirstLetter(name:string){
-    const firstLetterName = name.charAt(0)
-    if (firstLetterName === this.lastLetter) return 
-    else{
-      this.lastLetter = firstLetterName
-      return firstLetterName
-    }
+  prepareContactFirstLetters() {
+    this.contactFirstLetters = this.contactsList.map((contact) => {
+      const firstLetter = contact.name.charAt(0);
+      if (firstLetter === this.lastLetter) {
+        return '';
+      } else {
+        this.lastLetter = firstLetter;
+        return firstLetter;
+      }
+    });
+  }
+
+  showDetailContact(i:number){
+    this.chosenContact = this.contactsList[i]
+    console.log(this.chosenContact);
+    
   }
 
 }

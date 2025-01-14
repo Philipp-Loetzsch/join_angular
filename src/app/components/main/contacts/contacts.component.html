@@ -2,11 +2,11 @@
   <button class="btn-primary--default">
     Add new contact <img src="img/person_add.svg" alt="" />
   </button>
-  <div *ngFor="let contact of contactsList; let i = index">
-    <div class="contacts-list-separator">
-      <span>{{getFirstLetter(contact.name)}}</span>
+  <div *ngFor="let contact of contactsList ; let i = index">
+    <div class="contacts-list-separator" *ngIf="contactFirstLetters[i] !== ''">
+      <span>{{ contactFirstLetters[i] }}</span>
     </div>
-    <div class="contacts-list_contact">
+    <div class="contacts-list_contact" (click)="showDetailContact(i)">
       <div class="shortcut--small" [style.backgroundColor]="contact.color">
         {{ getShortcut(contact.name) }}
       </div>
@@ -23,11 +23,11 @@
     <div class="separator--blue"></div>
     <span>Better with a team</span>
   </div>
-  <div class="contacts-details_content">
+  <div class="contacts-details_content" *ngIf="chosenContact">
     <div class="content_menu">
-      <div class="shortcut--big">AM</div>
+      <div class="shortcut--big" [style.backgroundColor]="chosenContact.color">{{getShortcut(chosenContact.name)}}</div>
       <div>
-        <h3>Anton Maier</h3>
+        <h3>{{chosenContact.name}}</h3>
         <div class="menu_buttons">
           <button><img src="img/edit.svg" alt="pen" /> Edit</button>
           <button><img src="img/delete.svg" alt="delete" /> Delete</button>
@@ -37,11 +37,11 @@
     <span class="contact-information">Contact Information</span>
     <div class="contact-links">
       <span>Email</span>
-      <a href="mailto:test@test.de">a.m&#64;email.de</a>
+      <a href="mailto:{{chosenContact.email}}">{{chosenContact.email}}</a>
     </div>
     <div class="contact-links">
       <span>Phone</span>
-      <a href="tel:01235245436">01235245436</a>
+      <a href="tel:{{chosenContact.phone}}">{{chosenContact.phone}}</a>
     </div>
   </div>
 </div>

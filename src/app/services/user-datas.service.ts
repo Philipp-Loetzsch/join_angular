@@ -2,11 +2,12 @@ import { inject, Injectable } from '@angular/core';
 import {
   Firestore,
   collection,
+  doc,
+  getDoc,
   getDocs,
 } from '@angular/fire/firestore';
 
 export interface Contact{
-  id:string,
   name:string,
   email:string,
   phone:string,
@@ -18,13 +19,13 @@ export interface Contact{
 export class UserDatasService {
   private firestore = inject(Firestore);
   constructor() {
+    this.getUserName()
   }
 
   async getUserContacts() {
     try {
-      const querySnapshot = await getDocs(collection(this.firestore, 'userDatas', '6mVBch0Q7YyYR1AAEnkR', 'contacts'));
+      const querySnapshot = await getDocs(collection(this.firestore, 'userDatas', 'a6PM3hfF9lUQsu9n6a3HvYLIAW73', 'contacts'));
       const contacts = querySnapshot.docs.map((doc) => ({
-        id: doc.id,
         name: doc.data()['name'],
         email: doc.data()['email'],
         phone: doc.data()['phone'],
@@ -38,5 +39,17 @@ export class UserDatasService {
     }
   }
   
+  async getUserName(){
+    const docRef = doc(this.firestore, 'userDatas', 'a6PM3hfF9lUQsu9n6a3HvYLIAW73')
+    const docSnapshot = await getDoc(docRef)
+    if (docSnapshot.exists()) {
+      const data = docSnapshot.data();
+      return data['userName'];
+    } else {
+      console.error('Document does not exist!');
+      return '';
+    }
+       
+  }
 
 }

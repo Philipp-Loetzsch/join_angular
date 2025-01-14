@@ -29,10 +29,16 @@
     width: 100%;
     @include arrangement($g: 20px);
   }
+  .contacts-list-separator{
+    padding: 17px 36px;
+    border-bottom: 1px solid #D1D1D1;
+    margin-bottom: 10px;
+  }
   .contacts-list_contact {
     @include arrangement($g:35px, $jc:start);
     padding: 15px 24px;
     border-radius: 10px;
+  
     &:hover{
       cursor: pointer;
       background-color:#2A3647;
