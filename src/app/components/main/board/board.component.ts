@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Tasks, UserDatasService } from '../../../services/user-datas.service';
 
 @Component({
   selector: 'app-board',
@@ -7,6 +8,15 @@ import { Component } from '@angular/core';
   templateUrl: './board.component.html',
   styleUrl: './board.component.scss'
 })
-export class BoardComponent {
+export class BoardComponent implements OnInit{
+tasks!:Tasks[]
+ constructor(private userDataService: UserDatasService){
+ 
+ }
 
+ async ngOnInit(): Promise<void> {
+  this.tasks = await this.userDataService.getUsertasks()
+  console.log(this.tasks);
+  
+ }
 }

@@ -103,6 +103,9 @@ h4 {
 .urgent_status {
   display: flex;
   gap: 20px;
+  >div{
+    text-align: center;
+  }
 }
 
 .urgent_date {

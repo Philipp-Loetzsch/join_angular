@@ -1,100 +1,158 @@
 <h1>Add Task</h1>
-<form>
+<form [formGroup]="addTaskForm" (ngSubmit)="onSubmit()">
   <div>
     <div>
-      <div>
-        <label for="title">Title<span class="requierd">*</span></label>
-        <input
-          type="text"
-          name="title"
-          id="title"
-          placeholder="Enter a title"
-          class="input-field"
-        />
-        <label for="title" *ngIf="required" class="requierd-text">
-          This field is required</label
-        >
-        <label for="title" *ngIf="!required" class="empty-field"></label>
-      </div>
+      <label for="title">Title<span class="requierd">*</span></label>
+      <input
+        type="text"
+        id="title"
+        placeholder="Enter a title"
+        class="input-field"
+        formControlName="title"
+      />
+      <label
+        for="title"
+        [class.requierd-text]="addTaskForm.get('title')?.touched && addTaskForm.get('title')?.invalid"
+        [class.empty-field]="!(addTaskForm.get('title')?.touched && addTaskForm.get('title')?.invalid)"
+      >
+        {{addTaskForm.get("title")?.touched && addTaskForm.get("title")?.invalid ? "This field is required": ""}}
+      </label>
+
       <label for="description">Description</label>
       <textarea
-        name="description"
         id="description"
         class="input-field description"
         placeholder="Enter a Description"
         rows="3"
         cols="25"
+        formControlName="description"
       ></textarea>
-      <label for="assigned">Assigned to</label>
+
+      <label for="assigned">Assigned to<span class="requierd">*</span></label>
       <div class="input-field">
         <input
           type="search"
-          name="assigned"
           id="assigned"
           placeholder="Select contacts to assign"
           class="font-black"
+          formControlName="assigned"
         />
         <img src="img/arrow_drop_down.svg" alt="" />
       </div>
+      <label
+        for="assigned"
+        [class.requierd-text]=" addTaskForm.get('assigned')?.touched && addTaskForm.get('assigned')?.invalid"
+        [class.empty-field]="!( addTaskForm.get('assigned')?.touched &&  addTaskForm.get('assigned')?.invalid)"
+      >
+        {{ addTaskForm.get("assigned")?.touched && addTaskForm.get("assigned")?.invalid ? "This field is required" : ""}}
+      </label>
     </div>
+
     <div class="separator"></div>
+
     <div>
-      <div >
-        <label for="date">Due date<span class="requierd">*</span></label>
-        <div class="input-field">
-          <input type="text" placeholder="dd/m/yyyy" />
-          <img src="img/add_task/calender.svg" alt="">
-        </div>
-       
-        <label for="date" *ngIf="required" class="requierd-text">
-          This field is required</label
-        >
-        <label for="date" *ngIf="!required" class="empty-field"></label>
+      <label for="dueDate">Due date<span class="requierd">*</span></label>
+      <div class="input-field">
+        <input
+          type="text"
+          id="dueDate"
+          placeholder="dd/m/yyyy"
+          formControlName="dueDate"
+        />
+        <img src="img/add_task/calender.svg" alt="" />
       </div>
+      <label
+        for="dueDate"
+        [class.requierd-text]="addTaskForm.get('dueDate')?.touched && addTaskForm.get('dueDate')?.invalid"
+        [class.empty-field]="!( addTaskForm.get('dueDate')?.touched && addTaskForm.get('dueDate')?.invalid)"
+      >
+        {{addTaskForm.get("dueDate")?.touched &&addTaskForm.get("dueDate")?.invalid ? "This field is required" : ""}}
+      </label>
+
       <div class="prio">
         <span>Prio</span>
         <div class="btn-prio">
-          <button>Urgent <img src="img/add_task/urgent.svg" alt="" /></button>
-          <button>Medium <img src="img/add_task/medium.svg" alt="" /></button>
-          <button>Low <img src="img/add_task/low.svg" alt="" /></button>
+          <button
+            type="button"
+            (click)="
+              addTaskForm.get('priority')?.setValue('Urgent');
+              chosenPrio = 'urgent'"
+            [ngClass]="{ urgent: chosenPrio === 'urgent' }"
+          >
+            Urgent
+            <img
+              [src]="
+                chosenPrio === 'urgent' ? 'img/add_task/urgent_white.svg' : 'img/add_task/urgent.svg'"
+              alt=""
+            />
+          </button>
+          <button
+            type="button"
+            (click)="
+              addTaskForm.get('priority')?.setValue('Medium');
+              chosenPrio = 'medium'"
+            [ngClass]="{ medium: chosenPrio === 'medium' }"
+          >
+            Medium
+            <img
+              [src]="
+                chosenPrio === 'medium' ? 'img/add_task/medium_white.svg' : 'img/add_task/medium.svg'"
+              alt=""
+            />
+          </button>
+          <button
+            type="button"
+            (click)="
+              addTaskForm.get('priority')?.setValue('Low'); chosenPrio = 'low'
+            "
+            [ngClass]="{ low: chosenPrio === 'low' }"
+          >
+            Low
+            <img
+              [src]="chosenPrio === 'low' ? 'img/add_task/low_white.svg' : 'img/add_task/low.svg'"
+              alt=""
+            />
+          </button>
         </div>
       </div>
-      <div>
-        <label for="category">Category<span class="requierd">*</span></label>
-        <div class="input-field">
-          <input
-            type="search"
-            name="category"
-            id="category"
-            placeholder="Select task category"
-            class="font-black"
-          />
-          <img src="img/arrow_drop_down.svg" alt="" />
-        </div>
-        <label for="date" *ngIf="required" class="requierd-text">
-          This field is required</label
-        >
-        <label for="date" *ngIf="!required" class="empty-field"></label>
+      <label for="category">Category<span class="requierd">*</span></label>
+      <div class="input-field">
+        <input
+          type="search"
+          id="category"
+          placeholder="Select task category"
+          class="font-black"
+          formControlName="category"
+        />
+        <img src="img/arrow_drop_down.svg" alt="" />
       </div>
+      <label
+        for="category"
+        [class.requierd-text]=" addTaskForm.get('category')?.touched && addTaskForm.get('category')?.invalid"
+        [class.empty-field]="!( addTaskForm.get('category')?.touched && addTaskForm.get('category')?.invalid)"
+      >
+        {{ addTaskForm.get("category")?.touched && addTaskForm.get("category")?.invalid ? "This field is required" : ""}}
+      </label>
+
       <label for="subtasks">Subtasks</label>
       <input
         type="text"
-        name="subtasks"
         id="subtasks"
         placeholder="Add new subtask"
         class="input-field"
+        formControlName="subtasks"
       />
     </div>
   </div>
+
   <div class="submit-field">
     <span>
       <span class="requierd">*</span>
       This field is required
     </span>
     <div>
-      <button class="btn-secondary--default">Clear X</button>
-      <button class="btn-primary--default">Create Task </button>
+      <button class="btn-secondary--default" type="button" (click)="clearForm()">Clear X</button>
+      <button class="btn-primary--default" type="submit">Create Task </button>
     </div>
-  
   </div>
 </form>

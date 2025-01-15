@@ -1,25 +1,68 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Type } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { UserDatasService } from '../../../services/user-datas.service';
+import { Tasks, UserDatasService } from '../../../services/user-datas.service';
 
+interface Amount {
+  todo: number;
+  inProgress: number;
+  feedback: number;
+  done: number;
+  urgent: number;
+  additional: number;
+}
 @Component({
   selector: 'app-summary',
   standalone: true,
   imports: [RouterModule],
   templateUrl: './summary.component.html',
-  styleUrl: './summary.component.scss'
+  styleUrl: './summary.component.scss',
 })
 export class SummaryComponent implements OnInit {
- hoverd1:boolean = false
- hoverd2:boolean = false
-  greetingName:string = ''
- constructor(private userDataService : UserDatasService){
- }
+  hoverd1: boolean = false;
+  hoverd2: boolean = false;
+  greetingName: string = '';
+  taskStatus!: Tasks[];
+  taskAmount: Amount = {
+    todo: 0,
+    inProgress: 0,
+    feedback: 0,
+    done: 0,
+    urgent: 0,
+    additional: 0,
+  };
+  lastDate!: number;
+  urgentDate: string = 'no current due date';
+  constructor(private userDataService: UserDatasService) {}
 
-async ngOnInit(): Promise<void> {
-   this.greetingName = await this.userDataService.getUserName()
-   console.log(this.greetingName);
-   
+  async ngOnInit(): Promise<void> {
+    this.greetingName = await this.userDataService.getUserName();
+    this.taskStatus = await this.userDataService.getUsertasks();
+    this.getAmountTasks();
+    this.getUrgentDate();
   }
-  
+  getAmountTasks() {
+    this.taskStatus.forEach(({ status, prio }) => {
+      if (status in this.taskAmount) {
+        this.taskAmount[status as keyof Amount]++;
+        this.taskAmount.additional++;
+      }
+      if (prio === 'urgent') {
+        this.taskAmount.urgent++;
+      }
+    });
+  }
+
+  getUrgentDate() {
+    this.taskStatus.forEach(({ dueDate }) => {
+      if (dueDate < this.lastDate || !this.lastDate) {
+        this.lastDate = dueDate;
+      }
+    });
+    const date = new Date(this.lastDate * 1);
+    this.urgentDate = date.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    });
+  }
 }

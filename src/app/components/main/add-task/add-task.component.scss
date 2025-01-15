@@ -42,6 +42,18 @@ form {
 .btn-prio {
   display: flex;
   gap: 10px;
+  .medium{
+    background-color: #FFA800;
+    color: white;
+  }
+  .urgent{
+    background-color: #FF3D00 ;
+    color: white;
+  }
+  .low{
+    background-color: #7AE229;
+    color: white;
+  }
   > button {
     display: flex;
     align-items: center;
