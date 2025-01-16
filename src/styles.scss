@@ -1,13 +1,6 @@
-@import './assets/styles/font.scss';
-@import './assets/styles/buttons.scss';
-
-@mixin arrangement($d:flex, $jc:center, $ai:center, $g:0, $fd:unset){
-  display: $d;
-  justify-content: $jc;
-  align-items: $ai;
-  gap: $g;
-  flex-direction: $fd;
-}
+@import "./assets/styles/font.scss";
+@import "./assets/styles/buttons.scss";
+@import "./assets/styles/mixins.scss";
 
 * {
   margin: 0;
@@ -29,51 +22,78 @@ body {
   cursor: default;
 }
 
-h1{
+h1 {
   font-size: 61px;
   font-weight: 700;
 }
 
-input, textarea{
+input,
+textarea {
   border: none;
   background-color: transparent;
   font-size: 20px;
-  &::placeholder{
-    color: #D1D1D1;
-    font-family: 'inter', Arial, Helvetica, sans-serif;
+  &::placeholder {
+    color: #d1d1d1;
+    font-family: "inter", Arial, Helvetica, sans-serif;
   }
-  &:focus{
+  &:focus {
     outline: none;
   }
 }
 
-.input-field{
+.input-field {
   background-color: white;
-  border: 1px solid #D1D1D1;
+  border: 1px solid #d1d1d1;
   border-radius: 10px;
   padding: 12px 21px;
   box-sizing: border-box;
-  @include arrangement($d:flex, $jc:space-between);
+  @include arrangement($d: flex, $jc: space-between);
   width: 100%;
+  &--nopadding{
+    @extend .input-field;
+    padding: 0;
+  }
 }
 
 .separator {
   min-height: 100%;
   width: 1px;
   background-color: #d1d1d1;
-  &--blue{
+  &--blue {
     @extend .separator;
-    background-color: #29ABE2;
+    background-color: #29abe2;
     width: 2px;
   }
 }
 
-app-summary, app-board, app-add-task{
+app-summary,
+app-board,
+app-add-task {
   padding: 110px 0 0 90px;
   box-sizing: border-box;
 }
 
-app-contacts{
+app-contacts {
   display: flex;
 }
 
+.mat-mdc-form-field-subscript-wrapper {
+  display: none;
+}
+
+.mat-mdc-form-field-focus-overlay,
+.mat-mdc-form-field-flex {
+  background-color: white !important;
+}
+.mat-mdc-text-field-wrapper {
+  padding-left: 10px !important;
+  border-radius: 10px;
+  background-color: white !important
+}
+.mat-mdc-form-field-has-icon-suffix, .mdc-text-field {
+  border-radius: 10px !important;
+}
+.mdc-line-ripple,
+.mdc-line-ripple--deactivating {
+  display: none;
+}

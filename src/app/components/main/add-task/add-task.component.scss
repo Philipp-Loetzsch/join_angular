@@ -1,4 +1,4 @@
-@import "./../../../../styles.scss";
+@import "./../../../../assets/styles/mixins.scss";
 form {
   display: flex;
   flex-direction: column;
@@ -32,8 +32,6 @@ form {
 .assigned-to {
   display: flex;
 }
-
-
 
 .prio {
   margin-bottom: 20px;
