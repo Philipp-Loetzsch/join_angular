@@ -94,3 +94,40 @@ form {
     color: black;
   }
 }
+
+.contact-field{
+  position: relative;
+  z-index: 4;
+  .contact-list{
+    ul{
+      list-style: none;
+      padding: 0;
+    }
+    position: absolute;
+    z-index: 1;
+    top:45px;
+    left:0;
+    background-color: white;
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    max-height: 200px;
+    overflow-y: auto;
+    .single-contact{
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 10px 10px;
+      border-radius: 10px;
+      &:hover{
+        cursor: pointer;
+        background-color: #2A3647;
+        color: white;
+      }
+    }
+  }
+}
+
+.rotated {
+  transform: rotate(180deg);
+}

@@ -32,7 +32,7 @@
 
       <label for="assigned">Assigned to<span class="requierd">*</span></label>
       <div 
-        class="input-field"
+        class="input-field contact-field"
         [ngClass]="{ 'input-field--required': isTitleInvalid('assigned') }">
         <input
           type="search"
@@ -41,7 +41,14 @@
           class="font-black"
           formControlName="assigned"
         />
-        <img src="img/arrow_drop_down.svg" alt="" />
+        <img (click)="toggleContactList()" [src]="'img/add_task/arrow_drop_down.svg'" [ngClass]="{ 'rotated': showContactList }" alt=""/>
+        <div *ngIf="showContactList" class="contact-list">
+          <ul *ngFor="let contact of contacts" >
+            <li class="single-contact"> 
+              <span class="shortcut--small" [style.backgroundColor]="contact.color">{{ getShortcut(contact.name) }}</span> 
+              <span>{{contact.name}}</span></li>
+          </ul>
+        </div>
       </div>
       <label
         for="assigned"
@@ -117,7 +124,7 @@
           class="font-black"
           formControlName="category"
         />
-        <img src="img/arrow_drop_down.svg" alt="" />
+        <img src="img/add_task/arrow_drop_down.svg" alt="" />
       </div>
       <label
         for="category"
@@ -128,13 +135,15 @@
       </label>
 
       <label for="subtasks">Subtasks</label>
+      <div  class="input-field">
       <input
         type="text"
         id="subtasks"
         placeholder="Add new subtask"
-        class="input-field"
         formControlName="subtasks"
       />
+      <img src="img/plus.svg" alt="">
+    </div>
     </div>
   </div>
 

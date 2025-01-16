@@ -1,12 +1,14 @@
 import { inject, Injectable } from '@angular/core';
 import {
   Firestore,
+  addDoc,
   collection,
   doc,
   getDoc,
   getDocs,
 } from '@angular/fire/firestore';
 import { FormGroup } from '@angular/forms';
+
 
 export interface Contact {
   name: string;
@@ -92,7 +94,18 @@ export class UserDatasService {
     }
   }
 
-  createTask(tasks:FormGroup){
-    
+  async createTask(tasks: FormGroup): Promise<void> {
+    try {
+      const taskData = tasks.value;
+  
+      const docRef = await addDoc(
+        collection(this.firestore, 'userDatas/a6PM3hfF9lUQsu9n6a3HvYLIAW73/tasks'),
+        taskData 
+      );
+  
+      console.log('Document written with ID: ', docRef.id);
+    } catch (error) {
+      console.error('Error adding document: ', error);
+    }
   }
 }

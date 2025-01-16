@@ -73,6 +73,24 @@ textarea {
   }
 }
 
+.shortcut {
+  color: white;
+  border-radius: 50%;
+  @include arrangement();
+  &--big {
+    @extend .shortcut;
+    font-size: 40px;
+    width: 120px;
+    height: 120px;
+  }
+  &--small{
+    @extend .shortcut;
+    font-size: 12px;
+    width: 42px;
+    height: 42px;
+  }
+}
+
 app-summary,
 app-board,
 app-add-task {
