@@ -4,15 +4,17 @@
     <div>
       <label for="title">Title<span class="requierd">*</span></label>
       <input
-        type="text"
-        id="title"
-        placeholder="Enter a title"
-        class="input-field"
-        formControlName="title"
-      />
+      type="text"
+      id="title"
+      placeholder="Enter a title"
+      class="input-field"
+      [ngClass]="{ 'input-field--required': isTitleInvalid('title') }"
+      formControlName="title"
+    />
+    
       <label
         for="title"
-        [class.requierd-text]="addTaskForm.get('title')?.touched && addTaskForm.get('title')?.invalid"
+        [ngClass]="{ 'requierd-text': isTitleInvalid('title') }"    
         [class.empty-field]="!(addTaskForm.get('title')?.touched && addTaskForm.get('title')?.invalid)"
       >
         {{addTaskForm.get("title")?.touched && addTaskForm.get("title")?.invalid ? "This field is required": ""}}
@@ -29,7 +31,9 @@
       ></textarea>
 
       <label for="assigned">Assigned to<span class="requierd">*</span></label>
-      <div class="input-field">
+      <div 
+        class="input-field"
+        [ngClass]="{ 'input-field--required': isTitleInvalid('assigned') }">
         <input
           type="search"
           id="assigned"
@@ -41,7 +45,7 @@
       </div>
       <label
         for="assigned"
-        [class.requierd-text]=" addTaskForm.get('assigned')?.touched && addTaskForm.get('assigned')?.invalid"
+        [ngClass]="{ 'requierd-text': isTitleInvalid('assigned') }"   
         [class.empty-field]="!( addTaskForm.get('assigned')?.touched &&  addTaskForm.get('assigned')?.invalid)"
       >
         {{ addTaskForm.get("assigned")?.touched && addTaskForm.get("assigned")?.invalid ? "This field is required" : ""}}
@@ -51,27 +55,10 @@
     <div class="separator"></div>
 
     <div>
-      <!-- <label for="dueDate">Due date<span class="requierd">*</span></label>
-      <div class="input-field">
-        <input
-          type="date"
-          id="dueDate"
-          placeholder="dd/mm/yyyy"
-          formControlName="dueDate"
-        />
-        
-        <img src="img/add_task/calender.svg" alt="" />
-      </div>
-      <label
-        for="dueDate"
-        [class.requierd-text]="addTaskForm.get('dueDate')?.touched && addTaskForm.get('dueDate')?.invalid"
-        [class.empty-field]="!( addTaskForm.get('dueDate')?.touched && addTaskForm.get('dueDate')?.invalid)"
-      >
-        {{addTaskForm.get("dueDate")?.touched &&addTaskForm.get("dueDate")?.invalid ? "This field is required" : ""}}
-      </label> -->
       <label for="dueDate">Due date<span class="requierd">*</span></label>
-      <!-- <div>  -->
-        <mat-form-field appearance="fill" class="input-field--nopadding"> 
+
+        <mat-form-field appearance="fill" class="input-field--nopadding"
+        [ngClass]="{ 'input-field--required': isTitleInvalid('dueDate') }"> 
            <mat-label>DD/MM/YYYY</mat-label>
           <input
             matInput
@@ -81,20 +68,14 @@
           />
           <mat-datepicker-toggle matSuffix [for]="picker"> </mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
-         </mat-form-field>
-        
-        <!-- <img src="img/add_task/calender.svg" alt="Calendar" /> -->
-      <!-- </div> -->
-      
+         </mat-form-field>     
       <label
         for="dueDate"
-        [class.requierd-text]="addTaskForm.get('dueDate')?.touched && addTaskForm.get('dueDate')?.invalid"
+        [ngClass]="{ 'requierd-text': isTitleInvalid('dueDate') }"   
         [class.empty-field]="!(addTaskForm.get('dueDate')?.touched && addTaskForm.get('dueDate')?.invalid)"
       >
         {{addTaskForm.get("dueDate")?.touched &&addTaskForm.get("dueDate")?.invalid ? "This field is required" : ""}}
       </label>
-      
-
 
       <div class="prio">
         <span>Prio</span>
@@ -126,7 +107,9 @@
         </div>
       </div>
       <label for="category">Category<span class="requierd">*</span></label>
-      <div class="input-field">
+      <div 
+        class="input-field"
+        [ngClass]="{ 'input-field--required': isTitleInvalid('category') }">
         <input
           type="search"
           id="category"
@@ -138,7 +121,7 @@
       </div>
       <label
         for="category"
-        [class.requierd-text]=" addTaskForm.get('category')?.touched && addTaskForm.get('category')?.invalid"
+        [ngClass]="{ 'requierd-text': isTitleInvalid('category') }"   
         [class.empty-field]="!( addTaskForm.get('category')?.touched && addTaskForm.get('category')?.invalid)"
       >
         {{ addTaskForm.get("category")?.touched && addTaskForm.get("category")?.invalid ? "This field is required" : ""}}

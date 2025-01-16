@@ -40,6 +40,12 @@ export class AddTaskComponent {
   clearForm(): void {
     this.addTaskForm.reset({ priority: 'Medium' });
   }
+
+  isTitleInvalid(field:string): boolean | undefined{
+    const control = this.addTaskForm.get(field);
+    return control?.touched && control?.invalid;
+  }
+  
 }
 
 

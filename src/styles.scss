@@ -53,6 +53,13 @@ textarea {
     @extend .input-field;
     padding: 0;
   }
+  &--required{
+    @extend .input-field;
+    border-color: red;
+    &::placeholder{
+      color: rgba(255, 0, 0, 0.6);
+    }
+  }
 }
 
 .separator {
