@@ -24,6 +24,6 @@ export const appConfig: ApplicationConfig = {
       })
     ),
     provideAuth(() => getAuth()),
-    provideFirestore(() => getFirestore()), provideAnimationsAsync(),
+    provideFirestore(() => getFirestore()), provideAnimationsAsync(), provideAnimationsAsync(),
   ],
 };
