@@ -98,6 +98,11 @@ form {
 .contact-field{
   position: relative;
   z-index: 4;
+  >img{
+    &:hover{
+      cursor: pointer;
+    }
+  }
   .contact-list{
     ul{
       list-style: none;

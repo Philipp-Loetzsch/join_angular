@@ -7,6 +7,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule } from '@angular/material/core';
 
+type Chosen ={
+  name:string;
+  color:string;
+}
 @Component({
   selector: 'app-add-task',
   standalone: true,
@@ -19,6 +23,9 @@ export class AddTaskComponent implements OnInit {
   chosenPrio: string = 'medium'
   showContactList:boolean = false
   contacts:Contact[]=[]
+  chosenContacts:Chosen[]=[];
+  chosenContactList:boolean = false
+
   constructor(private fb: FormBuilder, private userDataService: UserDatasService) {
     this.addTaskForm = this.fb.group({
       title: ['', Validators.required],
@@ -72,8 +79,16 @@ export class AddTaskComponent implements OnInit {
     const control = this.addTaskForm.get(field);
     return control?.touched && control?.invalid;
   }
+
   toggleContactList(){
     this.showContactList = !this.showContactList
+  }
+
+  chooseContact(name:string, color:string){
+      this.chosenContactList = true
+      this.chosenContacts.push({name, color})
+      console.log(this.chosenContacts);
+      
   }
 }
 

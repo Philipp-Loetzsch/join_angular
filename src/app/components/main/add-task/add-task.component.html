@@ -35,6 +35,7 @@
         class="input-field contact-field"
         [ngClass]="{ 'input-field--required': isTitleInvalid('assigned') }">
         <input
+          (focus)="showContactList = true"
           type="search"
           id="assigned"
           placeholder="Select contacts to assign"
@@ -43,12 +44,23 @@
         />
         <img (click)="toggleContactList()" [src]="'img/add_task/arrow_drop_down.svg'" [ngClass]="{ 'rotated': showContactList }" alt=""/>
         <div *ngIf="showContactList" class="contact-list">
-          <ul *ngFor="let contact of contacts" >
-            <li class="single-contact"> 
-              <span class="shortcut--small" [style.backgroundColor]="contact.color">{{ getShortcut(contact.name) }}</span> 
-              <span>{{contact.name}}</span></li>
+          <ul *ngFor="let contact of contacts let i = index" >
+            <li class="single-contact" (click)="chooseContact(contact.name, contact.color)"> 
+              <div>
+                <span class="shortcut--small" [style.backgroundColor]="contact.color">{{ getShortcut(contact.name) }}</span> 
+                <span>{{contact.name}}</span>
+              </div>
+              <img src="" alt=""></li>
           </ul>
         </div>
+      
+      </div>
+      <div *ngIf="chosenContactList">
+        <ul *ngFor="let chosenContact of chosenContacts">
+          <li class="single-contact"> 
+            <span class="shortcut--small" [style.backgroundColor]="chosenContact.color">{{ getShortcut(chosenContact.name) }}</span> 
+            <span>{{chosenContact.name}}</span></li>
+        </ul>
       </div>
       <label
         for="assigned"
