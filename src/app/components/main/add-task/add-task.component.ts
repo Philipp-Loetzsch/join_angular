@@ -2,11 +2,15 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserDatasService } from '../../../services/user-datas.service';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @Component({
   selector: 'app-add-task',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule,MatDatepickerModule, MatFormFieldModule, MatInputModule, MatNativeDateModule],
   templateUrl: './add-task.component.html',
   styleUrls: ['./add-task.component.scss'],
 })
@@ -37,3 +41,5 @@ export class AddTaskComponent {
     this.addTaskForm.reset({ priority: 'Medium' });
   }
 }
+
+

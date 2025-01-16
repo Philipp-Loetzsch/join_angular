@@ -51,14 +51,15 @@
     <div class="separator"></div>
 
     <div>
-      <label for="dueDate">Due date<span class="requierd">*</span></label>
+      <!-- <label for="dueDate">Due date<span class="requierd">*</span></label>
       <div class="input-field">
         <input
-          type="text"
+          type="date"
           id="dueDate"
-          placeholder="dd/m/yyyy"
+          placeholder="dd/mm/yyyy"
           formControlName="dueDate"
         />
+        
         <img src="img/add_task/calender.svg" alt="" />
       </div>
       <label
@@ -67,45 +68,55 @@
         [class.empty-field]="!( addTaskForm.get('dueDate')?.touched && addTaskForm.get('dueDate')?.invalid)"
       >
         {{addTaskForm.get("dueDate")?.touched &&addTaskForm.get("dueDate")?.invalid ? "This field is required" : ""}}
+      </label> -->
+      <label for="dueDate">Due date<span class="requierd">*</span></label>
+      <div class="input-field">
+        <mat-form-field appearance="outline">
+          <mat-label>Due date</mat-label>
+          <input
+            matInput
+            [matDatepicker]="picker"
+            id="dueDate"
+            placeholder="dd/mm/yyyy"
+            formControlName="dueDate"
+          />
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        
+        <img src="img/add_task/calender.svg" alt="Calendar" />
+      </div>
+      
+      <label
+        for="dueDate"
+        [class.requierd-text]="addTaskForm.get('dueDate')?.touched && addTaskForm.get('dueDate')?.invalid"
+        [class.empty-field]="!(addTaskForm.get('dueDate')?.touched && addTaskForm.get('dueDate')?.invalid)"
+      >
+        {{addTaskForm.get("dueDate")?.touched &&addTaskForm.get("dueDate")?.invalid ? "This field is required" : ""}}
       </label>
+      
+
 
       <div class="prio">
         <span>Prio</span>
         <div class="btn-prio">
           <button
             type="button"
-            (click)="
-              addTaskForm.get('priority')?.setValue('Urgent');
-              chosenPrio = 'urgent'"
-            [ngClass]="{ urgent: chosenPrio === 'urgent' }"
-          >
+            (click)="addTaskForm.get('priority')?.setValue('Urgent'); chosenPrio = 'urgent'" [ngClass]="{ urgent: chosenPrio === 'urgent' }">
             Urgent
             <img
-              [src]="
-                chosenPrio === 'urgent' ? 'img/add_task/urgent_white.svg' : 'img/add_task/urgent.svg'"
-              alt=""
-            />
+              [src]="chosenPrio === 'urgent' ? 'img/add_task/urgent_white.svg' : 'img/add_task/urgent.svg'" alt=""/>
           </button>
           <button
             type="button"
-            (click)="
-              addTaskForm.get('priority')?.setValue('Medium');
-              chosenPrio = 'medium'"
-            [ngClass]="{ medium: chosenPrio === 'medium' }"
-          >
+            (click)="addTaskForm.get('priority')?.setValue('Medium'); chosenPrio = 'medium'"[ngClass]="{ medium: chosenPrio === 'medium' }">
             Medium
             <img
-              [src]="
-                chosenPrio === 'medium' ? 'img/add_task/medium_white.svg' : 'img/add_task/medium.svg'"
-              alt=""
-            />
+              [src]="chosenPrio === 'medium' ? 'img/add_task/medium_white.svg' : 'img/add_task/medium.svg'" alt=""/>
           </button>
           <button
             type="button"
-            (click)="
-              addTaskForm.get('priority')?.setValue('Low'); chosenPrio = 'low'
-            "
-            [ngClass]="{ low: chosenPrio === 'low' }"
+            (click)=" addTaskForm.get('priority')?.setValue('Low'); chosenPrio = 'low'"[ngClass]="{ low: chosenPrio === 'low' }"
           >
             Low
             <img
