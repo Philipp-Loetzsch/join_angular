@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { ReactiveFormsModule, FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
+import { ReactiveFormsModule, FormBuilder, FormGroup, Validators, FormArray, FormControl } from '@angular/forms';
 import { Contact, UserDatasService } from '../../../services/user-datas.service';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -10,6 +10,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 type Chosen ={
   name:string;
   color:string;
+  id:string;
 }
 @Component({
   selector: 'app-add-task',
@@ -23,8 +24,9 @@ export class AddTaskComponent implements OnInit {
   chosenPrio: string = 'medium'
   showContactList:boolean = false
   contacts:Contact[]=[]
-  chosenContacts:Chosen[]=[];
-  chosenContactList:boolean = false
+  filteredContacts!: Contact[]
+  chosen:boolean[] = [];
+  
 
   constructor(private fb: FormBuilder, private userDataService: UserDatasService) {
     this.addTaskForm = this.fb.group({
@@ -33,11 +35,13 @@ export class AddTaskComponent implements OnInit {
       assigned: this.fb.array([], Validators.required), 
       dueDate: ['', Validators.required],
       priority: ['Medium'],
-      category: ['', Validators.required],
+      category: ['Select contacts to assign', Validators.required],
       subtasks: this.fb.array([]), 
     });
   }
   
+
+
   get assigned(): FormArray {
     return this.addTaskForm.get('assigned') as FormArray;
   }
@@ -48,6 +52,7 @@ export class AddTaskComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     this.contacts = await this.userDataService.getUserContacts()
+    this.filteredContacts = this.contacts
   }
 
   getShortcut(name: string): string {
@@ -58,11 +63,13 @@ export class AddTaskComponent implements OnInit {
     const firstPart = parts[0];   
     const lastPart = parts[parts.length - 1]; 
     const initials = firstPart.charAt(0) + lastPart.charAt(0);
-  
     return initials.toUpperCase();
   }
+
   onSubmit(): void {
     if (this.addTaskForm.valid) {
+      const formValue = this.addTaskForm.value;
+      formValue.dueDate = new Date(formValue.dueDate).getTime();
      this.userDataService.createTask(this.addTaskForm)
     } else {
       this.addTaskForm.markAllAsTouched();
@@ -84,11 +91,22 @@ export class AddTaskComponent implements OnInit {
     this.showContactList = !this.showContactList
   }
 
-  chooseContact(name:string, color:string){
-      this.chosenContactList = true
-      this.chosenContacts.push({name, color})
-      console.log(this.chosenContacts);
-      
+  chooseContact(name: string, color: string, id: string, index: number): void {
+    const assignedArray = this.assigned;
+    const existingIndex = assignedArray.controls.findIndex(control => control.value.id === id);
+    if (existingIndex !== -1) {
+      assignedArray.removeAt(existingIndex);
+    } else {
+      assignedArray.push(this.fb.control({ name, color, id }));
+    }
+    this.chosen[index] = !this.chosen[index];
+  }
+  
+
+  filterContacts(value:string){
+    const lowerCaseQuery = value.toLowerCase();
+    this.filteredContacts = this.contacts.filter(contact =>
+    contact.name.toLowerCase().includes(lowerCaseQuery));
   }
 }
 

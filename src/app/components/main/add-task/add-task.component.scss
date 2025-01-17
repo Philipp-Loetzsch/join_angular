@@ -95,6 +95,11 @@ form {
   }
 }
 
+.btn-category{
+  cursor: pointer;
+  font-size: 20px;
+}
+
 .contact-field{
   position: relative;
   z-index: 4;
@@ -107,7 +112,15 @@ form {
     ul{
       list-style: none;
       padding: 0;
+      li{
+        >div{
+          display: flex;
+          align-items: center;
+          gap: 20px;
+        }
+      }
     }
+
     position: absolute;
     z-index: 1;
     top:45px;
@@ -121,14 +134,40 @@ form {
     .single-contact{
       display: flex;
       align-items: center;
+      justify-content: space-between;
       gap: 20px;
       padding: 10px 10px;
       border-radius: 10px;
-      &:hover{
-        cursor: pointer;
+      margin-bottom: 8px;
+      &--chosen{
+        @extend .single-contact;
         background-color: #2A3647;
         color: white;
       }
+      &:hover{
+        cursor: pointer;
+        background-color: #EEEEEE;
+        color: black;
+      }
+    }
+  }
+  .chosen-contacts{
+    position: absolute;
+    top: 60px;
+    left:0;
+    max-height: 150px;
+    overflow-y: auto;
+    width: 100%;
+    ul{
+      list-style: none;
+      padding: 0;
+    }
+ 
+    li{
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding-bottom: 10px;
     }
   }
 }

@@ -40,28 +40,33 @@
           id="assigned"
           placeholder="Select contacts to assign"
           class="font-black"
-          formControlName="assigned"
+          #assingedInput
+          (keyup)="filterContacts(assingedInput.value)"
         />
         <img (click)="toggleContactList()" [src]="'img/add_task/arrow_drop_down.svg'" [ngClass]="{ 'rotated': showContactList }" alt=""/>
         <div *ngIf="showContactList" class="contact-list">
-          <ul *ngFor="let contact of contacts let i = index" >
-            <li class="single-contact" (click)="chooseContact(contact.name, contact.color)"> 
+          <ul *ngFor="let contact of filteredContacts let i = index" >
+            <li 
+              class="single-contact" 
+              [ngClass]="{'single-contact--chosen' : chosen[i] }" 
+              (click)="chooseContact(contact.name, contact.color, contact.id, i)" >
               <div>
                 <span class="shortcut--small" [style.backgroundColor]="contact.color">{{ getShortcut(contact.name) }}</span> 
                 <span>{{contact.name}}</span>
               </div>
-              <img src="" alt=""></li>
+              <img [src]="(chosen[i]) ? 'img/add_task/check_button_checked.svg' : 'img/add_task/check_button.svg'" alt="">
+            </li>
           </ul>
         </div>
-      
+        <div class="chosen-contacts">
+          <ul *ngFor="let chosenContact of assigned.value">
+            <li class="single-contact"> 
+              <span class="shortcut--small" [style.backgroundColor]="chosenContact.color">{{ getShortcut(chosenContact.name) }}</span> 
+              <span>{{chosenContact.name}}</span></li>
+          </ul>
+        </div>
       </div>
-      <div *ngIf="chosenContactList">
-        <ul *ngFor="let chosenContact of chosenContacts">
-          <li class="single-contact"> 
-            <span class="shortcut--small" [style.backgroundColor]="chosenContact.color">{{ getShortcut(chosenContact.name) }}</span> 
-            <span>{{chosenContact.name}}</span></li>
-        </ul>
-      </div>
+    
       <label
         for="assigned"
         [ngClass]="{ 'requierd-text': isTitleInvalid('assigned') }"   
@@ -127,15 +132,9 @@
       </div>
       <label for="category">Category<span class="requierd">*</span></label>
       <div 
-        class="input-field"
+        class="input-field btn-category"
         [ngClass]="{ 'input-field--required': isTitleInvalid('category') }">
-        <input
-          type="search"
-          id="category"
-          placeholder="Select task category"
-          class="font-black"
-          formControlName="category"
-        />
+        <span>{{addTaskForm.get('category')?.value}}</span>
         <img src="img/add_task/arrow_drop_down.svg" alt="" />
       </div>
       <label
@@ -152,7 +151,7 @@
         type="text"
         id="subtasks"
         placeholder="Add new subtask"
-        formControlName="subtasks"
+        #subtasksInput
       />
       <img src="img/plus.svg" alt="">
     </div>

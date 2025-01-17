@@ -15,6 +15,7 @@ export interface Contact {
   email: string;
   phone: string;
   color: string;
+  id:string;
 }
 
 export interface Tasks {
@@ -46,6 +47,7 @@ export class UserDatasService {
         email: doc.data()['email'],
         phone: doc.data()['phone'],
         color: doc.data()['color'],
+        id: doc.id
       }));
       contacts.sort((a, b) => a.name.localeCompare(b.name));
       return contacts;
