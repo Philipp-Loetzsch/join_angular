@@ -27,7 +27,9 @@ export class AddTaskComponent implements OnInit {
   filteredContacts!: Contact[]
   chosen:boolean[] = [];
   showCategorySelector:boolean=false
+  haveCategory:boolean = false
   textCategory:string='Select contacts to assign'
+  
   
 
   constructor(private fb: FormBuilder, private userDataService: UserDatasService) {
@@ -69,7 +71,7 @@ export class AddTaskComponent implements OnInit {
   }
 
   onSubmit(): void {
-    if (this.addTaskForm.valid) {
+    if (this.addTaskForm.valid && this.haveCategory) {
       const formValue = this.addTaskForm.value;
       formValue.dueDate = new Date(formValue.dueDate).getTime();
      this.userDataService.createTask(this.addTaskForm)
@@ -120,9 +122,21 @@ export class AddTaskComponent implements OnInit {
     formValue.category = chosenCategory
     this.textCategory = chosenCategory
     this.showCategorySelector = false
-    
+    this.haveCategory=true
   }
+   addSubtask(content:string){
+    this.subtasks.push(this.fb.control(content))
+    
+   }
+   
+   editSubtask(i:number){
 
+   }
+   deleteSubtask(i:number){
+    console.log(i);
+    
+    this.subtasks.removeAt(i)
+   }
 }
 
 

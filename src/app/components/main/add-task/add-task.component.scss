@@ -12,11 +12,11 @@ form {
   }
 }
 
-.requierd {
+.required {
   color: red;
 }
 
-.requierd-text {
+.required-text {
   color: red;
   font-size: 12px;
   min-height: 20px;
@@ -117,10 +117,9 @@ form {
       width: 100%;
       display: flex;
       justify-content: start;
-      &:hover{
+      &:hover {
         cursor: pointer;
         background-color: #d1d1d160;
-    
       }
     }
   }
@@ -165,7 +164,7 @@ form {
       margin-bottom: 8px;
       &--chosen {
         @extend .single-contact;
-        background-color: #2a3647;
+        background-color: #47494d;
         color: white;
       }
       &:hover {
@@ -185,13 +184,33 @@ form {
     ul {
       list-style: none;
       padding: 0;
-    }
 
+      li {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        padding-bottom: 10px;
+      }
+    }
+  }
+}
+.subtask {
+  position: relative;
+  .add-subtask {
+    cursor: pointer;
+  }
+  .subtask-list {
+    position: absolute;
+    width: 100%;
     li {
+      padding: 5px 10px;
+      box-sizing: border-box;
       display: flex;
       align-items: center;
-      gap: 20px;
-      padding-bottom: 10px;
+      justify-content: space-between;
+      button {
+        cursor: pointer;
+      }
     }
   }
 }

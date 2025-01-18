@@ -2,7 +2,7 @@
 <form [formGroup]="addTaskForm" (ngSubmit)="onSubmit()">
   <div>
     <div>
-      <label for="title">Title<span class="requierd">*</span></label>
+      <label for="title">Title<span class="required">*</span></label>
       <input
       type="text"
       id="title"
@@ -14,7 +14,7 @@
     
       <label
         for="title"
-        [ngClass]="{ 'requierd-text': isFieldInvalid('title') }"    
+        [ngClass]="{ 'required-text': isFieldInvalid('title') }"    
         [class.empty-field]="!(addTaskForm.get('title')?.touched && addTaskForm.get('title')?.invalid)"
       >
         {{addTaskForm.get("title")?.touched && addTaskForm.get("title")?.invalid ? "This field is required": ""}}
@@ -30,7 +30,7 @@
         formControlName="description"
       ></textarea>
 
-      <label for="assigned">Assigned to<span class="requierd">*</span></label>
+      <label for="assigned">Assigned to<span class="required">*</span></label>
       <div 
         class="input-field contact-field"
         [ngClass]="{ 'input-field--required': isFieldInvalid('assigned') }">
@@ -69,7 +69,7 @@
     
       <label
         for="assigned"
-        [ngClass]="{ 'requierd-text': isFieldInvalid('assigned') }"   
+        [ngClass]="{ 'required-text': isFieldInvalid('assigned') }"   
         [class.empty-field]="!( addTaskForm.get('assigned')?.touched &&  addTaskForm.get('assigned')?.invalid)"
       >
         {{ addTaskForm.get("assigned")?.touched && addTaskForm.get("assigned")?.invalid ? "This field is required" : ""}}
@@ -79,7 +79,7 @@
     <div class="separator"></div>
 
     <div>
-      <label for="dueDate">Due date<span class="requierd">*</span></label>
+      <label for="dueDate">Due date<span class="required">*</span></label>
 
         <mat-form-field appearance="fill" class="input-field--nopadding"
         [ngClass]="{ 'input-field--required': isFieldInvalid('dueDate') }"> 
@@ -95,7 +95,7 @@
          </mat-form-field>     
       <label
         for="dueDate"
-        [ngClass]="{ 'requierd-text': isFieldInvalid('dueDate') }"   
+        [ngClass]="{ 'required-text': isFieldInvalid('dueDate') }"   
         [class.empty-field]="!(addTaskForm.get('dueDate')?.touched && addTaskForm.get('dueDate')?.invalid)"
       >
         {{addTaskForm.get("dueDate")?.touched &&addTaskForm.get("dueDate")?.invalid ? "This field is required" : ""}}
@@ -130,28 +130,12 @@
           </button>
         </div>
       </div>
-      <!-- <label for="category">Category<span class="requierd">*</span></label>
-      <button 
-        type="button"
-        class="input-field btn-category"
-        [ngClass]="{ 'input-field--required': isFieldInvalid('category') }"
-        formControlName="category" >
-        <span>{{addTaskForm.get('category')?.value}}</span>
-        <img src="img/add_task/arrow_drop_down.svg" alt="" />
-      </button>
-      <label
-        for="category"
-        [ngClass]="{ 'requierd-text': isFieldInvalid('category') }"   
-        [class.empty-field]="!( addTaskForm.get('category')?.touched && addTaskForm.get('category')?.invalid)"
-      >
-        {{ addTaskForm.get("category")?.touched && addTaskForm.get("category")?.invalid ? "This field is required" : ""}}
-      </label> -->
       <label for="category">Category<span class="required">*</span></label>
       <div class="category-field">
         <button 
           type="button"
           class="input-field btn-category"
-          [ngClass]="{ 'input-field--required': isFieldInvalid('category') }"
+          [ngClass]="{ 'input-field--required': isFieldInvalid('category') && !haveCategory }"
           (click)="toggleCategorySelector()"
           >
           <span >{{ textCategory}}</span>
@@ -159,9 +143,9 @@
         </button>
         <label
           for="category"
-          [ngClass]="{ 'required-text': isFieldInvalid('category') }"
-          [class.empty-field]="!(addTaskForm.get('category')?.touched )">
-          {{ addTaskForm.get("category")?.touched ? "This field is required" : "" }}
+          [ngClass]="{ 'required-text': (isFieldInvalid('category') && !haveCategory)}"
+          [class.empty-field]="!(addTaskForm.get('category')?.valid )">
+          {{ isFieldInvalid('category') && !haveCategory ? "This field is required" : "" }}
       </label>
       <div class="category-selector" *ngIf="showCategorySelector">
         <button type="button" (click)="chooseCategory('Technical Task')">Technical Task</button>
@@ -171,21 +155,32 @@
    
 
       <label for="subtasks">Subtasks</label>
-      <div  class="input-field">
-      <input
-        type="text"
-        id="subtasks"
-        placeholder="Add new subtask"
-        #subtasksInput
-      />
-      <img src="img/plus.svg" alt="">
-    </div>
+      <div class="subtask">
+        <div  class="input-field">
+          <input
+            type="text"
+            id="subtasks"
+            placeholder="Add new subtask"
+            #subtasksInput
+          />
+          <img class="add-subtask" (click)="addSubtask(subtasksInput.value)" src="img/plus.svg" alt="">
+        </div>
+        <div  class="subtask-list">
+          <ul *ngFor="let subtask of subtasks.value let i=index">
+            <li> <span>{{subtask}}</span>
+            <div>
+              <button type="button" (click)="editSubtask(i)"><img src="img/edit.svg" alt=""></button>
+              <button type="button" (click)="deleteSubtask(i)"><img src="img/delete.svg" alt=""></button>
+            </div></li>
+          </ul>
+        </div>
+      </div>
     </div>
   </div>
 
   <div class="submit-field">
     <span>
-      <span class="requierd">*</span>
+      <span class="required">*</span>
       This field is required
     </span>
     <div>
