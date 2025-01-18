@@ -26,6 +26,8 @@ export class AddTaskComponent implements OnInit {
   contacts:Contact[]=[]
   filteredContacts!: Contact[]
   chosen:boolean[] = [];
+  showCategorySelector:boolean=false
+  textCategory:string='Select contacts to assign'
   
 
   constructor(private fb: FormBuilder, private userDataService: UserDatasService) {
@@ -35,7 +37,7 @@ export class AddTaskComponent implements OnInit {
       assigned: this.fb.array([], Validators.required), 
       dueDate: ['', Validators.required],
       priority: ['Medium'],
-      category: ['Select contacts to assign', Validators.required],
+      category: ['', Validators.required],
       subtasks: this.fb.array([]), 
     });
   }
@@ -82,7 +84,7 @@ export class AddTaskComponent implements OnInit {
     this.subtasks.clear();
   }
 
-  isTitleInvalid(field:string): boolean | undefined{
+  isFieldInvalid(field:string): boolean | undefined{
     const control = this.addTaskForm.get(field);
     return control?.touched && control?.invalid;
   }
@@ -108,6 +110,19 @@ export class AddTaskComponent implements OnInit {
     this.filteredContacts = this.contacts.filter(contact =>
     contact.name.toLowerCase().includes(lowerCaseQuery));
   }
+
+  toggleCategorySelector(){
+    this.showCategorySelector = !this.showCategorySelector
+  }
+
+  chooseCategory(chosenCategory:string){
+    const formValue = this.addTaskForm.value
+    formValue.category = chosenCategory
+    this.textCategory = chosenCategory
+    this.showCategorySelector = false
+    
+  }
+
 }
 
 

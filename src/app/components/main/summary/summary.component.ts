@@ -32,6 +32,8 @@ export class SummaryComponent implements OnInit {
   };
   lastDate!: number;
   urgentDate: string = 'no current due date';
+  greetingText:string=''
+
   constructor(private userDataService: UserDatasService) {}
 
   async ngOnInit(): Promise<void> {
@@ -39,6 +41,7 @@ export class SummaryComponent implements OnInit {
     this.taskStatus = await this.userDataService.getUsertasks();
     this.getAmountTasks();
     this.getUrgentDate();
+    this.getGreetingText()
   }
   getAmountTasks() {
     this.taskStatus.forEach(({ status, prio }) => {
@@ -64,5 +67,11 @@ export class SummaryComponent implements OnInit {
       month: 'long',
       day: 'numeric',
     });
+  }
+  getGreetingText(){
+    const currentDate = new Date().getHours()
+    if(currentDate < 4 || currentDate >= 18) this.greetingText = 'Good evening'
+    else if (currentDate >= 12) this.greetingText = 'Good afternoon'
+    else this.greetingText = 'Good morning'
   }
 }

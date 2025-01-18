@@ -40,16 +40,16 @@ form {
 .btn-prio {
   display: flex;
   gap: 10px;
-  .medium{
-    background-color: #FFA800;
+  .medium {
+    background-color: #ffa800;
     color: white;
   }
-  .urgent{
-    background-color: #FF3D00 ;
+  .urgent {
+    background-color: #ff3d00;
     color: white;
   }
-  .low{
-    background-color: #7AE229;
+  .low {
+    background-color: #7ae229;
     color: white;
   }
   > button {
@@ -77,61 +77,85 @@ form {
   display: flex;
   width: 100%;
   justify-content: space-between;
-  >div{
+  > div {
     display: flex;
     gap: 10px;
-    >button{
-        font-size: 20px;
-        &:first-child{
-            font-weight: 400;
-        }
+    > button {
+      font-size: 20px;
+      &:first-child {
+        font-weight: 400;
+      }
     }
   }
 }
 
-.font-black{
-  &::placeholder{
+.font-black {
+  &::placeholder {
     color: black;
   }
 }
 
-.btn-category{
-  cursor: pointer;
-  font-size: 20px;
+.category-field {
+  position: relative;
+  .btn-category {
+    cursor: pointer;
+    font-size: 20px;
+  }
+  .category-selector {
+    position: absolute;
+    left: 0;
+    top: 45px;
+    background-color: white;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #d1d1d1;
+    border-radius: 10px;
+    > button {
+      font-size: 20px;
+      padding: 10px;
+      width: 100%;
+      display: flex;
+      justify-content: start;
+      &:hover{
+        cursor: pointer;
+        background-color: #d1d1d160;
+    
+      }
+    }
+  }
 }
-
-.contact-field{
+.contact-field {
   position: relative;
   z-index: 4;
-  >img{
-    &:hover{
+  > img {
+    &:hover {
       cursor: pointer;
     }
   }
-  .contact-list{
-    ul{
+  .contact-list {
+    ul {
       list-style: none;
       padding: 0;
-      li{
-        >div{
+      li {
+        > div {
           display: flex;
           align-items: center;
           gap: 20px;
         }
       }
     }
-
     position: absolute;
     z-index: 1;
-    top:45px;
-    left:0;
+    top: 45px;
+    left: 0;
     background-color: white;
     width: 100%;
     padding: 10px;
     box-sizing: border-box;
     max-height: 200px;
     overflow-y: auto;
-    .single-contact{
+    .single-contact {
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -139,31 +163,31 @@ form {
       padding: 10px 10px;
       border-radius: 10px;
       margin-bottom: 8px;
-      &--chosen{
+      &--chosen {
         @extend .single-contact;
-        background-color: #2A3647;
+        background-color: #2a3647;
         color: white;
       }
-      &:hover{
+      &:hover {
         cursor: pointer;
-        background-color: #EEEEEE;
+        background-color: #eeeeee;
         color: black;
       }
     }
   }
-  .chosen-contacts{
+  .chosen-contacts {
     position: absolute;
     top: 60px;
-    left:0;
+    left: 0;
     max-height: 150px;
     overflow-y: auto;
     width: 100%;
-    ul{
+    ul {
       list-style: none;
       padding: 0;
     }
- 
-    li{
+
+    li {
       display: flex;
       align-items: center;
       gap: 20px;
