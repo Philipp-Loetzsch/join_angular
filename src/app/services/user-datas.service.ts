@@ -34,7 +34,13 @@ export interface Tasks {
 })
 export class UserDatasService {
   private firestore = inject(Firestore);
-  constructor() {}
+  contactsList:Contact[]=[]
+  tasks: Tasks[] = [];
+  userName:string ='?'
+  constructor() {
+    this.getUserContacts()
+    this.getUsertasks()
+  }
 
   async getUserContacts() {
     try {
@@ -50,7 +56,7 @@ export class UserDatasService {
         id: doc.id
       }));
       contacts.sort((a, b) => a.name.localeCompare(b.name));    
-      return contacts;
+     this.contactsList = contacts;     
     } catch (error) {
       console.error('Fehler beim Abrufen der Kontakte:', error);
       throw error;
@@ -89,7 +95,8 @@ export class UserDatasService {
         title: doc.data()['title'] as string,
         id: doc.id,
       }));
-      return tasks;
+      this.tasks = tasks;
+      
     } catch (error) {
       console.error('Fehler beim Abrufen der Kontakte:', error);
       throw error;

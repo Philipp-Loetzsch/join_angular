@@ -2,7 +2,7 @@
   <button class="btn-primary--default">
     Add new contact <img src="img/person_add.svg" alt="" />
   </button>
-  <div *ngFor="let contact of contactsList ; let i = index">
+  <div *ngFor="let contact of userDatas.contactsList ; let i = index">
     <div class="contacts-list-separator" *ngIf="contactFirstLetters[i] !== ''">
       <span>{{ contactFirstLetters[i] }}</span>
     </div>

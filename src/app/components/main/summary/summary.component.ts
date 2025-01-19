@@ -21,7 +21,6 @@ export class SummaryComponent implements OnInit {
   hoverd1: boolean = false;
   hoverd2: boolean = false;
   greetingName: string = '';
-  taskStatus!: Tasks[];
   taskAmount: Amount = {
     todo: 0,
     inProgress: 0,
@@ -38,13 +37,23 @@ export class SummaryComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     this.greetingName = await this.userDataService.getUserName();
-    this.taskStatus = await this.userDataService.getUsertasks();
+    if (this.userDataService.tasks.length === 0) {
+   
+      const load = setInterval(() => {
+        this.getAmountTasks();
+        this.getUrgentDate();
+        this.getGreetingText()
+        if (this.userDataService.tasks.length > 0) {
+          clearInterval(load);
+        }
+      }, 200);
+    }
     this.getAmountTasks();
     this.getUrgentDate();
     this.getGreetingText()
   }
   getAmountTasks() {
-    this.taskStatus.forEach(({ status, prio }) => {
+    this.userDataService.tasks.forEach(({ status, prio }) => {
       if (status in this.taskAmount) {
         this.taskAmount[status as keyof Amount]++;
         this.taskAmount.additional++;
@@ -52,11 +61,11 @@ export class SummaryComponent implements OnInit {
       if (prio === 'urgent') {
         this.taskAmount.urgent++;
       }
-    });
+    });  
   }
 
   getUrgentDate() {
-    this.taskStatus.forEach(({ dueDate }) => {
+    this.userDataService.tasks.forEach(({ dueDate }) => {
       if (dueDate < this.lastDate || !this.lastDate) {
         this.lastDate = dueDate;
       }

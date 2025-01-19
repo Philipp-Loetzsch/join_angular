@@ -1,56 +1,50 @@
 import { Component, OnInit } from '@angular/core';
-import { Contact, UserDatasService } from '../../../services/user-datas.service';
+import {
+  Contact,
+  UserDatasService,
+} from '../../../services/user-datas.service';
 import { CommonModule } from '@angular/common';
 import { MainComponent } from '../main.component';
 import { interval } from 'rxjs';
-
 
 @Component({
   selector: 'app-contacts',
   standalone: true,
   imports: [CommonModule],
   templateUrl: './contacts.component.html',
-  styleUrl: './contacts.component.scss'
+  styleUrl: './contacts.component.scss',
 })
 export class ContactsComponent implements OnInit {
-  contactsList:Contact[] = []
+  contactsList: Contact[] = [];
   contactFirstLetters: string[] = [];
-  chosenContact!: Contact
-  lastLetter!:string
-  constructor(private userDatas: MainComponent){
-  }
+  chosenContact!: Contact;
+  lastLetter!: string;
+  constructor(public userDatas: UserDatasService) {}
   ngOnInit(): void {
-   this.contactsList = this.userDatas.contactsList
-  if(this.contactsList.length === 0){
-  const load = setInterval (() => {
-    this.contactsList = this.userDatas.contactsList
-    if(this.contactsList.length === 0){
-      clearInterval(load)
+    if (this.userDatas.contactsList.length === 0) {
+      const load = setInterval(() => {
+        this.prepareContactFirstLetters();
+        if (this.userDatas.contactsList.length > 0) {
+          clearInterval(load);
+        }
+      }, 200);
     }
-  }, 1000);
-}
- 
-  console.log(this.contactsList);  
-   this.prepareContactFirstLetters();
-   console.log(this.contactFirstLetters);
-
-
+    this.prepareContactFirstLetters();
   }
 
   getShortcut(name: string): string {
     const parts = name.split(' ');
     if (parts.length === 0) {
-      return ''; 
+      return '';
     }
-    const firstPart = parts[0];   
-    const lastPart = parts[parts.length - 1]; 
+    const firstPart = parts[0];
+    const lastPart = parts[parts.length - 1];
     const initials = firstPart.charAt(0) + lastPart.charAt(0);
-  
     return initials.toUpperCase();
   }
 
   prepareContactFirstLetters() {
-    this.contactFirstLetters = this.contactsList.map((contact) => {
+    this.contactFirstLetters = this.userDatas.contactsList.map((contact) => {
       const firstLetter = contact.name.charAt(0);
       if (firstLetter === this.lastLetter) {
         return '';
@@ -61,10 +55,7 @@ export class ContactsComponent implements OnInit {
     });
   }
 
-  showDetailContact(i:number){
-    this.chosenContact = this.contactsList[i]
-    console.log(this.chosenContact);
-    
+  showDetailContact(i: number) {
+    this.chosenContact = this.userDatas.contactsList[i];
   }
-
 }

@@ -14,9 +14,6 @@ tasks!:Tasks[]
  
  }
 
- async ngOnInit(): Promise<void> {
-  this.tasks = await this.userDataService.getUsertasks()
-  console.log(this.tasks);
-  
+ async ngOnInit(): Promise<void> { 
  }
 }
