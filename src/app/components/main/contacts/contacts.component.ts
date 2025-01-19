@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Contact, UserDatasService } from '../../../services/user-datas.service';
 import { CommonModule } from '@angular/common';
+import { MainComponent } from '../main.component';
+import { interval } from 'rxjs';
 
 
 @Component({
@@ -11,18 +13,28 @@ import { CommonModule } from '@angular/common';
   styleUrl: './contacts.component.scss'
 })
 export class ContactsComponent implements OnInit {
-  contactsList!:Contact[]
+  contactsList:Contact[] = []
   contactFirstLetters: string[] = [];
   chosenContact!: Contact
   lastLetter!:string
-  constructor(private userDataService: UserDatasService){
+  constructor(private userDatas: MainComponent){
   }
-  async ngOnInit(): Promise<void> {
-   this.contactsList = await this.userDataService.getUserContacts()
-   console.log(this.contactsList);
+  ngOnInit(): void {
+   this.contactsList = this.userDatas.contactsList
+  if(this.contactsList.length === 0){
+  const load = setInterval (() => {
+    this.contactsList = this.userDatas.contactsList
+    if(this.contactsList.length === 0){
+      clearInterval(load)
+    }
+  }, 1000);
+}
+ 
+  console.log(this.contactsList);  
    this.prepareContactFirstLetters();
    console.log(this.contactFirstLetters);
-   
+
+
   }
 
   getShortcut(name: string): string {

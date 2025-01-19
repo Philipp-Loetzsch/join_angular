@@ -49,7 +49,7 @@ export class UserDatasService {
         color: doc.data()['color'],
         id: doc.id
       }));
-      contacts.sort((a, b) => a.name.localeCompare(b.name));
+      contacts.sort((a, b) => a.name.localeCompare(b.name));    
       return contacts;
     } catch (error) {
       console.error('Fehler beim Abrufen der Kontakte:', error);

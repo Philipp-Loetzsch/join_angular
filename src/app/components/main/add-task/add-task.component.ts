@@ -55,7 +55,7 @@ export class AddTaskComponent implements OnInit {
   }
 
   async ngOnInit(): Promise<void> {
-    this.contacts = await this.userDataService.getUserContacts()
+    // this.contacts = await this.userDataService.getUserContacts()
     this.filteredContacts = this.contacts
   }
 

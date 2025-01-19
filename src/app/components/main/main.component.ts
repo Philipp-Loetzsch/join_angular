@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { filter } from 'rxjs/operators';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatButtonModule} from '@angular/material/button';
+import { Contact, UserDatasService } from '../../services/user-datas.service';
 
 interface Links {
   name: string;
@@ -19,7 +20,9 @@ interface Links {
   styleUrl: './main.component.scss',
 })
 export class MainComponent implements OnInit {
-  constructor(private router: Router) {
+  contactsList:Contact[]=[]
+
+  constructor(private router: Router, public userDataService: UserDatasService) {
   }
   nameLinks: Array<Links> = [
     { name: 'Summary', img: 'summary' },
@@ -30,7 +33,7 @@ export class MainComponent implements OnInit {
   activeUrl: string = '';
   showMenu: boolean = false;
   initials:string = '?'
-  ngOnInit(): void {
+ async ngOnInit(): Promise<void> {
     this.activeUrl = this.router.url;
     this.router.events
       .pipe(filter((event): event is NavigationEnd => event instanceof NavigationEnd))
@@ -38,6 +41,9 @@ export class MainComponent implements OnInit {
         this.activeUrl = event.urlAfterRedirects;
         console.log(this.activeUrl);
       });
+      this.contactsList = await this.userDataService.getUserContacts()
+      console.log(this.contactsList);
+      
   }
 
   isActive(linkImg: string): boolean {
