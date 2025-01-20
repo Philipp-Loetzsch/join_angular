@@ -111,6 +111,7 @@ form {
     flex-direction: column;
     border: 1px solid #d1d1d1;
     border-radius: 10px;
+    z-index: 100;
     > button {
       font-size: 20px;
       padding: 10px;
@@ -202,7 +203,7 @@ form {
   .subtask-list {
     position: absolute;
     width: 100%;
-    li {
+    .subtask-list_item {
       padding: 5px 10px;
       box-sizing: border-box;
       display: flex;

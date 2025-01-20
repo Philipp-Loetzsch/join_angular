@@ -41,6 +41,7 @@ export class AddTaskComponent implements OnInit {
       priority: ['Medium'],
       category: ['', Validators.required],
       subtasks: this.fb.array([]), 
+      status: ['todo']
     });
   }
   
@@ -55,8 +56,20 @@ export class AddTaskComponent implements OnInit {
   }
 
   async ngOnInit(): Promise<void> {
-    // this.contacts = await this.userDataService.getUserContacts()
-    this.filteredContacts = this.userDataService.contactsList
+    this.contacts = this.userDataService.contactsList
+    this.filteredContacts = this.contacts
+    if(this.contacts.length === 0){
+      const contactInterval = setInterval(() => {
+        this.contacts = this.userDataService.contactsList
+        this.filteredContacts = this.contacts
+        console.log(this.contacts);
+        if(this.contacts.length >= 0) {
+          clearInterval(contactInterval)
+          console.log(true);
+          
+        }
+      }, 1000);
+    }
   }
 
   getShortcut(name: string): string {
@@ -92,8 +105,10 @@ export class AddTaskComponent implements OnInit {
   }
 
   toggleContactList(){
+    
     this.showContactList = !this.showContactList
   }
+
 
   chooseContact(name: string, color: string, id: string, index: number): void {
     const assignedArray = this.assigned;
@@ -102,12 +117,17 @@ export class AddTaskComponent implements OnInit {
       assignedArray.removeAt(existingIndex);
     } else {
       assignedArray.push(this.fb.control({ name, color, id }));
+      console.log(this.addTaskForm.value);
+      
     }
     this.chosen[index] = !this.chosen[index];
   }
   
 
   filterContacts(value:string){
+    console.log(this.filteredContacts);
+    console.log(value);
+    
     const lowerCaseQuery = value.toLowerCase();
     this.filteredContacts = this.contacts.filter(contact =>
     contact.name.toLowerCase().includes(lowerCaseQuery));
@@ -116,25 +136,26 @@ export class AddTaskComponent implements OnInit {
   toggleCategorySelector(){
     this.showCategorySelector = !this.showCategorySelector
   }
-
-  chooseCategory(chosenCategory:string){
-    const formValue = this.addTaskForm.value
-    formValue.category = chosenCategory
-    this.textCategory = chosenCategory
-    this.showCategorySelector = false
-    this.haveCategory=true
+  chooseCategory(chosenCategory: string) {
+    const formValue = this.addTaskForm.value;
+    this.addTaskForm.patchValue({ category: chosenCategory });
+    this.textCategory = chosenCategory;
+    this.showCategorySelector = false;
+    this.haveCategory = true;
   }
-   addSubtask(content:string){
-    this.subtasks.push(this.fb.control(content))
-    
-   }
+  
+
+   addSubtask(content: HTMLInputElement):void{
+    const subtaskValue = content.value.trim();
+    this.subtasks.push(this.fb.control(subtaskValue))
+    content.value = ''
+    content.focus()
+  }
    
    editSubtask(i:number){
 
    }
    deleteSubtask(i:number){
-    console.log(i);
-    
     this.subtasks.removeAt(i)
    }
 }

@@ -143,8 +143,8 @@
         </button>
         <label
           for="category"
-          [ngClass]="{ 'required-text': (isFieldInvalid('category') && !haveCategory)}"
-          [class.empty-field]="!(addTaskForm.get('category')?.valid )">
+          class="empty-field"
+          [ngClass]="{ 'required-text': isFieldInvalid('category')}">
           {{ isFieldInvalid('category') && !haveCategory ? "This field is required" : "" }}
       </label>
       <div class="category-selector" *ngIf="showCategorySelector">
@@ -163,15 +163,20 @@
             placeholder="Add new subtask"
             #subtasksInput
           />
-          <img class="add-subtask" (click)="addSubtask(subtasksInput.value)" src="img/plus.svg" alt="">
+          <img class="add-subtask" (click)="addSubtask(subtasksInput)" src="img/plus.svg" alt="">
         </div>
+       
         <div  class="subtask-list">
           <ul *ngFor="let subtask of subtasks.value let i=index">
-            <li> <span>{{subtask}}</span>
-            <div>
-              <button type="button" (click)="editSubtask(i)"><img src="img/edit.svg" alt=""></button>
-              <button type="button" (click)="deleteSubtask(i)"><img src="img/delete.svg" alt=""></button>
-            </div></li>
+            <li>
+             <div class="subtask-list_item">
+              <span>{{subtask}}</span>
+              <div>
+                <button type="button" (click)="editSubtask(i)"><img src="img/edit.svg" alt=""></button>
+                <button type="button" (click)="deleteSubtask(i)"><img src="img/delete.svg" alt=""></button>
+              </div>
+             </div>
+            </li>
           </ul>
         </div>
       </div>

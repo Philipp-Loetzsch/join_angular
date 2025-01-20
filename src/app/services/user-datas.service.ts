@@ -19,15 +19,22 @@ export interface Contact {
 }
 
 export interface Tasks {
-  assignedTo: string;
+  assignedTo: Assigned[];
+  subtasks:string[];
   description: string;
   dueDate: number;
   prio: string;
   status: string;
   title: string;
+  category:string;
   id: string;
 }
 
+export interface Assigned{
+  name:string;
+  id:string;
+  color:string;
+}
 
 @Injectable({
   providedIn: 'root',
@@ -87,15 +94,18 @@ export class UserDatasService {
         )
       );
       const tasks = querySnapshot.docs.map((doc) => ({
-        assignedTo: doc.data()['assignedTo'] as string,
+        assignedTo: doc.data()['assigned'] as Assigned[],
+        subtasks: doc.data()['subtasks'] as string[],
         description: doc.data()['description'] as string,
         dueDate: doc.data()['dueDate'] as number,
-        prio: doc.data()['prio'] as string,
+        prio: doc.data()['priority'] as string,
         status: doc.data()['status'] as string,
         title: doc.data()['title'] as string,
+        category:doc.data()['category'] as string,
         id: doc.id,
       }));
       this.tasks = tasks;
+      console.log(this.tasks[0].assignedTo); 
       
     } catch (error) {
       console.error('Fehler beim Abrufen der Kontakte:', error);

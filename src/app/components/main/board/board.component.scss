@@ -22,7 +22,7 @@
 
 .board {
   max-width: 1400px;
-  @include arrangement($jc: space-between);
+  @include arrangement($jc: space-between, $g: 20px);
   .board-content {
      .board-content_header {
       @include arrangement($jc: space-between);
