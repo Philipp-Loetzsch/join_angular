@@ -21,21 +21,21 @@
       </button>
     </div>
     <div *ngFor="let task of tasks let i=index " class="card">
-      <div class="category-headline">{{task.category}}</div>
-      <div>{{task.title}}</div>
-      <div>{{task.description}}</div>
+      <div class="category-headline--{{task.category.toLocaleLowerCase().split(' ').join('')}}">{{task.category}}</div>
+      <div class="task-title">{{task.title}}</div>
+      <div class="task-description">{{task.description}}</div>
       <div class="progress-subtaks">
         <mat-progress-bar value="0"></mat-progress-bar>
         <div>0/{{task.subtasks.length}} Subtasks </div>
       </div>
-      <div>
-        <div *ngFor="let contact of task.assignedTo let i=index">
-          {{contact.name}}
+      <div class="contact-priority">
+        <div *ngFor="let contact of task.assignedTo let i=index" >
+          {{contact.shortcut}}
         </div>
-        {{task.prio}}
+        <img src="img/add_task/{{task.prio.toLocaleLowerCase()}}.svg" alt="">
       </div>
     </div>
-    <div class="no-task">
+    <div class="no-task" >
         No tasks To do
     </div>
   </div>

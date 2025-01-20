@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Assigned, Tasks, UserDatasService } from '../../../services/user-datas.service';
+import { UserDatasService } from '../../../services/user-datas.service';
 import { CommonModule } from '@angular/common';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { Tasks } from '../../../interfaces/interfaces';
 
 @Component({
   selector: 'app-board',
@@ -12,7 +13,6 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 })
 export class BoardComponent implements OnInit {
   tasks: Tasks[] =[];
-  assigned: Assigned[] = [];
   constructor(private userDataService: UserDatasService) {}
 
   ngOnInit(): void {
@@ -24,16 +24,11 @@ export class BoardComponent implements OnInit {
     this.tasks = this.userDataService.tasks;    
     if (this.tasks.length === 0) {
       const contactInterval = setInterval(() => {
-        this.tasks = this.userDataService.tasks;
-        this.getAssigned()
+        this.tasks = this.userDataService.tasks      
         if (this.tasks.length >= 0) {
           clearInterval(contactInterval);
         }
       }, 1000);
     }
-    this.getAssigned()
-  }
-
-  getAssigned(){
   }
 }

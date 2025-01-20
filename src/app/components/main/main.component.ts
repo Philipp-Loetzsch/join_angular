@@ -5,7 +5,7 @@ import { CommonModule } from '@angular/common';
 import { filter } from 'rxjs/operators';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatButtonModule} from '@angular/material/button';
-import { Contact, UserDatasService } from '../../services/user-datas.service';
+import { UserDatasService } from '../../services/user-datas.service';
 
 interface Links {
   name: string;

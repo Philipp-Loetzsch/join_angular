@@ -170,7 +170,7 @@
           <ul *ngFor="let subtask of subtasks.value let i=index">
             <li>
              <div class="subtask-list_item">
-              <span>{{subtask}}</span>
+              <span>{{subtask.subtaskValue}}</span>
               <div>
                 <button type="button" (click)="editSubtask(i)"><img src="img/edit.svg" alt=""></button>
                 <button type="button" (click)="deleteSubtask(i)"><img src="img/delete.svg" alt=""></button>

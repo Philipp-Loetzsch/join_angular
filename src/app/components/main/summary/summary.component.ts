@@ -1,6 +1,6 @@
 import { Component, OnInit, Type } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { Tasks, UserDatasService } from '../../../services/user-datas.service';
+import { UserDatasService } from '../../../services/user-datas.service';
 
 interface Amount {
   todo: number;

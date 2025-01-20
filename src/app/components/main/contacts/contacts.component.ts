@@ -1,11 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  Contact,
-  UserDatasService,
-} from '../../../services/user-datas.service';
+import { UserDatasService}from '../../../services/user-datas.service';
 import { CommonModule } from '@angular/common';
-import { MainComponent } from '../main.component';
-import { interval } from 'rxjs';
+import { Contact } from '../../../interfaces/interfaces';
 
 @Component({
   selector: 'app-contacts',

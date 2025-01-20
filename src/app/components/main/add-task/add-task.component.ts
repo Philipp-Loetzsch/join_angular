@@ -1,11 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators, FormArray, FormControl } from '@angular/forms';
-import { Contact, UserDatasService } from '../../../services/user-datas.service';
+import { UserDatasService } from '../../../services/user-datas.service';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule } from '@angular/material/core';
+import { Contact } from '../../../interfaces/interfaces';
 
 type Chosen ={
   name:string;
@@ -111,12 +112,13 @@ export class AddTaskComponent implements OnInit {
 
 
   chooseContact(name: string, color: string, id: string, index: number): void {
+    const shortcut = this.getShortcut(name)
     const assignedArray = this.assigned;
     const existingIndex = assignedArray.controls.findIndex(control => control.value.id === id);
     if (existingIndex !== -1) {
       assignedArray.removeAt(existingIndex);
     } else {
-      assignedArray.push(this.fb.control({ name, color, id }));
+      assignedArray.push(this.fb.control({ name, color, id, shortcut }));
       console.log(this.addTaskForm.value);
       
     }
@@ -147,7 +149,8 @@ export class AddTaskComponent implements OnInit {
 
    addSubtask(content: HTMLInputElement):void{
     const subtaskValue = content.value.trim();
-    this.subtasks.push(this.fb.control(subtaskValue))
+    const complete = false
+    this.subtasks.push(this.fb.control({subtaskValue, complete}))
     content.value = ''
     content.focus()
   }
