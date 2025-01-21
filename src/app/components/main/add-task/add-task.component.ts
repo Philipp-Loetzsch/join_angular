@@ -1,12 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
-import { ReactiveFormsModule, FormBuilder, FormGroup, Validators, FormArray, FormControl } from '@angular/forms';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ReactiveFormsModule, FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { UserDatasService } from '../../../services/user-datas.service';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule } from '@angular/material/core';
 import { Contact } from '../../../interfaces/interfaces';
+
 
 type Chosen ={
   name:string;
@@ -21,6 +22,10 @@ type Chosen ={
   styleUrls: ['./add-task.component.scss'],
 })
 export class AddTaskComponent implements OnInit {
+  @Input() board!:boolean
+  @Input() status:string = 'todo'
+  @Output() hideAddTask = new EventEmitter<void>();
+
   addTaskForm: FormGroup;
   chosenPrio: string = 'medium'
   showContactList:boolean = false
@@ -30,10 +35,11 @@ export class AddTaskComponent implements OnInit {
   showCategorySelector:boolean=false
   haveCategory:boolean = false
   textCategory:string='Select contacts to assign'
+
   
   
 
-  constructor(private fb: FormBuilder, private userDataService: UserDatasService) {
+  constructor(private fb: FormBuilder, private userDataService: UserDatasService,) {
     this.addTaskForm = this.fb.group({
       title: ['', Validators.required],
       description: [''],
@@ -42,7 +48,7 @@ export class AddTaskComponent implements OnInit {
       priority: ['Medium'],
       category: ['', Validators.required],
       subtasks: this.fb.array([]), 
-      status: ['todo']
+      status: [this.status]
     });
   }
   
@@ -82,6 +88,10 @@ export class AddTaskComponent implements OnInit {
     const lastPart = parts[parts.length - 1]; 
     const initials = firstPart.charAt(0) + lastPart.charAt(0);
     return initials.toUpperCase();
+  }
+
+  hideTask():void{
+    this.hideAddTask.emit();
   }
 
   onSubmit(): void {

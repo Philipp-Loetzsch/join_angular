@@ -50,14 +50,14 @@ textarea {
   box-sizing: border-box;
   @include arrangement($d: flex, $jc: space-between);
   width: 100%;
-  &--nopadding{
+  &--nopadding {
     @extend .input-field;
     padding: 0;
   }
-  &--required{
+  &--required {
     @extend .input-field;
     border-color: red;
-    &::placeholder{
+    &::placeholder {
       color: rgba(255, 0, 0, 0.6);
     }
   }
@@ -84,7 +84,7 @@ textarea {
     width: 120px;
     height: 120px;
   }
-  &--small{
+  &--small {
     @extend .shortcut;
     font-size: 12px;
     width: 42px;
@@ -97,10 +97,16 @@ app-board,
 app-add-task {
   padding: 110px 0 0 90px;
   box-sizing: border-box;
+  overflow: hidden;
 }
 
 app-contacts {
   display: flex;
+}
+
+app-board {
+  display: flex;
+  flex-direction: column;
 }
 
 .mat-mdc-form-field-subscript-wrapper {
@@ -114,9 +120,10 @@ app-contacts {
 .mat-mdc-text-field-wrapper {
   padding-left: 10px !important;
   border-radius: 10px;
-  background-color: white !important
+  background-color: white !important;
 }
-.mat-mdc-form-field-has-icon-suffix, .mdc-text-field {
+.mat-mdc-form-field-has-icon-suffix,
+.mdc-text-field {
   border-radius: 10px !important;
 }
 .mdc-line-ripple,

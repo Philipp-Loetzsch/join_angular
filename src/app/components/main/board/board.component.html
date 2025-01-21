@@ -1,4 +1,4 @@
-<div class="board-header">
+<!-- <div class="board-header">
   <h1>Board</h1>
   <div class="board-header_search">
     <div class="input-field">
@@ -6,7 +6,7 @@
       <div class="separator"></div>
       <img class="search-icon" src="img/board/search.svg" alt="" />
     </div>
-    <button class="btn-primary--default">
+    <button class="btn-primary--default" (click)="openAddTask('todo')">
       Add task <img src="img/board/add.svg" alt="" />
     </button>
   </div>
@@ -20,13 +20,14 @@
         <img src="img/plus.svg" alt="plus" />
       </button>
     </div>
+    <div class="board-content_cards">
     <div *ngFor="let task of tasks let i=index " class="card">
       <div class="category-headline--{{task.category.toLocaleLowerCase().split(' ').join('')}}">{{task.category}}</div>
-      <div class="task-title">{{task.title}}</div>
+      <h4>{{task.title}}</h4>
       <div class="task-description">{{task.description}}</div>
       <div class="progress-subtaks">
         <mat-progress-bar value="0"></mat-progress-bar>
-        <div>0/{{task.subtasks.length}} Subtasks </div>
+        <div class="progress-subtaks_status"> 0/{{task.subtasks.length}} Subtasks </div>
       </div>
       <div class="contact-priority">
         <div *ngFor="let contact of task.assignedTo let i=index" >
@@ -36,8 +37,10 @@
       </div>
     </div>
     <div class="no-task" >
-        No tasks To do
-    </div>
+      No tasks To do
+  </div>
+  </div>
+   
   </div>
   <div class="board-content">
     <div class="board-content_header">
@@ -69,4 +72,71 @@
         no Task To do
     </div>
   </div>
+</div>
+<div class="add-task" (click)="showAddTask=false" *ngIf="showAddTask">
+<app-add-task [board]="true" [status]="'todo'" (hideAddTask)="showAddTask = false" (click)="$event.stopPropagation()"></app-add-task>
+</div> -->
+
+<div class="board">
+  <div
+    class="board-content"
+    *ngFor="let taskGroup of tasks"
+  >
+    <div class="board-content_header">
+      <h2>{{ taskGroup.title }}</h2>
+      <button class="btn-add-task" (click)="openAddTask(taskGroup.id)">
+        <img src="img/plus.svg" alt="plus" />
+      </button>
+    </div>
+     <div
+      cdkDropList
+      [id]="taskGroup.id"
+      [cdkDropListData]="taskGroup.tasks"
+      class="board-content_cards"
+      (cdkDropListDropped)="drop($event)"
+    > 
+      <div
+        class="card"
+        *ngFor="let task of taskGroup.tasks; let i = index"
+        cdkDrag
+      >
+        <div class="category-headline--{{ task.category.toLocaleLowerCase().split(' ').join('') }}">
+          {{ task.category }}
+        </div>
+        <h4>{{ task.title }}</h4>
+        <div class="task-description">{{ task.description }}</div>
+        <div class="progress-subtaks">
+          <mat-progress-bar value="0"></mat-progress-bar>
+          <div class="progress-subtaks_status">
+            0/{{ task.subtasks.length }} Subtasks
+          </div>
+        </div>
+        <div class="contact-priority">
+          <div *ngFor="let contact of task.assignedTo let i = index">
+            {{ contact.shortcut }}
+          </div>
+          <img
+            src="img/add_task/{{ task.prio.toLocaleLowerCase() }}.svg"
+            alt=""
+          />
+        </div>
+      </div>
+    </div>
+
+    <div class="no-task" *ngIf="taskGroup.tasks.length === 0">
+      No tasks {{ taskGroup.title.toLowerCase() }}
+    </div>
+  </div>
+</div>
+<div
+  class="add-task"
+  (click)="showAddTask = false"
+  *ngIf="showAddTask"
+>
+  <app-add-task
+    [board]="true"
+    [status]="status"
+    (hideAddTask)="showAddTask = false"
+    (click)="$event.stopPropagation()"
+  ></app-add-task>
 </div>

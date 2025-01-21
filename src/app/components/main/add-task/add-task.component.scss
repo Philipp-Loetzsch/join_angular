@@ -1,4 +1,18 @@
 @import "./../../../../assets/styles/mixins.scss";
+.add-task_header{
+  @include arrangement($jc: space-between);
+  width: 100%;
+  >button{
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 50%;
+    @include arrangement();
+    &:hover{
+      background-color: #47494d25;
+    }
+  }
+}
+
 form {
   display: flex;
   flex-direction: column;
@@ -128,8 +142,18 @@ form {
 .contact-field {
   position: relative;
   z-index: 4;
-  > img {
+  > button {
+    padding: 10px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
     &:hover {
+      background-color: #0C2E621F;
+     
       cursor: pointer;
     }
   }

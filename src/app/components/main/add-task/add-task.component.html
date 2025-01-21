@@ -1,4 +1,7 @@
+<div class="add-task_header">
 <h1>Add Task</h1>
+<button *ngIf="board"><img src="img/add_task/close.svg" alt="" (click)="hideTask()"></button>
+</div>
 <form [formGroup]="addTaskForm" (ngSubmit)="onSubmit()">
   <div>
     <div>
@@ -36,14 +39,17 @@
         [ngClass]="{ 'input-field--required': isFieldInvalid('assigned') }">
         <input
           (focus)="showContactList = true"
-          type="search"
+          type="text"
           id="assigned"
           placeholder="Select contacts to assign"
           class="font-black"
           #assingedInput
           (keyup)="filterContacts(assingedInput.value)"
         />
-        <img (click)="toggleContactList()" [src]="'img/add_task/arrow_drop_down.svg'" [ngClass]="{ 'rotated': showContactList }" alt=""/>
+        <button type="button" (click)="toggleContactList()"> 
+          <img  [src]="'img/add_task/arrow_drop_down.svg'" [ngClass]="{ 'rotated': showContactList }" alt=""/>
+        </button>
+       
         <div *ngIf="showContactList" class="contact-list">
           <ul *ngFor="let contact of filteredContacts let i = index" >
             <li 

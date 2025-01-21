@@ -22,8 +22,13 @@
 
 .board {
   max-width: 1400px;
-  @include arrangement($jc: space-between, $g: 20px);
+  max-height: calc(100vh - 280px);
+  @include arrangement($jc: space-between, $g: 20px, $ai: start);
   .board-content {
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
     .board-content_header {
       @include arrangement($jc: space-between);
     }
@@ -49,6 +54,9 @@
       padding: 20px;
       text-align: center;
     }
+    .board-content_cards{
+      height: 100%;
+    }
   }
 }
 
@@ -56,19 +64,68 @@
   background-color: white;
   padding: 16px;
   border-radius: 24px;
+  margin-bottom: 20px;
+  max-width: 250px;
+
+  .category-headline {
+    padding: 4px 16px;
+    color: white;
+    width: max-content;
+    border-radius: 10px;
+    &--technicaltask {
+      @extend .category-headline;
+      background-color: #1fd7c1;
+    }
+    &--userstory {
+      @extend .category-headline;
+      background-color: #0038ff;
+    }
+  }
+
+  .h4 {
+    font-weight: 700;
+  }
+  .task-description {
+    color: #a8a8a8;
+  }
+  .progress-subtaks {
+    @include arrangement($jc: space-between);
+    .progress-subtaks_status {
+      display: flex;
+      white-space: nowrap;
+    }
+  }
 }
 
-.category-headline {
-  padding: 4px 16px;
-  color: white;
-  width: max-content;
-  border-radius: 10px;
-  &--technicaltask {
-    @extend .category-headline;
-    background-color: #1FD7C1;
-  }
-  &--userstory {
-    @extend .category-headline;
-    background-color: #0038FF;
-  }
+.add-task{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 200;
+  background-color: rgba(128, 128, 128, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+app-add-task{
+  background-color: white;
+  padding: 40px;
+  border-radius: 20px;
+  height: 70%;
+}
+}
+
+.cdk-drag-preview {
+  background-color: rgba(255, 255, 255, 0.9);
+  border: 1px solid #ccc;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.cdk-drag-placeholder {
+  opacity: 0.5;
+}
+
+.cdk-drag-animating {
+  transition: transform 200ms cubic-bezier(0.25, 0.8, 0.25, 1);
 }
