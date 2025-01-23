@@ -1,4 +1,4 @@
-<!-- <div class="board-header">
+ <div class="board-header">
   <h1>Board</h1>
   <div class="board-header_search">
     <div class="input-field">
@@ -12,7 +12,7 @@
   </div>
 </div>
 
-<div class="board">
+<!--<div class="board">
   <div class="board-content">
     <div class="board-content_header">
       <h2>To do</h2>
@@ -112,8 +112,16 @@
           </div>
         </div>
         <div class="contact-priority">
-          <div *ngFor="let contact of task.assignedTo let i = index">
-            {{ contact.shortcut }}
+          <div>
+           <div *ngFor="let contact of task.assignedTo let i = index">
+            <span *ngIf="i < 4"     
+            [style.backgroundColor]="contact.color" 
+            class="shortcut--small"  
+            [ngStyle]="{'margin-left': i > 0 ? '-10px' : '0px'}"> 
+              {{ contact.shortcut }}
+            </span>
+           </div> 
+            <div *ngIf="task.assignedTo.length > 4">+{{task.assignedTo.length - 2}}</div>
           </div>
           <img
             src="img/add_task/{{ task.prio.toLocaleLowerCase() }}.svg"

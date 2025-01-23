@@ -1,8 +1,17 @@
-@mixin arrangement($d:flex, $jc:center, $ai:center, $g:0, $fd:unset){
-    display: $d;
-    justify-content: $jc;
-    align-items: $ai;
-    gap: $g;
-    flex-direction: $fd;
-  }
-  
+@mixin arrangement($d: flex, $jc: center, $ai: center, $g: 0, $fd: unset) {
+  display: $d;
+  justify-content: $jc;
+  align-items: $ai;
+  gap: $g;
+  flex-direction: $fd;
+}
+
+@mixin popover() {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 200;
+  background-color: rgba(128, 128, 128, 0.3);
+}

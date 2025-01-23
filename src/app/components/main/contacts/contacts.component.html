@@ -1,5 +1,5 @@
 <div class="contacts-list">
-  <button class="btn-primary--default">
+  <button class="btn-primary--default" (click)="showEditField('add')">
     Add new contact <img src="img/person_add.svg" alt="" />
   </button>
   <div *ngFor="let contact of userDatas.contactsList ; let i = index">
@@ -29,7 +29,7 @@
       <div>
         <h3>{{chosenContact.name}}</h3>
         <div class="menu_buttons">
-          <button><img src="img/edit.svg" alt="pen" /> Edit</button>
+          <button (click)="showEditField('edit')"><img src="img/edit.svg" alt="pen" /> Edit</button>
           <button><img src="img/delete.svg" alt="delete" /> Delete</button>
         </div>
       </div>
@@ -45,3 +45,5 @@
     </div>
   </div>
 </div>
+
+<app-edit-contact *ngIf="showEdit || true" (click)="showEdit=false" [chosenContact]="chosenContact"></app-edit-contact>

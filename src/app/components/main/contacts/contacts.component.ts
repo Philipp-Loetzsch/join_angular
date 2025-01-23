@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { UserDatasService}from '../../../services/user-datas.service';
 import { CommonModule } from '@angular/common';
 import { Contact } from '../../../interfaces/interfaces';
+import { EditContactComponent } from './edit-contact/edit-contact.component';
 
 @Component({
   selector: 'app-contacts',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, EditContactComponent],
   templateUrl: './contacts.component.html',
   styleUrl: './contacts.component.scss',
 })
@@ -15,6 +16,8 @@ export class ContactsComponent implements OnInit {
   contactFirstLetters: string[] = [];
   chosenContact!: Contact;
   lastLetter!: string;
+  showEdit:boolean=false;
+
   constructor(public userDatas: UserDatasService) {}
   ngOnInit(): void {
     if (this.userDatas.contactsList.length === 0) {
@@ -53,5 +56,9 @@ export class ContactsComponent implements OnInit {
 
   showDetailContact(i: number) {
     this.chosenContact = this.userDatas.contactsList[i];
+  }
+
+  showEditField(option:string){
+    this.showEdit=true
   }
 }

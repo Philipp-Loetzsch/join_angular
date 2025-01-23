@@ -192,6 +192,8 @@ export class BoardComponent implements OnInit {
   openAddTask(status: string) {
     this.showAddTask = true;
     this.status = status;
+    console.log(status);
+    
   }
 
   // updateTaskStatus(updatedTask: Tasks) {

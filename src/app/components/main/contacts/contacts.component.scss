@@ -11,31 +11,30 @@
     width: 100%;
     @include arrangement($g: 20px);
   }
-  .contacts-list-separator{
+  .contacts-list-separator {
     padding: 17px 36px;
-    border-bottom: 1px solid #D1D1D1;
+    border-bottom: 1px solid #d1d1d1;
     margin-bottom: 10px;
   }
   .contacts-list_contact {
-    @include arrangement($g:35px, $jc:start);
+    @include arrangement($g: 35px, $jc: start);
     padding: 15px 24px;
     border-radius: 10px;
-  
-    &:hover{
+
+    &:hover {
       cursor: pointer;
-      background-color:#2A3647;
+      background-color: #2a3647;
       color: white;
     }
-    .contacts-list_info{
-      .contacts-list_info-name{
+    .contacts-list_info {
+      .contacts-list_info-name {
         font-size: 20px;
       }
-      .contacts-list_info-email{
-        color: #007CEE;
+      .contacts-list_info-email {
+        color: #007cee;
       }
     }
   }
-  
 }
 
 .contacts-details {
@@ -106,4 +105,9 @@
       }
     }
   }
+}
+
+app-edit-contact {
+  @include popover();
+  @include arrangement();
 }
