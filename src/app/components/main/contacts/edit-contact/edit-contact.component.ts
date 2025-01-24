@@ -32,8 +32,7 @@ export class EditContactComponent implements OnInit {
   ) {
     this.editContactForm = this.fb.group({
       name: ['', Validators.required],
-      email: [
-        '',
+      email: ['',
         [
           Validators.required,
           Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$'),
@@ -60,6 +59,10 @@ export class EditContactComponent implements OnInit {
 
 
   onSubmit() {
+    if(this.editContactForm.valid && !this.editMode){
+      debugger
+      this.userDataService.createContact(this.editContactForm)
+    }
     this.editContactForm.markAllAsTouched();
   }
 }

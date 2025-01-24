@@ -6,9 +6,11 @@ import {
   doc,
   getDoc,
   getDocs,
+  setDoc,
 } from '@angular/fire/firestore';
 import { FormGroup } from '@angular/forms';
 import { Assigned, Contact, Tasks } from '../interfaces/interfaces';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -18,11 +20,18 @@ export class UserDatasService {
   contactsList:Contact[]=[]
   tasks: Tasks[] = [];
   userName:string ='?'
-  constructor() {
+  currentUserID:string=''
+  constructor(private route: Router) {
+    this.getCurrentUserId()
     this.getUserContacts()
     this.getUsertasks()
+    
   }
 
+  getCurrentUserId(){
+
+  }
+  
   async getUserContacts() {
     try {
       const querySnapshot = await getDocs(
@@ -92,12 +101,10 @@ export class UserDatasService {
   async createTask(tasks: FormGroup): Promise<void> {
     try {
       const taskData = tasks.value;
-  
       const docRef = await addDoc(
         collection(this.firestore, 'userDatas/a6PM3hfF9lUQsu9n6a3HvYLIAW73/tasks'),
         taskData 
-      );
-  
+      );  
       console.log('Document written with ID: ', docRef.id);
     } catch (error) {
       console.error('Error adding document: ', error);
@@ -113,5 +120,40 @@ export class UserDatasService {
     const lastPart = parts[parts.length - 1]; 
     const initials = firstPart.charAt(0) + lastPart.charAt(0);
     return initials.toUpperCase();
+  }
+
+  async createContact(contactData:FormGroup){
+    try{   
+      const contact = contactData.value
+      const color = this.createColor()
+      const shortcut = this.getShortcut(contact.name)
+      console.log(shortcut);
+      console.log(contact);
+      
+      
+      console.log(color);
+      const docRef = await addDoc(
+        collection(this.firestore, 'userDatas/a6PM3hfF9lUQsu9n6a3HvYLIAW73/contacts'),{
+        email:contact.email,
+        phone: contact.phone,
+        name: contact.name,
+        color: color,
+        shortcut: shortcut
+      });
+      console.log('contact created with ID: ' + docRef.id);
+      
+    } catch(err){
+      console.error(err);
+      
+    }
+  }
+
+  createColor(){
+    const letters = '0123456789ABCDEF';
+    let color = '#';
+  for (let i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
   }
 }
