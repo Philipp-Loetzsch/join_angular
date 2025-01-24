@@ -18,6 +18,7 @@ export class ContactsComponent implements OnInit {
   lastLetter!: string;
   showEdit:boolean=false;
   editMode:boolean=false;
+  hideAnimation:boolean=false
 
 
   constructor(public userDatas: UserDatasService) {}
@@ -55,5 +56,11 @@ export class ContactsComponent implements OnInit {
     
   }
 
-
+  closeEdit() {
+    this.hideAnimation = true;
+    setTimeout(() => {
+      this.showEdit = false;
+      this.hideAnimation = false;
+    }, 800);
+  }
 }

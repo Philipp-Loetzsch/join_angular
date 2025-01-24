@@ -108,6 +108,20 @@
 }
 
 app-edit-contact {
+  animation: slideIn 500ms forwards ease;
   @include popover();
   @include arrangement();
+  &.slide-out{
+    animation: slideOut 500ms forwards ease;
+  }
+}
+
+@keyframes slideIn {
+  from{left: 100%;}
+  to{left:0}
+}
+
+@keyframes slideOut {
+  from{left:0}
+  to{left:100%}
 }

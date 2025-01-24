@@ -46,4 +46,4 @@
   </div>
 </div>
 
-<app-edit-contact *ngIf="showEdit" (click)="showEdit=false" [chosenContact]="chosenContact" [editMode]="editMode"></app-edit-contact>
+<app-edit-contact *ngIf="showEdit" [class.slide-out]="hideAnimation" (click)="closeEdit()" [chosenContact]="chosenContact" [editMode]="editMode"></app-edit-contact>

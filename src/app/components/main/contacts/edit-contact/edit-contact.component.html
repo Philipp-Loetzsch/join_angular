@@ -6,7 +6,7 @@
     <div class="separator-edit"></div>
   </div>
   <div class="edit-input">
-    <button type="button" (click)="closeEdit()">
+    <button type="button" (click)="contact.closeEdit()">
       <img src="img/add_task/close.svg" alt="" />
     </button>
     <div [style.backgroundColor]="chosenContact.color" class="shortcut--big">
@@ -68,7 +68,7 @@
       >{{editContactForm.get('phone')?.touched && editContactForm.get('phone')?.invalid ? "This field is required" :""}}</label>
 
       <div class="edit-input_form-button">
-        <button class="btn-secondary--default" type="button" (click)="closeEdit()">Cancel</button>
+        <button class="btn-secondary--default" type="button" (click)="contact.closeEdit()">Cancel</button>
         <button class="btn-primary--default" type="submit">
           Create contact
         </button>
