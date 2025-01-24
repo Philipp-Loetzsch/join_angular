@@ -79,16 +79,7 @@ export class AddTaskComponent implements OnInit {
     }
   }
 
-  getShortcut(name: string): string {
-    const parts = name.split(' ');
-    if (parts.length === 0) {
-      return ''; 
-    }
-    const firstPart = parts[0];   
-    const lastPart = parts[parts.length - 1]; 
-    const initials = firstPart.charAt(0) + lastPart.charAt(0);
-    return initials.toUpperCase();
-  }
+  
 
   hideTask():void{
     this.hideAddTask.emit();
@@ -121,8 +112,8 @@ export class AddTaskComponent implements OnInit {
   }
 
 
-  chooseContact(name: string, color: string, id: string, index: number): void {
-    const shortcut = this.getShortcut(name)
+  chooseContact(name: string, color: string, id: string, index: number, shortcut:string): void {
+  
     const assignedArray = this.assigned;
     const existingIndex = assignedArray.controls.findIndex(control => control.value.id === id);
     if (existingIndex !== -1) {

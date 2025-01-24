@@ -18,7 +18,7 @@
       <label
         for="title"
         [ngClass]="{ 'required-text': isFieldInvalid('title') }"    
-        [class.empty-field]="!(addTaskForm.get('title')?.touched && addTaskForm.get('title')?.invalid)"
+        class="empty-field"
       >
         {{addTaskForm.get("title")?.touched && addTaskForm.get("title")?.invalid ? "This field is required": ""}}
       </label>
@@ -55,9 +55,9 @@
             <li 
               class="single-contact" 
               [ngClass]="{'single-contact--chosen' : chosen[i] }" 
-              (click)="chooseContact(contact.name, contact.color, contact.id, i)" >
+              (click)="chooseContact(contact.name, contact.color, contact.id, i, contact.shortcut)" >
               <div>
-                <span class="shortcut--small" [style.backgroundColor]="contact.color">{{ getShortcut(contact.name) }}</span> 
+                <span class="shortcut--small" [style.backgroundColor]="contact.color">{{contact.shortcut }}</span> 
                 <span>{{contact.name}}</span>
               </div>
               <img [src]="(chosen[i]) ? 'img/add_task/check_button_checked.svg' : 'img/add_task/check_button.svg'" alt="">
@@ -67,7 +67,7 @@
         <div class="chosen-contacts">
           <ul *ngFor="let chosenContact of assigned.value">
             <li class="single-contact"> 
-              <span class="shortcut--small" [style.backgroundColor]="chosenContact.color">{{ getShortcut(chosenContact.name) }}</span> 
+              <span class="shortcut--small" [style.backgroundColor]="chosenContact.color">{{ chosenContact.shortcut }}</span> 
               <span>{{chosenContact.name}}</span></li>
           </ul>
         </div>
@@ -76,7 +76,7 @@
       <label
         for="assigned"
         [ngClass]="{ 'required-text': isFieldInvalid('assigned') }"   
-        [class.empty-field]="!( addTaskForm.get('assigned')?.touched &&  addTaskForm.get('assigned')?.invalid)"
+        class="empty-field"
       >
         {{ addTaskForm.get("assigned")?.touched && addTaskForm.get("assigned")?.invalid ? "This field is required" : ""}}
       </label>
@@ -102,7 +102,7 @@
       <label
         for="dueDate"
         [ngClass]="{ 'required-text': isFieldInvalid('dueDate') }"   
-        [class.empty-field]="!(addTaskForm.get('dueDate')?.touched && addTaskForm.get('dueDate')?.invalid)"
+        class="empty-field"
       >
         {{addTaskForm.get("dueDate")?.touched &&addTaskForm.get("dueDate")?.invalid ? "This field is required" : ""}}
       </label>

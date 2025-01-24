@@ -4,6 +4,7 @@ export interface Contact {
   phone: string;
   color: string;
   id:string;
+  shortcut:string;
 }
 
 export interface Tasks {

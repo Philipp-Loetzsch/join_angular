@@ -1,30 +1,78 @@
-<div class="edit-title">
-    <img src="img/join_logo.svg" alt="">
-    <h1>Add Contact</h1>
-    <span>Tasks are better with a team!</span>
+<section (click)="$event.stopPropagation()">
+  <div class="edit-title">
+    <img src="img/join_logo.svg" alt="" />
+    <h1>{{headline}}</h1>
+    <span *ngIf="!editMode">Tasks are better with a team!</span>
     <div class="separator-edit"></div>
-</div>
-<div class="edit-input">
-  <button><img src="img/add_task/close.svg" alt=""></button>
-  <div [style.backgroundColor]="color" class="shortcut--big"> <img src="img/person_white.svg" alt="" /></div>  
- 
-  <form>
-    <div class="input-field">
-      <input type="text" name="name" id="name" placeholder="Name" />
-      <img src="img/person.svg" alt="">
-    </div>
-    <div class="input-field">
-      <input type="email" name="email" id="email" placeholder="Email" />
-      <img src="img/mail.svg" alt="">
-    </div>
-    <div class="input-field">
-      <input type="text" name="phone" id="phone" placeholder="Phone" />
-      <img src="img/call.svg" alt="">
+  </div>
+  <div class="edit-input">
+    <button type="button" (click)="closeEdit()">
+      <img src="img/add_task/close.svg" alt="" />
+    </button>
+    <div [style.backgroundColor]="chosenContact.color" class="shortcut--big">
+      <img *ngIf="!editMode" src="img/person_white.svg" alt="" />
+      <span *ngIf="editMode">{{chosenContact.shortcut}}</span>
     </div>
 
-    <div class="edit-input_form-button">
-        <button class="btn-secondary--default">Cancel</button>
-        <button class="btn-primary--default">Create contact</button>
-    </div>
-  </form>
-</div>
+    <form [formGroup]="editContactForm" (ngSubmit)="onSubmit()">
+      <div 
+      class="input-field"
+      [ngClass]="{ 'input-field--required':editContactForm.get('name')?.touched && editContactForm.get('name')?.invalid}"
+      >
+        <input
+          type="text"
+          name="name"
+          id="name"
+          placeholder="Name"
+          formControlName="name"
+        />
+        <img src="img/person.svg" alt="" />
+      </div>
+      <label for="name"
+      [ngClass]="{ 'required-text': editContactForm.get('name')?.touched && editContactForm.get('name')?.invalid}"
+      class="empty-field"
+      >{{editContactForm.get('name')?.touched && editContactForm.get('name')?.invalid ? "This field is required" :""}}</label>
+
+      <div class="input-field"
+      [ngClass]="{ 'input-field--required':editContactForm.get('email')?.touched && editContactForm.get('email')?.invalid}"
+      >
+        <input
+          type="email"
+          name="email"
+          id="email"
+          placeholder="Email"
+          formControlName="email"
+        />
+        <img src="img/mail.svg" alt="" />
+      </div>
+      <label for="email"
+      [ngClass]="{ 'required-text': editContactForm.get('email')?.touched && editContactForm.get('email')?.invalid}"
+      class="empty-field"
+      >{{editContactForm.get('email')?.touched && editContactForm.get('email')?.invalid ? "This field is required" :""}}</label>
+
+      <div class="input-field"
+      [ngClass]="{ 'input-field--required':editContactForm.get('email')?.touched && editContactForm.get('email')?.invalid}"
+      >
+        <input
+          type="text"
+          name="phone"
+          id="phone"
+          placeholder="Phone"
+          formControlName="phone"
+        />
+        <img src="img/call.svg" alt="" />
+      </div>
+      <label for="phone"
+      [ngClass]="{ 'required-text': editContactForm.get('phone')?.touched && editContactForm.get('phone')?.invalid}"
+      class="empty-field"
+      >{{editContactForm.get('phone')?.touched && editContactForm.get('phone')?.invalid ? "This field is required" :""}}</label>
+
+      <div class="edit-input_form-button">
+        <button class="btn-secondary--default" type="button" (click)="closeEdit()">Cancel</button>
+        <button class="btn-primary--default" type="submit">
+          Create contact
+        </button>
+      </div>
+    </form>
+  </div>
+</section>

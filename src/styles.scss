@@ -63,6 +63,19 @@ textarea {
   }
 }
 
+.empty-field {
+  display: flex;
+  min-height: 20px;
+}
+
+.required-text {
+  color: red;
+  font-size: 12px;
+  min-height: 20px;
+  display: flex;
+  align-items: start;
+}
+
 .separator {
   min-height: 100%;
   width: 1px;
@@ -130,3 +143,4 @@ app-board {
 .mdc-line-ripple--deactivating {
   display: none;
 }
+

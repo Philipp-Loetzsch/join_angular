@@ -34,7 +34,9 @@ export class UserDatasService {
         email: doc.data()['email'],
         phone: doc.data()['phone'],
         color: doc.data()['color'],
+        shortcut:doc.data()['shortcut'],
         id: doc.id
+      
       }));
       contacts.sort((a, b) => a.name.localeCompare(b.name));    
      this.contactsList = contacts;     
@@ -100,5 +102,16 @@ export class UserDatasService {
     } catch (error) {
       console.error('Error adding document: ', error);
     }
+  }
+
+  getShortcut(name: string): string {
+    const parts = name.split(' ');
+    if (parts.length === 0) {
+      return ''; 
+    }
+    const firstPart = parts[0];   
+    const lastPart = parts[parts.length - 1]; 
+    const initials = firstPart.charAt(0) + lastPart.charAt(0);
+    return initials.toUpperCase();
   }
 }

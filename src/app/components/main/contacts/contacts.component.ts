@@ -17,6 +17,8 @@ export class ContactsComponent implements OnInit {
   chosenContact!: Contact;
   lastLetter!: string;
   showEdit:boolean=false;
+  editMode:boolean=false;
+
 
   constructor(public userDatas: UserDatasService) {}
   ngOnInit(): void {
@@ -29,17 +31,6 @@ export class ContactsComponent implements OnInit {
       }, 200);
     }
     this.prepareContactFirstLetters();
-  }
-
-  getShortcut(name: string): string {
-    const parts = name.split(' ');
-    if (parts.length === 0) {
-      return '';
-    }
-    const firstPart = parts[0];
-    const lastPart = parts[parts.length - 1];
-    const initials = firstPart.charAt(0) + lastPart.charAt(0);
-    return initials.toUpperCase();
   }
 
   prepareContactFirstLetters() {
@@ -58,7 +49,11 @@ export class ContactsComponent implements OnInit {
     this.chosenContact = this.userDatas.contactsList[i];
   }
 
-  showEditField(option:string){
+  showEditField(option:boolean){
     this.showEdit=true
+    option ? this.editMode = true : this.editMode = false
+    
   }
+
+
 }
