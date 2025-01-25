@@ -1,18 +1,28 @@
-<div class="contacts-list" >
+<div class="contacts-sidebar">
   <button class="btn-primary--default" (click)="showEditField(false)">
     Add new contact <img src="img/person_add.svg" alt="" />
   </button>
-  <div *ngFor="let contact of userDatas.contactsList ; let i = index">
-    <div class="contacts-list-separator" *ngIf="contactFirstLetters[i] !== ''">
-      <span>{{ contactFirstLetters[i] }}</span>
-    </div>
-    <div class="contacts-list_contact" (click)="showDetailContact(i)">
-      <div class="shortcut--small" [style.backgroundColor]="contact.color">
-        {{ contact.shortcut }}
+  <div class="contacts-list" #contactList>
+    <div *ngFor="let contact of userDatas.contactsList; let i = index"
+        [id]="'contact' + contact.id">
+      <div
+        class="contacts-list-separator"
+        *ngIf="contactFirstLetters[i] !== ''"
+      >
+        <span>{{ contactFirstLetters[i] }}</span>
       </div>
-      <div class="contacts-list_info">
-        <div class="contacts-list_info-name">{{ contact.name }}</div>
-        <div class="contacts-list_info-email">{{ contact.email }}</div>
+      <div
+        class="contacts-list_contact"
+        (click)="showDetailContact(i)"
+        [class.chosen]="chosen === i"
+      >
+        <div class="shortcut--small" [style.backgroundColor]="contact.color">
+          {{ contact.shortcut }}
+        </div>
+        <div class="contacts-list_info">
+          <div class="contacts-list_info-name">{{ contact.name }}</div>
+          <div class="contacts-list_info-email">{{ contact.email }}</div>
+        </div>
       </div>
     </div>
   </div>
@@ -25,11 +35,15 @@
   </div>
   <div class="contacts-details_content" *ngIf="chosenContact">
     <div class="content_menu">
-      <div class="shortcut--big" [style.backgroundColor]="chosenContact.color">{{chosenContact.shortcut}}</div>
+      <div class="shortcut--big" [style.backgroundColor]="chosenContact.color">
+        {{ chosenContact.shortcut }}
+      </div>
       <div>
-        <h3>{{chosenContact.name}}</h3>
+        <h3>{{ chosenContact.name }}</h3>
         <div class="menu_buttons">
-          <button (click)="showEditField(true)"><img src="img/edit.svg" alt="pen" /> Edit</button>
+          <button (click)="showEditField(true)">
+            <img src="img/edit.svg" alt="pen" /> Edit
+          </button>
           <button><img src="img/delete.svg" alt="delete" /> Delete</button>
         </div>
       </div>
@@ -37,13 +51,19 @@
     <span class="contact-information">Contact Information</span>
     <div class="contact-links">
       <span>Email</span>
-      <a href="mailto:{{chosenContact.email}}">{{chosenContact.email}}</a>
+      <a href="mailto:{{ chosenContact.email }}">{{ chosenContact.email }}</a>
     </div>
     <div class="contact-links">
       <span>Phone</span>
-      <a href="tel:{{chosenContact.phone}}">{{chosenContact.phone}}</a>
+      <a href="tel:{{ chosenContact.phone }}">{{ chosenContact.phone }}</a>
     </div>
   </div>
 </div>
 
-<app-edit-contact *ngIf="showEdit" [class.slide-out]="hideAnimation" (click)="closeEdit()" [chosenContact]="chosenContact" [editMode]="editMode"></app-edit-contact>
+<app-edit-contact
+  *ngIf="showEdit"
+  [class.slide-out]="hideAnimation"
+  (click)="closeEdit()"
+  [chosenContact]="chosenContact"
+  [editMode]="editMode"
+></app-edit-contact>

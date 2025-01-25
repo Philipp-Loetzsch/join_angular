@@ -58,10 +58,14 @@ export class EditContactComponent implements OnInit {
   }
 
 
-  onSubmit() {
+  async onSubmit(): Promise<void> {
+    debugger
     if(this.editContactForm.valid && !this.editMode){
-      debugger
-      this.userDataService.createContact(this.editContactForm)
+       const newContactId = await this.userDataService.createContact(this.editContactForm)
+       await this.userDataService.getUserContacts()
+       this.contact.loadContacts()
+       this.contact.markNewContact(newContactId)
+       this.contact.closeEdit()
     }
     this.editContactForm.markAllAsTouched();
   }

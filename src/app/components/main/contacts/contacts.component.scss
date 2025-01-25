@@ -1,16 +1,20 @@
 @import "./../../../../assets/styles/mixins.scss";
 
-.contacts-list {
+
+.contacts-sidebar{
+  @include arrangement($fd:column);
   background-color: white;
   padding: 10px 20px;
-  box-sizing: border-box;
-  max-width: 40%;
-  height: 100%;
-  overflow-y: auto;
   > button {
     width: 100%;
     @include arrangement($g: 20px);
   }
+}
+.contacts-list {
+  box-sizing: border-box;
+  height: 100%;
+  overflow-y: auto;
+
   .contacts-list-separator {
     padding: 17px 36px;
     border-bottom: 1px solid #d1d1d1;
@@ -35,6 +39,10 @@
       }
     }
   }
+}
+.chosen{
+  background-color: #2a3647;
+  color: white;
 }
 
 .contacts-details {
