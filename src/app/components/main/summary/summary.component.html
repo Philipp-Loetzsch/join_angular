@@ -6,14 +6,14 @@
 <div class="content">
   <div class="content_cards">
     <div class="content_cards_row">
-      <div [routerLink]="['/main/board']"  (mouseover)="hoverd1=true" (mouseleave)="hoverd1=false" class="content_single-card--short">
+      <div [routerLink]="'/main/board'" [queryParams]="{ UID: userDataService.currentUserID }"  (mouseover)="hoverd1=true" (mouseleave)="hoverd1=false" class="content_single-card--short">
         <img [src]=" hoverd1 ? 'img/pencil_bright.svg' : 'img/pencil.svg'" alt="" />
         <div>
           <h2>{{taskAmount.todo}}</h2>
           <span>To-Do</span>
         </div>
       </div>
-      <div [routerLink]="['/main/board']"  (mouseover)="hoverd2=true" (mouseleave)="hoverd2=false" class="content_single-card--short">
+      <div [routerLink]="['/main/board']" [queryParams]="{ UID: userDataService.currentUserID }"  (mouseover)="hoverd2=true" (mouseleave)="hoverd2=false" class="content_single-card--short">
         <img [src]=" hoverd2 ? 'img/done_bright.svg' : 'img/done.svg' " alt="" />
         <div>
           <h2>{{taskAmount.done}}</h2>
@@ -21,7 +21,7 @@
         </div>
       </div>
     </div>
-    <div [routerLink]="['/main/board']" class="content_single-card--long" >
+    <div [routerLink]="['/main/board']" [queryParams]="{ UID: userDataService.currentUserID }" class="content_single-card--long" >
       <div class="urgent_status">
         <img src="img/urgent-arrow.svg" alt="" />
         <div>
@@ -36,19 +36,19 @@
       </div>
     </div>
     <div class="content_cards_row">
-      <div class="content_single-card--short">
+      <div class="content_single-card--short" [routerLink]="['/main/board']" [queryParams]="{ UID: userDataService.currentUserID }">
         <div>
           <h2>{{taskAmount.additional}}</h2>
           <span>Tasks in Board</span>
         </div>
       </div>
-      <div class="content_single-card--short">
+      <div class="content_single-card--short" [routerLink]="['/main/board']" [queryParams]="{ UID: userDataService.currentUserID }">
         <div>
           <h2>{{taskAmount.inProgress}}</h2>
           <span>Tasks In Progress</span>
         </div>
       </div>
-      <div class="content_single-card--short">
+      <div class="content_single-card--short" [routerLink]="['/main/board']" [queryParams]="{ UID: userDataService.currentUserID }">
         <div>
           <h2>{{taskAmount.feedback}}</h2>
           <span>Awaiting Feedback</span>

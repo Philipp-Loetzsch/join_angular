@@ -41,10 +41,8 @@
       <div>
         <h3>{{ chosenContact.name }}</h3>
         <div class="menu_buttons">
-          <button (click)="showEditField(true)">
-            <img src="img/edit.svg" alt="pen" /> Edit
-          </button>
-          <button><img src="img/delete.svg" alt="delete" /> Delete</button>
+          <button (click)="showEditField(true)"><img src="img/edit.svg" alt="pen" /> Edit</button>
+          <button (click)="deleteContact()"><img src="img/delete.svg" alt="delete" /> Delete</button>
         </div>
       </div>
     </div>

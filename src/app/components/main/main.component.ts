@@ -40,7 +40,6 @@ export class MainComponent implements OnInit {
       .pipe(filter((event): event is NavigationEnd => event instanceof NavigationEnd))
       .subscribe((event: NavigationEnd) => {
         this.activeUrl = event.urlAfterRedirects;
-        console.log(this.activeUrl);
       });
     const userName = await this.userDataService.getUserName()
     this.initials =  this.getInitials(userName)    

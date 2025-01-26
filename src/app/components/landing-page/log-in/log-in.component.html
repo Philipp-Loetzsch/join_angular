@@ -31,7 +31,8 @@
       <label for="email" class="error-label"
         >please insert a valid email (example&#64;your-email.com)</label
       >
-      } @else(){
+      }   
+      @else(){
       <label for="email" class="empty-label"></label>
       }
 
@@ -51,6 +52,9 @@
       } @else if (loginForm.get('password')?.errors?.['minlength'] &&
       loginForm.touched) {
       <label for="password" class="error-label">min length 6</label>
+      }@else if (logInFailed) {
+        <label for="email" class="error-label"
+        >wrong email or password</label>
       } @else(){
       <label for="password" class="empty-label"></label>
       }

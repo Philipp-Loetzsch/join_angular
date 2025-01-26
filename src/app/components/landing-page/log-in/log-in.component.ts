@@ -6,6 +6,7 @@ import {
   FormControl,
   Validators,
 } from '@angular/forms';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-log-in',
@@ -15,29 +16,30 @@ import {
   styleUrl: './log-in.component.scss',
 })
 export class LogInComponent {
-  constructor(private router:Router){}
-   loginForm = new FormGroup({
-    email: new FormControl('', [
+  constructor(private router: Router, private authService: AuthService) {}
+
+  logInFailed:boolean=false
+  loginForm = new FormGroup({
+    email: new FormControl('jointester@havefun.com', [
       Validators.required,
       Validators.email,
       Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'),
     ]),
-    password: new FormControl('', [
+    password: new FormControl('123456', [
       Validators.required,
       Validators.minLength(6),
     ]),
   });
 
-  onSubmit() {
-    this.router.navigate(['/main/summary'])
-    if (this.loginForm.invalid) {
-      // Markiere alle Felder als "touched", um die Fehlermeldungen anzuzeigen
-      this.loginForm.markAllAsTouched();
-      return; // Verhindere das Absenden des Formulars
+  async onSubmit() {
+    if (this.loginForm.valid) {
+      const userID = await this.authService.getUserId(this.loginForm);
+      if (userID !== 'error') {
+        this.router.navigate(['/main/summary'], { queryParams: { UID: userID }});
+      } else{
+        this.logInFailed = true
+      }
     }
-    console.log('hat geklappt');
-
-    console.log(this.loginForm.value.email);
+    this.loginForm.markAllAsTouched();
   }
-
 }

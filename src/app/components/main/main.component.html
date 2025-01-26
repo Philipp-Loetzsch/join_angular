@@ -3,7 +3,7 @@
     <div class="main-container_nav_side_navigation">
       <img class="logo" src="img/join_logo.svg" alt="" />
       <a
-        [routerLink]="['/main', link.img]"
+      [routerLink]="'/main/' + link.img" [queryParams]="{ UID: userDataService.currentUserID }"
         *ngFor="let link of nameLinks; index as i"
         [ngClass]="{ chosen: isActive(link.img) }"
       >

@@ -1,4 +1,4 @@
-import { inject, Injectable, OnInit } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import {
   Firestore,
   addDoc,
@@ -6,12 +6,11 @@ import {
   doc,
   getDoc,
   getDocs,
-  setDoc,
+  deleteDoc
 } from '@angular/fire/firestore';
 import { FormGroup } from '@angular/forms';
 import { Assigned, Contact, Tasks } from '../interfaces/interfaces';
-import { Router } from '@angular/router';
-import { Observable, Subject } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -22,8 +21,7 @@ export class UserDatasService {
   tasks: Tasks[] = [];
   userName:string ='?'
   currentUserID:string=''
-  constructor(private route: Router) {
-    
+  constructor(private route: ActivatedRoute) {
     this.init()
   }
 
@@ -32,35 +30,19 @@ export class UserDatasService {
   }
 
   getCurrentUserId(){
+    this.route.queryParams.subscribe(params =>{
+      this.currentUserID = params['UID'];
+    })
+    console.log(this.currentUserID);
+    
     this.getUserContacts()
     this.getUsertasks()
   }
   
-  async getUserContacts(): Promise<void> {
-    try {
-      const querySnapshot = await getDocs(
-        collection( this.firestore, 'userDatas/a6PM3hfF9lUQsu9n6a3HvYLIAW73/contacts'
-        )
-      );
-      const contacts = querySnapshot.docs.map((doc) => ({
-        name: doc.data()['name'] as string,
-        email: doc.data()['email']  as string,
-        phone: doc.data()['phone']  as string,
-        color: doc.data()['color']  as string,
-        shortcut:doc.data()['shortcut']  as string,
-        id: doc.id as string
-      }));
-      contacts.sort((a, b) => a.name.localeCompare(b.name));    
-     this.contactsList = contacts;   
-    } catch (error) {
-      console.error('Fehler beim Abrufen der Kontakte:', error);
-      throw error;
-    }
-  }
+
 
   async getUserName() {
-    const docRef = doc( this.firestore, 'userDatas', 'a6PM3hfF9lUQsu9n6a3HvYLIAW73'
-    );
+    const docRef = doc( this.firestore,  this.RefDatabase(''));
     const docSnapshot = await getDoc(docRef);
     if (docSnapshot.exists()) {
       const data = docSnapshot.data();
@@ -74,7 +56,7 @@ export class UserDatasService {
   async getUsertasks() {
     try {
       const querySnapshot = await getDocs(
-        collection( this.firestore, 'userDatas/a6PM3hfF9lUQsu9n6a3HvYLIAW73/tasks')
+        collection( this.firestore, this.RefDatabase('tasks'))
       );
       const tasks = querySnapshot.docs.map((doc) => ({
         assignedTo: doc.data()['assigned'] as Assigned[],
@@ -98,13 +80,71 @@ export class UserDatasService {
     try {
       const taskData = tasks.value;
       const docRef = await addDoc(
-        collection(this.firestore, 'userDatas/a6PM3hfF9lUQsu9n6a3HvYLIAW73/tasks'),
+        collection(this.firestore,  this.RefDatabase('tasks')),
         taskData 
       );  
       console.log('Document written with ID: ', docRef.id);
     } catch (error) {
       console.error('Error adding document: ', error);
     }
+  }
+
+
+  async createContact(contactData:FormGroup): Promise<string>{
+    try{   
+      const contact = contactData.value
+      const color = this.createColor()
+      const shortcut = this.getShortcut(contact.name)
+      const docRef = await addDoc(collection(this.firestore,  this.RefDatabase('contacts')),{
+        email:contact.email,
+        phone: contact.phone,
+        name: contact.name,
+        color: color,
+        shortcut: shortcut
+      });
+      return docRef.id
+      
+    } catch(err){
+      console.error(err);
+      throw new Error('Failed to create contact')
+    }
+  }
+
+  async getUserContacts(): Promise<void> {
+    try {
+      const querySnapshot = await getDocs(
+        collection( this.firestore, this.RefDatabase('contacts')
+        )
+      );
+      const contacts = querySnapshot.docs.map((doc) => ({
+        name: doc.data()['name'] as string,
+        email: doc.data()['email']  as string,
+        phone: doc.data()['phone']  as string,
+        color: doc.data()['color']  as string,
+        shortcut:doc.data()['shortcut']  as string,
+        id: doc.id as string
+      }));
+      contacts.sort((a, b) => a.name.localeCompare(b.name));    
+     this.contactsList = contacts;   
+    } catch (error) {
+      console.error('Fehler beim Abrufen der Kontakte:', error);
+      throw error;
+    }
+  }
+
+  async deleteContact(id:string): Promise<boolean>{
+    try{
+    await deleteDoc(doc(this.firestore, `${this.RefDatabase('contacts')}/${id}`))
+    return true
+    }
+    catch(err){
+      console.log('delete contact failed', err);
+      return false
+    }
+  }
+
+  RefDatabase(subtask:string){
+    return `userDatas/${this.currentUserID}/${subtask}`
   }
 
   getShortcut(name: string): string {
@@ -116,28 +156,6 @@ export class UserDatasService {
     const lastPart = parts[parts.length - 1]; 
     const initials = firstPart.charAt(0) + lastPart.charAt(0);
     return initials.toUpperCase();
-  }
-
-  async createContact(contactData:FormGroup): Promise<string>{
-    try{   
-      const contact = contactData.value
-      const color = this.createColor()
-      const shortcut = this.getShortcut(contact.name)
-      const docRef = await addDoc(
-        collection(this.firestore, 'userDatas/a6PM3hfF9lUQsu9n6a3HvYLIAW73/contacts'),{
-        email:contact.email,
-        phone: contact.phone,
-        name: contact.name,
-        color: color,
-        shortcut: shortcut
-      });
-      this.contactsList = []
-      return docRef.id
-      
-    } catch(err){
-      console.error(err);
-      throw new Error('Failed to create contact')
-    }
   }
 
   createColor(){

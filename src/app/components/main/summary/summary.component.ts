@@ -33,7 +33,7 @@ export class SummaryComponent implements OnInit {
   urgentDate: string = 'no current due date';
   greetingText:string=''
 
-  constructor(private userDataService: UserDatasService) {}
+  constructor(public userDataService: UserDatasService) {}
 
   async ngOnInit(): Promise<void> {
     this.greetingName = await this.userDataService.getUserName();
