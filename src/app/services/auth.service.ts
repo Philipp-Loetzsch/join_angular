@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Auth, getAuth, signInWithEmailAndPassword } from '@angular/fire/auth';
+import { Auth, signInWithEmailAndPassword } from '@angular/fire/auth';
 import { FormGroup } from '@angular/forms';
 
 

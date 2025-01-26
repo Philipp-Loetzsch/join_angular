@@ -12,8 +12,8 @@
       </a>
     </div>
     <div class="main-container_nav_side_footer">
-      <a [routerLink]="['/main/privacy_policy']">Privacy Policy</a>
-      <a [routerLink]="['/main/legal_notice']">Legal notice</a>
+      <a [routerLink]="['/main/privacy_policy']" [queryParams]="{ UID: userDataService.currentUserID }">Privacy Policy</a>
+      <a [routerLink]="['/main/legal_notice']" [queryParams]="{ UID: userDataService.currentUserID }">Legal notice</a>
     </div>
   </div>
   <div class="main-container_content">
@@ -24,8 +24,8 @@
         <div class="menu">
           <button (click)="toggleMenu($event)">{{initials}}</button>
             <div *ngIf="showMenu" class="menu-navigation" (click)="notClose($event)">
-              <a [routerLink]="['/main/privacy_policy']" (click)="toggleMenu($event)">Privacy Policy</a>
-              <a [routerLink]="['/main/legal_notice']" (click)="toggleMenu($event)">Legal notice</a>
+              <a [routerLink]="['/main/privacy_policy']" [queryParams]="{ UID: userDataService.currentUserID }" (click)="toggleMenu($event)">Privacy Policy</a>
+              <a [routerLink]="['/main/legal_notice']" [queryParams]="{ UID: userDataService.currentUserID }" (click)="toggleMenu($event)">Legal notice</a>
               <a [routerLink]="['/']">Log out</a>
             </div>
         </div>

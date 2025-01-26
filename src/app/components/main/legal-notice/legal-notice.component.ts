@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { UserDatasService } from '../../../services/user-datas.service';
 
 @Component({
   selector: 'app-legal-notice',
@@ -8,5 +9,5 @@ import { Component } from '@angular/core';
   styleUrl: './legal-notice.component.scss'
 })
 export class LegalNoticeComponent {
-
+  constructor(private userDataService: UserDatasService){}
 }

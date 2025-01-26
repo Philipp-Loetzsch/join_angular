@@ -36,6 +36,8 @@ export class ContactsComponent implements OnInit {
     } else {
       this.prepareContactFirstLetters();
     }
+    console.log(this.userDatas.currentUserID);
+    
   }
 
   async loadContacts() {

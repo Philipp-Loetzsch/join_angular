@@ -7,6 +7,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { AuthService } from '../../../services/auth.service';
+import { UserDatasService } from '../../../services/user-datas.service';
 
 @Component({
   selector: 'app-log-in',
@@ -16,7 +17,7 @@ import { AuthService } from '../../../services/auth.service';
   styleUrl: './log-in.component.scss',
 })
 export class LogInComponent {
-  constructor(private router: Router, private authService: AuthService) {}
+  constructor(private router: Router, private authService: AuthService, private userDatasService:UserDatasService) {}
 
   logInFailed:boolean=false
   loginForm = new FormGroup({
@@ -35,7 +36,9 @@ export class LogInComponent {
     if (this.loginForm.valid) {
       const userID = await this.authService.getUserId(this.loginForm);
       if (userID !== 'error') {
-        this.router.navigate(['/main/summary'], { queryParams: { UID: userID }});
+        this.router.navigate(['/main/summary'], { queryParams: { UID: userID }})
+        .then(()=> {this.userDatasService.init()});
+
       } else{
         this.logInFailed = true
       }

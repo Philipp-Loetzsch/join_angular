@@ -10,7 +10,7 @@ import {
 } from '@angular/fire/firestore';
 import { FormGroup } from '@angular/forms';
 import { Assigned, Contact, Tasks } from '../interfaces/interfaces';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -21,7 +21,7 @@ export class UserDatasService {
   tasks: Tasks[] = [];
   userName:string ='?'
   currentUserID:string=''
-  constructor(private route: ActivatedRoute) {
+  constructor(private route: ActivatedRoute, private router:Router) {
     this.init()
   }
 
@@ -30,25 +30,29 @@ export class UserDatasService {
   }
 
   getCurrentUserId(){
+    console.log(this.currentUserID);
     this.route.queryParams.subscribe(params =>{
       this.currentUserID = params['UID'];
     })
-    console.log(this.currentUserID);
-    
-    this.getUserContacts()
-    this.getUsertasks()
+    if(this.currentUserID != '' && this.currentUserID != undefined){
+      console.log(this.currentUserID);
+      this.getUserContacts()
+      this.getUsertasks()
+    }else{
+      this.router.navigate(['/'])
+      console.log(this.tasks);
+    return
+    }
   }
   
-
-
-  async getUserName() {
+  async getUserName() {    
     const docRef = doc( this.firestore,  this.RefDatabase(''));
     const docSnapshot = await getDoc(docRef);
     if (docSnapshot.exists()) {
       const data = docSnapshot.data();
       return data['userName'];
     } else {
-      console.error('Document does not exist!');
+      this.router.navigate(['/'])
       return '';
     }
   }

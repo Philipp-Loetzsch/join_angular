@@ -36,6 +36,8 @@ export class SummaryComponent implements OnInit {
   constructor(public userDataService: UserDatasService) {}
 
   async ngOnInit(): Promise<void> {
+    console.log('hello');
+    
     this.greetingName = await this.userDataService.getUserName();
     if (this.userDataService.tasks.length === 0) {
    
