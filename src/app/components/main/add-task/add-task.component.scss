@@ -38,38 +38,6 @@ form {
   margin-bottom: 20px;
 }
 
-.btn-prio {
-  display: flex;
-  gap: 10px;
-  .medium {
-    background-color: #ffa800;
-    color: white;
-  }
-  .urgent {
-    background-color: #ff3d00;
-    color: white;
-  }
-  .low {
-    background-color: #7ae229;
-    color: white;
-  }
-  > button {
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-    min-width: 140px;
-    font-size: 20px;
-    padding: 16px 10px;
-    box-sizing: border-box;
-    border-radius: 10px;
-    background-color: #ffffff;
-    &:hover {
-      box-shadow: 0 4px 4px #00000040;
-      cursor: pointer;
-    }
-  }
-}
-
 .description {
   margin-bottom: 20px;
 }

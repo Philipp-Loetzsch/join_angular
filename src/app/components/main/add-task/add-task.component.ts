@@ -64,11 +64,8 @@ export class AddTaskComponent implements OnInit {
       const contactInterval = setInterval(() => {
         this.contacts = this.userDataService.contactsList
         this.filteredContacts = this.contacts
-        console.log(this.contacts);
         if(this.contacts.length >= 0) {
-          clearInterval(contactInterval)
-          console.log(true);
-          
+          clearInterval(contactInterval)          
         }
       }, 1000);
     }
@@ -103,20 +100,16 @@ export class AddTaskComponent implements OnInit {
   }
 
   toggleContactList(){
-    
-    this.showContactList = !this.showContactList
+     this.showContactList = !this.showContactList
   }
 
   chooseContact(name: string, color: string, id: string, index: number, shortcut:string): void {
-  
     const assignedArray = this.assigned;
     const existingIndex = assignedArray.controls.findIndex(control => control.value.id === id);
     if (existingIndex !== -1) {
       assignedArray.removeAt(existingIndex);
     } else {
       assignedArray.push(this.fb.control({ name, color, id, shortcut }));
-      console.log(this.addTaskForm.value);
-      
     }
     this.chosen[index] = !this.chosen[index];
   }

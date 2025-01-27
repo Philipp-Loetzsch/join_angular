@@ -1,40 +1,137 @@
-<div class="details-header">
+<div *ngIf="detailsContent" class="detail-task">
+  <div class="details-header">
     <span class="category-headline--userstory">hi</span>
-    <button (click)="closeDetails()"><img src="img/add_task/close.svg" alt=""></button>
-</div>
+    <button (click)="closeDetails()">
+      <img src="img/add_task/close.svg" alt="" />
+    </button>
+  </div>
 
-<div class="details-content">
+  <div class="details-content">
     <h1>titel</h1>
     <div>description</div>
     <div>
-        <span class="field-name">Due date:</span>
-        <div>Date</div>
+      <label class="field-name">Due date:</label>
+      <div>Date</div>
     </div>
     <div>
-        <span>Priority:</span>
-        <div>Mediuim <img src="img/add_task/medium.svg" alt=""></div>
+      <label>Priority:</label>
+      <div>Mediuim <img src="img/add_task/medium.svg" alt="" /></div>
     </div>
     <div>
-        <span>Assigend To:</span>
-        <ul>
-            <li>
-                <div class="shortcut--small">EM</div>
-                <span>Emmanuel Mauer</span>
-            </li>
-        </ul>
+      <label>Assigend To:</label>
+      <ul>
+        <li>
+          <div class="shortcut--small">EM</div>
+          <span>Emmanuel Mauer</span>
+        </li>
+      </ul>
     </div>
     <div>
-        <span>Subtasks</span>
-        <ul>
-            <li>
-                <img src="img/Property Default.svg" alt="">
-                <span>text</span>
-            </li>
-        </ul>
+      <label>Subtasks</label>
+      <ul>
+        <li>
+          <img src="img/Property Default.svg" alt="" />
+          <span>text</span>
+        </li>
+      </ul>
     </div>
-</div>
-<div class="details-footer">
+  </div>
+  <div class="details-footer">
     <button>Delete</button>
     <div class="separator"></div>
-    <button>Edit</button>
+    <button (click)="showEditMode()">Edit</button>
+  </div>
+</div>
+
+<div *ngIf="editDetails">
+  <div>
+    <button (click)="closeDetails()">
+      <img src="img/add_task/close.svg" alt="" />
+    </button>
+  </div>
+  <form class="details-content">
+    <div>
+      <label for="title">Title</label>
+      <input type="text" id="title" name="title" class="input-field" />
+      <label for="description">Description</label>
+      <textarea name="description" id="description"></textarea>
+      <label for="dueDate">Due date</label>
+      <mat-form-field appearance="fill" class="input-field--nopadding"> 
+         <mat-label>DD/MM/YYYY</mat-label>
+        <input
+          matInput
+          [matDatepicker]="picker"
+          id="dueDate"
+          formControlName="dueDate"
+        />
+        <mat-datepicker-toggle matSuffix [for]="picker"> </mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+       </mat-form-field> 
+       <label for="priority"><b>Priority</b></label>
+       <div class="btn-prio">
+        <button
+          type="button"
+          (click)="editTaskForm.get('priority')?.setValue('Urgent'); chosenPrio = 'urgent'" [ngClass]="{ urgent: chosenPrio === 'urgent' }">
+          Urgent
+          <img
+            [src]="chosenPrio === 'urgent' ? 'img/add_task/urgent_white.svg' : 'img/add_task/urgent.svg'" alt=""/>
+        </button>
+        <button
+          type="button"
+          (click)="editTaskForm.get('priority')?.setValue('Medium'); chosenPrio = 'medium'"[ngClass]="{ medium: chosenPrio === 'medium' }">
+          Medium
+          <img
+            [src]="chosenPrio === 'medium' ? 'img/add_task/medium_white.svg' : 'img/add_task/medium.svg'" alt=""/>
+        </button>
+        <button
+          type="button"
+          (click)=" editTaskForm.get('priority')?.setValue('Low'); chosenPrio = 'low'"[ngClass]="{ low: chosenPrio === 'low' }"
+        >
+          Low
+          <img
+            [src]="chosenPrio === 'low' ? 'img/add_task/low_white.svg' : 'img/add_task/low.svg'"
+            alt=""
+          />
+        </button>
+      </div>
+      <label for="assigned">Assigend To</label>
+      <div 
+        class="input-field contact-field">
+        <input
+          (focus)="showContactList = true"
+          type="text"
+          id="assigned"
+          placeholder="Select contacts to assign"
+          class="font-black"
+          #assingedInput
+          (keyup)="filterContacts(assingedInput.value)"
+        />
+        <button type="button" (click)="toggleContactList()"> 
+          <img  [src]="'img/add_task/arrow_drop_down.svg'" [ngClass]="{ 'rotated': showContactList }" alt=""/>
+        </button>
+       
+        <div *ngIf="showContactList" class="contact-list">
+          <ul *ngFor="let contact of filteredContacts let i = index" >
+            <li 
+              class="single-contact" 
+              [ngClass]="{'single-contact--chosen' : chosen[i] }" 
+              (click)="chooseContact(contact.name, contact.color, contact.id, i, contact.shortcut)" >
+              <div>
+                <span class="shortcut--small" [style.backgroundColor]="contact.color">{{contact.shortcut }}</span> 
+                <span>{{contact.name}}</span>
+              </div>
+              <img [src]="(chosen[i]) ? 'img/add_task/check_button_checked.svg' : 'img/add_task/check_button.svg'" alt="">
+            </li>
+          </ul>
+        </div>
+        <div class="chosen-contacts">
+          <ul *ngFor="let chosenContact of assigned.value">
+            <li class="single-contact"> 
+              <span class="shortcut--small" [style.backgroundColor]="chosenContact.color">{{ chosenContact.shortcut }}</span> 
+              <span>{{chosenContact.name}}</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </form>
 </div>
