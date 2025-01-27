@@ -36,9 +36,6 @@ export class AddTaskComponent implements OnInit {
   haveCategory:boolean = false
   textCategory:string='Select contacts to assign'
 
-  
-  
-
   constructor(private fb: FormBuilder, private userDataService: UserDatasService,) {
     this.addTaskForm = this.fb.group({
       title: ['', Validators.required],
@@ -52,8 +49,6 @@ export class AddTaskComponent implements OnInit {
     });
   }
   
-
-
   get assigned(): FormArray {
     return this.addTaskForm.get('assigned') as FormArray;
   }
@@ -79,14 +74,15 @@ export class AddTaskComponent implements OnInit {
     }
   }
 
-  
-
   hideTask():void{
     this.hideAddTask.emit();
   }
 
   onSubmit(): void {
     if (this.addTaskForm.valid && this.haveCategory) {
+      this.addTaskForm.patchValue({status: this.status})
+      console.log(this.addTaskForm.value);
+      
       const formValue = this.addTaskForm.value;
       formValue.dueDate = new Date(formValue.dueDate).getTime();
      this.userDataService.createTask(this.addTaskForm)
@@ -111,7 +107,6 @@ export class AddTaskComponent implements OnInit {
     this.showContactList = !this.showContactList
   }
 
-
   chooseContact(name: string, color: string, id: string, index: number, shortcut:string): void {
   
     const assignedArray = this.assigned;
@@ -126,7 +121,6 @@ export class AddTaskComponent implements OnInit {
     this.chosen[index] = !this.chosen[index];
   }
   
-
   filterContacts(value:string){
     console.log(this.filteredContacts);
     console.log(value);
@@ -139,6 +133,7 @@ export class AddTaskComponent implements OnInit {
   toggleCategorySelector(){
     this.showCategorySelector = !this.showCategorySelector
   }
+
   chooseCategory(chosenCategory: string) {
     const formValue = this.addTaskForm.value;
     this.addTaskForm.patchValue({ category: chosenCategory });
@@ -147,7 +142,6 @@ export class AddTaskComponent implements OnInit {
     this.haveCategory = true;
   }
   
-
    addSubtask(content: HTMLInputElement):void{
     const subtaskValue = content.value.trim();
     const complete = false
@@ -159,6 +153,7 @@ export class AddTaskComponent implements OnInit {
    editSubtask(i:number){
 
    }
+   
    deleteSubtask(i:number){
     this.subtasks.removeAt(i)
    }

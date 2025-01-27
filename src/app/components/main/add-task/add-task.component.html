@@ -1,6 +1,6 @@
 <div class="add-task_header">
 <h1>Add Task</h1>
-<button *ngIf="board"><img src="img/add_task/close.svg" alt="" (click)="hideTask()"></button>
+<button *ngIf="board" (click)="hideTask()"><img src="img/add_task/close.svg" alt="" ></button>
 </div>
 <form [formGroup]="addTaskForm" (ngSubmit)="onSubmit()">
   <div>

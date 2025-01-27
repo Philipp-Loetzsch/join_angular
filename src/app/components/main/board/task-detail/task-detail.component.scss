@@ -1,0 +1,15 @@
+@import "./../board.component.scss";
+
+.details-header {
+  @include arrangement($jc: space-between);
+}
+
+.details-content {
+  flex: 1;
+}
+
+.details-footer {
+  display: flex;
+  width: 100%;
+  justify-content: end;
+}

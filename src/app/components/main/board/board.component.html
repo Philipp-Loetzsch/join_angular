@@ -82,18 +82,23 @@
     class="board-content"
     *ngFor="let taskGroup of tasks"
   >
+
     <div class="board-content_header">
       <h2>{{ taskGroup.title }}</h2>
-      <button class="btn-add-task" (click)="openAddTask(taskGroup.id)">
+      <button class="btn-add-task" *ngIf="taskGroup.id !== 'done'" (click)="openAddTask(taskGroup.id)">
         <img src="img/plus.svg" alt="plus" />
       </button>
     </div>
-     <div
+    <div class="no-task" *ngIf="taskGroup.tasks.length === 0">
+      No tasks {{ taskGroup.title.toLowerCase() }}
+    </div>
+    <div
       cdkDropList
       [id]="taskGroup.id"
       [cdkDropListData]="taskGroup.tasks"
       class="board-content_cards"
       (cdkDropListDropped)="drop($event)"
+      (click)="showTaskDetails = true"
     > 
       <div
         class="card"
@@ -129,11 +134,7 @@
           />
         </div>
       </div>
-    </div>
-
-    <div class="no-task" *ngIf="taskGroup.tasks.length === 0">
-      No tasks {{ taskGroup.title.toLowerCase() }}
-    </div>
+    </div>    
   </div>
 </div>
 <div
@@ -147,4 +148,14 @@
     (hideAddTask)="showAddTask = false"
     (click)="$event.stopPropagation()"
   ></app-add-task>
+</div>
+
+<div 
+  class="task-details"
+  *ngIf="showTaskDetails || true"
+  (click)="showTaskDetails = false"
+>
+  <app-task-detail
+  (hideDetails)="showTaskDetails = false" 
+  (click)="$event.stopPropagation()"></app-task-detail>
 </div>

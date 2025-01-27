@@ -53,6 +53,7 @@ import {
 } from '@angular/cdk/drag-drop';
 import { Tasks } from '../../../interfaces/interfaces';
 import { AddTaskComponent } from '../add-task/add-task.component';
+import { TaskDetailComponent } from './task-detail/task-detail.component';
 
 type TaskGroup = {
   id: string;
@@ -67,6 +68,7 @@ type TaskGroup = {
     MatProgressBarModule,
     DragDropModule,
     AddTaskComponent,
+    TaskDetailComponent
   ],
   templateUrl: './board.component.html',
   styleUrls: ['./board.component.scss'],
@@ -79,6 +81,7 @@ export class BoardComponent implements OnInit {
   showAddTask: boolean = false;
   status!: string;
   tasks: TaskGroup[] = [];
+  showTaskDetails:boolean = false 
   constructor(private userDataService: UserDatasService) {}
 
   ngOnInit(): void {
@@ -98,26 +101,22 @@ export class BoardComponent implements OnInit {
   getTasks() {
     const allTasks = this.userDataService.tasks; // Fetch all tasks
     this.tasksTodo = allTasks.filter((task) => task.status === 'todo');
-    this.tasksInProgress = allTasks.filter(
-      (task) => task.status === 'in progress'
-    );
-    this.tasksAwaitFeedback = allTasks.filter(
-      (task) => task.status === 'await feedback'
-    );
+    this.tasksInProgress = allTasks.filter((task) => task.status === 'inProgress');
+    this.tasksAwaitFeedback = allTasks.filter((task) => task.status === 'feedback');
     this.tasksDone = allTasks.filter((task) => task.status === 'done');
     this.tasks = [
-      { id: 'todoList', title: 'To do', tasks: this.tasksTodo },
+      { id: 'todo', title: 'To do', tasks: this.tasksTodo },
       {
-        id: 'inProgressList',
+        id: 'in Progress',
         title: 'In progress',
         tasks: this.tasksInProgress,
       },
       {
-        id: 'awaitFeedbackList',
+        id: 'feedback',
         title: 'Await feedback',
         tasks: this.tasksAwaitFeedback,
       },
-      { id: 'doneList', title: 'Done', tasks: this.tasksDone },
+      { id: 'done', title: 'Done', tasks: this.tasksDone },
     ];
     console.log(this.tasks);
   }
@@ -173,13 +172,13 @@ export class BoardComponent implements OnInit {
   // Status des Tasks aktualisieren
   getStatusFromContainerId(containerId: string): string {
     switch (containerId) {
-      case 'todoList':
+      case 'todo':
         return 'todo';
-      case 'inProgressList':
+      case 'inProgress':
         return 'inprogress';
-      case 'awaitFeedbackList':
+      case 'awaitFeedback':
         return 'feedback';
-      case 'doneList':
+      case 'done':
         return 'done';
       default:
         return '';

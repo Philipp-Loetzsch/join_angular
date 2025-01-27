@@ -23,14 +23,16 @@
 .board {
   max-width: 1400px;
   max-height: calc(100vh - 280px);
-  @include arrangement($jc: space-between, $g: 20px, $ai: start);
+  @include arrangement($jc: space-between, $g: 20px, $ai: center);
   .board-content {
     overflow: hidden;
     display: flex;
     flex-direction: column;
     height: 100%;
+    width: 100%;
     .board-content_header {
       @include arrangement($jc: space-between);
+      max-width: 250px;
     }
     .btn-add-task {
       border: 2px solid black;
@@ -61,31 +63,31 @@
   }
 }
 
+.category-headline {
+  padding: 4px 16px;
+  color: white;
+  width: max-content;
+  border-radius: 10px;
+  &--technicaltask {
+    @extend .category-headline;
+    background-color: #1fd7c1;
+  }
+  &--userstory {
+    @extend .category-headline;
+    background-color: #0038ff;
+  }
+}
+
 .card {
   background-color: white;
   padding: 16px;
+  box-sizing: border-box;
   border-radius: 24px;
   margin-bottom: 20px;
   max-width: 250px;
   display: flex;
   flex-direction: column;
   gap: 10px;
-
-  .category-headline {
-    padding: 4px 16px;
-    color: white;
-    width: max-content;
-    border-radius: 10px;
-    &--technicaltask {
-      @extend .category-headline;
-      background-color: #1fd7c1;
-    }
-    &--userstory {
-      @extend .category-headline;
-      background-color: #0038ff;
-    }
-  }
-
   .h4 {
     font-weight: 700;
   }
@@ -132,4 +134,18 @@ app-add-task{
 
 .cdk-drag-animating {
   transition: transform 200ms cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+.task-details{
+  @include popover();
+  @include arrangement();
+}
+app-task-detail{
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  padding: 40px;
+  box-sizing: border-box;
+  border-radius: 20px;
+  height: 80%;
+  width: 30%;
 }
