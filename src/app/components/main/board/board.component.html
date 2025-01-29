@@ -98,12 +98,12 @@
       [cdkDropListData]="taskGroup.tasks"
       class="board-content_cards"
       (cdkDropListDropped)="drop($event)"
-      (click)="showTaskDetails = true"
     > 
       <div
         class="card"
         *ngFor="let task of taskGroup.tasks; let i = index"
         cdkDrag
+        (click)="openCardDetail(i)"
       >
         <div class="category-headline--{{ task.category.toLocaleLowerCase().split(' ').join('') }}">
           {{ task.category }}

@@ -1,23 +1,26 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { ReactiveFormsModule, FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
+import { ReactiveFormsModule, FormBuilder, FormGroup, Validators, FormArray, FormsModule, FormControl } from '@angular/forms';
 import { UserDatasService } from '../../../services/user-datas.service';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule } from '@angular/material/core';
 import { Contact } from '../../../interfaces/interfaces';
+import { PriorityComponent } from '../add-task-templates/priority/priority.component';
 
-
-type Chosen ={
-  name:string;
-  color:string;
-  id:string;
-}
 @Component({
   selector: 'app-add-task',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule,MatDatepickerModule, MatFormFieldModule, MatInputModule, MatNativeDateModule],
+  imports: [CommonModule, 
+            ReactiveFormsModule,
+            MatDatepickerModule, 
+            MatFormFieldModule, 
+            MatInputModule, 
+            MatNativeDateModule,
+            PriorityComponent,
+            FormsModule,
+           ],
   templateUrl: './add-task.component.html',
   styleUrls: ['./add-task.component.scss'],
 })
@@ -27,7 +30,6 @@ export class AddTaskComponent implements OnInit {
   @Output() hideAddTask = new EventEmitter<void>();
 
   addTaskForm: FormGroup;
-  chosenPrio: string = 'medium'
   showContactList:boolean = false
   contacts:Contact[]=[]
   filteredContacts!: Contact[]
@@ -56,6 +58,7 @@ export class AddTaskComponent implements OnInit {
   get subtasks(): FormArray {
     return this.addTaskForm.get('subtasks') as FormArray;
   }
+  
 
   async ngOnInit(): Promise<void> {
     this.contacts = this.userDataService.contactsList
@@ -128,7 +131,6 @@ export class AddTaskComponent implements OnInit {
   }
 
   chooseCategory(chosenCategory: string) {
-    const formValue = this.addTaskForm.value;
     this.addTaskForm.patchValue({ category: chosenCategory });
     this.textCategory = chosenCategory;
     this.showCategorySelector = false;

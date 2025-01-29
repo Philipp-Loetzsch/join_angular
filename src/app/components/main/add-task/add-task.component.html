@@ -107,35 +107,8 @@
         {{addTaskForm.get("dueDate")?.touched &&addTaskForm.get("dueDate")?.invalid ? "This field is required" : ""}}
       </label>
 
-      <div class="prio">
-        <span>Prio</span>
-        <div class="btn-prio">
-          <button
-            type="button"
-            (click)="addTaskForm.get('priority')?.setValue('Urgent'); chosenPrio = 'urgent'" [ngClass]="{ urgent: chosenPrio === 'urgent' }">
-            Urgent
-            <img
-              [src]="chosenPrio === 'urgent' ? 'img/add_task/urgent_white.svg' : 'img/add_task/urgent.svg'" alt=""/>
-          </button>
-          <button
-            type="button"
-            (click)="addTaskForm.get('priority')?.setValue('Medium'); chosenPrio = 'medium'"[ngClass]="{ medium: chosenPrio === 'medium' }">
-            Medium
-            <img
-              [src]="chosenPrio === 'medium' ? 'img/add_task/medium_white.svg' : 'img/add_task/medium.svg'" alt=""/>
-          </button>
-          <button
-            type="button"
-            (click)=" addTaskForm.get('priority')?.setValue('Low'); chosenPrio = 'low'"[ngClass]="{ low: chosenPrio === 'low' }"
-          >
-            Low
-            <img
-              [src]="chosenPrio === 'low' ? 'img/add_task/low_white.svg' : 'img/add_task/low.svg'"
-              alt=""
-            />
-          </button>
-        </div>
-      </div>
+      <app-priority formControlName="priority"></app-priority>
+      
       <label for="category">Category<span class="required">*</span></label>
       <div class="category-field">
         <button 

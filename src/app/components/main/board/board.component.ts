@@ -82,6 +82,7 @@ export class BoardComponent implements OnInit {
   status!: string;
   tasks: TaskGroup[] = [];
   showTaskDetails:boolean = false 
+  chosenTask!:Tasks
   constructor(private userDataService: UserDatasService) {}
 
   ngOnInit(): void {
@@ -193,6 +194,10 @@ export class BoardComponent implements OnInit {
     this.status = status;
     console.log(status);
     
+  }
+
+  openCardDetail(i:number){
+    this.showTaskDetails = true
   }
 
   // updateTaskStatus(updatedTask: Tasks) {
