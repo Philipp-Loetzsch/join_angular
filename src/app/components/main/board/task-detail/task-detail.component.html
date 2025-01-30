@@ -68,24 +68,27 @@
         <mat-datepicker #picker></mat-datepicker>
        </mat-form-field> 
        <label for="priority"><b>Priority</b></label>
-       <div class="btn-prio">
+       <app-priority formControlName="priority" [chosenPrio]="chosenPrio"></app-priority>
+
+       
+       <!-- <div class="btn-prio">
         <button
           type="button"
-          (click)="editTaskForm.get('priority')?.setValue('Urgent'); chosenPrio = 'urgent'" [ngClass]="{ urgent: chosenPrio === 'urgent' }">
+          (click)="editTaskForm.get('priority')?.setValue('Urgent'); chosenPrio = 'Urgent'" [ngClass]="{ urgent: chosenPrio === 'Urgent' }">
           Urgent
           <img
             [src]="chosenPrio === 'urgent' ? 'img/add_task/urgent_white.svg' : 'img/add_task/urgent.svg'" alt=""/>
         </button>
         <button
           type="button"
-          (click)="editTaskForm.get('priority')?.setValue('Medium'); chosenPrio = 'medium'"[ngClass]="{ medium: chosenPrio === 'medium' }">
+          (click)="editTaskForm.get('priority')?.setValue('Medium'); chosenPrio = 'Medium'"[ngClass]="{ medium: chosenPrio === 'Medium' }">
           Medium
           <img
             [src]="chosenPrio === 'medium' ? 'img/add_task/medium_white.svg' : 'img/add_task/medium.svg'" alt=""/>
         </button>
         <button
           type="button"
-          (click)=" editTaskForm.get('priority')?.setValue('Low'); chosenPrio = 'low'"[ngClass]="{ low: chosenPrio === 'low' }"
+          (click)=" editTaskForm.get('priority')?.setValue('Low'); chosenPrio = 'Low'"[ngClass]="{ low: chosenPrio === 'Low' }"
         >
           Low
           <img
@@ -93,7 +96,7 @@
             alt=""
           />
         </button>
-      </div>
+      </div> -->
       <label for="assigned">Assigend To</label>
       <div 
         class="input-field contact-field">

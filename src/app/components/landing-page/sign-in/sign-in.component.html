@@ -106,13 +106,17 @@
         <span>I accept the</span>
         <a [routerLink]="['/main/privacy_policy']">Privacy Policy</a>
       </div>
+      <label 
+        for="accept-terms"
+        [ngClass]="{ 'required-text' : signupForm.get('check')?.touched}"
+        class="empty-field"
+        >
+          {{signupForm.get('check')?.invalid && signupForm.get('check')?.touched  ? 'please accept terms' : ''}}
+      </label>
       
 
       <div class="btns-log-in">
-        <button class="btn-primary--default" type="submit">Log in</button>
-        <button class="btn-secondary--default" type="button">
-          Guest Log in
-        </button>
+        <button class="btn-primary--default" type="submit">Sign up</button>
       </div>
     </form>
   </section>

@@ -4,7 +4,12 @@
 </div>
 <form [formGroup]="addTaskForm" (ngSubmit)="onSubmit()">
   <div>
+   
     <div>
+       <!-- <app-title-description [formGroup]="textFormGroup"></app-title-description>  -->
+    
+    
+
       <label for="title">Title<span class="required">*</span></label>
       <input
       type="text"
@@ -107,8 +112,9 @@
         {{addTaskForm.get("dueDate")?.touched &&addTaskForm.get("dueDate")?.invalid ? "This field is required" : ""}}
       </label>
 
+      <span>Prio</span>
       <app-priority formControlName="priority"></app-priority>
-      
+
       <label for="category">Category<span class="required">*</span></label>
       <div class="category-field">
         <button 

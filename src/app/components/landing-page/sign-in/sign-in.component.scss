@@ -23,4 +23,11 @@
       }
     }
   }
+  >a{
+    text-decoration: none;
+    color: #29ABE2;
+    &:hover{
+      text-decoration: underline;
+    }
+  }
 }

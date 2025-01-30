@@ -1,6 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component, forwardRef } from '@angular/core';
-import { FormsModule, ReactiveFormsModule, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Component, forwardRef, Input } from '@angular/core';
+import {
+  FormsModule,
+  ReactiveFormsModule,
+  ControlValueAccessor,
+  NG_VALUE_ACCESSOR,
+} from '@angular/forms';
 
 @Component({
   selector: 'app-priority',
@@ -12,22 +17,21 @@ import { FormsModule, ReactiveFormsModule, ControlValueAccessor, NG_VALUE_ACCESS
     {
       provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => PriorityComponent),
-      multi: true
-    }
-  ]
+      multi: true,
+    },
+  ],
 })
 export class PriorityComponent implements ControlValueAccessor {
-  chosenPrio: string = '';
+  @Input()chosenPrio: string = '';
 
-  private onChange: (value: string) => void = () => {};
-  private onTouched: () => void = () => {};
+  onChange: (value: string) => void = () => {};
+  onTouched: () => void = () => {};
 
   setPriority(priority: string) {
     this.chosenPrio = priority;
     this.onChange(priority);
     this.onTouched();
     console.log(this.chosenPrio);
-    
   }
 
   writeValue(value: string): void {

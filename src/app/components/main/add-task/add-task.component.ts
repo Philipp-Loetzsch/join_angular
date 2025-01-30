@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { ReactiveFormsModule, FormBuilder, FormGroup, Validators, FormArray, FormsModule, FormControl } from '@angular/forms';
+import { ReactiveFormsModule, FormBuilder, FormGroup, Validators, FormArray, FormsModule } from '@angular/forms';
 import { UserDatasService } from '../../../services/user-datas.service';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -8,18 +8,20 @@ import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule } from '@angular/material/core';
 import { Contact } from '../../../interfaces/interfaces';
 import { PriorityComponent } from '../add-task-templates/priority/priority.component';
+import { TitleDescriptionComponent } from '../add-task-templates/title-description/title-description.component';
 
 @Component({
   selector: 'app-add-task',
   standalone: true,
-  imports: [CommonModule, 
+  imports: [CommonModule,
+            FormsModule, 
             ReactiveFormsModule,
             MatDatepickerModule, 
             MatFormFieldModule, 
             MatInputModule, 
             MatNativeDateModule,
             PriorityComponent,
-            FormsModule,
+            TitleDescriptionComponent
            ],
   templateUrl: './add-task.component.html',
   styleUrls: ['./add-task.component.scss'],
@@ -40,8 +42,10 @@ export class AddTaskComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private userDataService: UserDatasService,) {
     this.addTaskForm = this.fb.group({
-      title: ['', Validators.required],
-      description: [''],
+      // text: this.fb.group({
+        title: ['', Validators.required],
+        description: [''],
+    //  }),
       assigned: this.fb.array([], Validators.required), 
       dueDate: ['', Validators.required],
       priority: ['Medium'],
@@ -57,6 +61,10 @@ export class AddTaskComponent implements OnInit {
 
   get subtasks(): FormArray {
     return this.addTaskForm.get('subtasks') as FormArray;
+  }
+  
+  get textFormGroup(): FormGroup {
+    return this.addTaskForm.get('text') as FormGroup;
   }
   
 
@@ -79,6 +87,8 @@ export class AddTaskComponent implements OnInit {
   }
 
   onSubmit(): void {
+    console.log(this.addTaskForm.value);
+    
     if (this.addTaskForm.valid && this.haveCategory) {
       this.addTaskForm.patchValue({status: this.status})
       console.log(this.addTaskForm.value);
@@ -97,9 +107,10 @@ export class AddTaskComponent implements OnInit {
     this.subtasks.clear();
   }
 
-  isFieldInvalid(field:string): boolean | undefined{
+  isFieldInvalid(field:string): boolean{
     const control = this.addTaskForm.get(field);
-    return control?.touched && control?.invalid;
+    return (control?.touched && control?.invalid) || false;
+
   }
 
   toggleContactList(){

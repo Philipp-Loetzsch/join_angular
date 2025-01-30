@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Auth, signInWithEmailAndPassword } from '@angular/fire/auth';
 import { FormGroup } from '@angular/forms';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
 
 
 @Injectable({
@@ -10,6 +11,17 @@ export class AuthService {
 
   constructor(private auth: Auth) {}
   
+
+  createNewUser(signUpForm: FormGroup){
+    const {email, password} = signUpForm.value
+    createUserWithEmailAndPassword(this.auth, email, password).then((user) => {
+      console.log(user.user);
+      
+    })
+
+    
+  }
+
   async getUserId(loginForm: FormGroup):Promise<string>{
     const {email, password} = loginForm.value
     try {

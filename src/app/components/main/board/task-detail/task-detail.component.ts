@@ -7,6 +7,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { UserDatasService } from '../../../../services/user-datas.service';
 import { Contact } from '../../../../interfaces/interfaces';
+import { PriorityComponent } from '../../add-task-templates/priority/priority.component';
 
 @Component({
   selector: 'app-task-detail',
@@ -17,6 +18,7 @@ import { Contact } from '../../../../interfaces/interfaces';
     MatFormFieldModule,
     MatInputModule,
     MatNativeDateModule,
+    PriorityComponent,
   ],
   templateUrl: './task-detail.component.html',
   styleUrl: './task-detail.component.scss',
@@ -25,7 +27,7 @@ export class TaskDetailComponent {
   @Output() hideDetails = new EventEmitter<void>();
   detailsContent: boolean = true;
   editDetails: boolean = false;
-  chosenPrio: string = 'medium';
+  chosenPrio: string = 'Medium';
   editTaskForm: FormGroup;
   showContactList: boolean = false;
   contacts: Contact[] = [];
@@ -66,7 +68,7 @@ export class TaskDetailComponent {
     id: string,
     index: number,
     shortcut: string
-  ){
+  ) {
     const assignedArray = this.assigned;
     const existingIndex = assignedArray.controls.findIndex(
       (control) => control.value.id === id
