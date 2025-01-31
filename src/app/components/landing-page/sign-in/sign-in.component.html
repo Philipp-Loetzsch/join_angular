@@ -119,9 +119,17 @@
         <button class="btn-primary--default" type="submit">Sign up</button>
       </div>
     </form>
+    <div *ngIf="showSuccessMessage" class="message--success">You Signed Up successfully</div>
+    <div *ngIf="showErrorMessage " class="message--error">Oops somthing went wrong</div>
   </section>
   <div class="footer">
     <a [routerLink]="['/main/privacy_policy']">Privacy Policy</a>
     <a [routerLink]="['/main/legal_notice']">Legal notice</a>
   </div>
 </main>
+<div class="loadingData" *ngIf="loadDatas">
+  <mat-spinner ></mat-spinner>
+  <span>Please wait, create User datas</span>
+</div>
+
+

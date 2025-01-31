@@ -1,5 +1,8 @@
 @import "./../log-in/log-in.component.scss";
 
+section{
+  position: relative;
+}
 .headline {
   display: flex;
   align-items: center;
@@ -31,3 +34,48 @@
     }
   }
 }
+
+.message{
+  position: absolute;
+  bottom: -80px;
+  padding: 25px;
+  border-radius: 20px;
+  color: white;
+  animation: slideIn 500ms forwards ease;
+  width: 200px;
+  text-align: center;
+  white-space: nowrap;
+  &--success{
+    @extend .message;
+    background-color: #2A3647;
+  }
+  &--error{
+    @extend .message;
+    background-color: red;
+  }
+}
+
+@keyframes slideIn {
+  from{right: -100%;}
+  to{right: 25%;}
+}
+
+.loadingData{
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  color: white;
+  font-weight: 600;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(128, 128, 128, 0.5);
+  >span{
+    font-size: 2rem;
+  }
+
+}
+

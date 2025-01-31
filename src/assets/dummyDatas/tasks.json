@@ -1,0 +1,49 @@
+[
+    {
+      "title": "Fix API Bug",
+      "description": "Resolve the login API bug",
+      "dueDate": 1706812800,
+      "priority": "Urgent",
+      "category": "Technical Task",
+      "subtasks": [{"title": "Debug issue"}, {"title": "Test fix"}],
+      "status": "todo"
+    },
+    {
+      "title": "Design Homepage",
+      "description": "Create a new design for the landing page",
+      "dueDate": 1706899200,
+      "priority": "Medium",
+      "category": "User Task",
+      "subtasks": [],
+      "status": "inProgress"
+    },
+    {
+      "title": "Database Migration",
+      "description": "Migrate the database to the new server",
+      "dueDate": 1707000000,
+      "priority": "High",
+      "category": "Technical Task",
+      "subtasks": [{"title": "Backup old database"}, {"title": "Run migration scripts"}],
+      "status": "todo"
+    },
+    {
+      "title": "Write Documentation",
+      "description": "Complete the project documentation",
+      "dueDate": 1707100000,
+      "priority": "Medium",
+      "category": "User Task",
+      "subtasks": [{"title": "Write API docs"}, {"title": "Review content"}],
+      "status": "inProgress"
+    },
+    {
+      "title": "Team Meeting",
+      "description": "Weekly sync-up meeting",
+      "dueDate": 1707200000,
+      "priority": "Low",
+      "category": "User Task",
+      "subtasks": [{"title": "Prepare agenda"}, {"title": "Send invites"}],
+      "status": "todo"
+    }
+  ]
+  
+  
