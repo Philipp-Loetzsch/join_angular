@@ -12,7 +12,7 @@
   </div>
 </div>
 
-<!--<div class="board">
+<div class="board">
   <div class="board-content">
     <div class="board-content_header">
       <h2>To do</h2>
@@ -75,9 +75,9 @@
 </div>
 <div class="add-task" (click)="showAddTask=false" *ngIf="showAddTask">
 <app-add-task [board]="true" [status]="'todo'" (hideAddTask)="showAddTask = false" (click)="$event.stopPropagation()"></app-add-task>
-</div> -->
+</div>
 
-<div class="board">
+<!-- <div class="board">
   <div
     class="board-content"
     *ngFor="let taskGroup of tasks"
@@ -158,4 +158,4 @@
   <app-task-detail
   (hideDetails)="showTaskDetails = false" 
   (click)="$event.stopPropagation()"></app-task-detail>
-</div>
+</div> -->
