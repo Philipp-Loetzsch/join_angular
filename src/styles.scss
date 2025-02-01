@@ -114,6 +114,13 @@ app-add-task {
   overflow: hidden;
 }
 
+app-legal-notice, app-privacy-policy, app-help{
+  padding: 110px 0 0 90px;
+  box-sizing: border-box;
+  overflow: auto;
+}
+
+
 app-contacts {
   display: flex;
 }

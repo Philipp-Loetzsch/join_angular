@@ -20,7 +20,7 @@
     <div class="main-container_content_nav_header">
       <span>Kanban Project Management Tool</span>
       <div>
-        <a [routerLink]="['/main/help']"><img src="img/help.svg" alt="" /></a>
+        <a [routerLink]="['/main/help']" [queryParams]="{ UID: userDataService.currentUserID }"><img src="img/help.svg" alt="" /></a>
         <div class="menu">
           <button (click)="toggleMenu($event)">{{initials}}</button>
             <div *ngIf="showMenu" class="menu-navigation" (click)="notClose($event)">
