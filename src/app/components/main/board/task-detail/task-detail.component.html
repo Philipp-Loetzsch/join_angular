@@ -1,6 +1,6 @@
 <div *ngIf="detailsContent" class="detail-task">
   <div class="details-header">
-    <span class="category-headline--userstory">hi</span>
+    <span class="category-headline--{{chosenTask.category.toLocaleLowerCase().split(' ').join('')}}">{{chosenTask.category}}</span>
     <button (click)="closeDetails()">
       <img src="img/add_task/close.svg" alt="" />
     </button>
@@ -28,10 +28,10 @@
     </div>
     <div>
       <label>Subtasks</label>
-      <ul>
+      <ul *ngFor="let subtask of chosenTask.subtasks let i = index">
         <li>
-          <img src="img/Property Default.svg" alt="" />
-          <span>text</span>
+          <img [src]="subtask.complete ? 'img/Property checked.svg' : 'img/Property Default.svg' " alt="" />
+          <span>{{subtask.title}}</span>
         </li>
       </ul>
     </div>
@@ -52,12 +52,12 @@
   <form class="details-content">
     <div>
       <label for="title">Title</label>
-      <input type="text" id="title" name="title" class="input-field" />
+      <input type="text" id="title" name="title" class="input-field" value="{{editTaskForm.get('title')?.value}}"/>
       <label for="description">Description</label>
-      <textarea name="description" id="description"></textarea>
+      <textarea name="description" id="description" value="{{editTaskForm.get('description')?.value}}"></textarea>
       <label for="dueDate">Due date</label>
       <mat-form-field appearance="fill" class="input-field--nopadding"> 
-         <mat-label>DD/MM/YYYY</mat-label>
+         <mat-label>{{editTaskForm.get('dueDate')?.value}}</mat-label>
         <input
           matInput
           [matDatepicker]="picker"

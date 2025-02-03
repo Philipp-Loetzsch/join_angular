@@ -13,7 +13,7 @@
       "description": "Create a new design for the landing page",
       "dueDate": 1738623600000,
       "priority": "Medium",
-      "category": "User Task",
+      "category": "User Story",
       "subtasks": [],
       "status": "inProgress"
     },
@@ -31,7 +31,7 @@
       "description": "Complete the project documentation",
       "dueDate": 1738623600000,
       "priority": "Medium",
-      "category": "User Task",
+      "category": "User Story",
       "subtasks": [{"title": "Write API docs", "complete":"false"}, {"title": "Review content", "complete":"false"}],
       "status": "inProgress"
     },
@@ -40,7 +40,7 @@
       "description": "Weekly sync-up meeting",
       "dueDate": 1738623600000,
       "priority": "Low",
-      "category": "User Task",
+      "category": "User Story",
       "subtasks": [{"title": "Prepare agenda", "complete":"false"}, {"title": "Send invites" ,"complete":"false"}],
       "status": "todo"
     }

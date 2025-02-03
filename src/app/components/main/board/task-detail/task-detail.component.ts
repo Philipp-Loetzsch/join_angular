@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, input, Input, Output } from '@angular/core';
+import { Component, EventEmitter, input, Input, OnInit, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -23,13 +23,13 @@ import { PriorityComponent } from '../../add-task-templates/priority/priority.co
   templateUrl: './task-detail.component.html',
   styleUrl: './task-detail.component.scss',
 })
-export class TaskDetailComponent {
+export class TaskDetailComponent implements OnInit{
   @Input() chosenTask!:Tasks
   @Output() hideDetails = new EventEmitter<void>();
   detailsContent: boolean = true;
   editDetails: boolean = false;
   chosenPrio: string = 'Medium';
-  editTaskForm: FormGroup;
+  editTaskForm!: FormGroup;
   showContactList: boolean = false;
   contacts: Contact[] = [];
   filteredContacts!: Contact[];
@@ -39,16 +39,20 @@ export class TaskDetailComponent {
     private fb: FormBuilder,
     private userDataService: UserDatasService
   ) {
+      
+  }
+  
+  ngOnInit(): void {
     this.editTaskForm = this.fb.group({
-      title: ['', Validators.required],
-      description: [''],
-      assigned: this.fb.array([], Validators.required),
-      dueDate: ['', Validators.required],
-      priority: ['Medium'],
-      category: ['', Validators.required],
+      title: [this.chosenTask.title, Validators.required],
+      description: [this.chosenTask.description],
+      assigned: this.fb.array([this.chosenTask.assignedTo], Validators.required),
+      dueDate: [this.convertDate(this.chosenTask.dueDate), Validators.required],
+      priority: [this.chosenTask.prio],
+      category: [this.chosenTask.category, Validators.required],
       subtasks: this.fb.array([]),
-      status: [this.status],
-    });
+      status: [this.chosenTask.status],
+    }); 
   }
 
   get assigned(): FormArray {
@@ -97,7 +101,11 @@ export class TaskDetailComponent {
   }
 
   convertDate(timestamp:number):string{
-    const formattedDate = new Date(timestamp).toDateString()
+    const formattedDate = new Date(timestamp).toLocaleDateString('en-US', {
+      month: '2-digit',
+      day: '2-digit',
+      year: 'numeric'
+    });
     return formattedDate
   }
 }

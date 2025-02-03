@@ -53,8 +53,8 @@ export class BoardComponent implements OnInit {
   }
 
   openDetailCard(task: string , i:number){
-    this.chosenTask = this.tasksDone[i];
-    console.log(this.chosenTask + '' + i);
+    this.chosenTask = this.tasksTodo[i];
+    console.log(this.chosenTask.title + '' + i);
     
     this.showTaskDetails=true
   }
