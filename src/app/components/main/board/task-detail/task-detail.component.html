@@ -7,22 +7,22 @@
   </div>
 
   <div class="details-content">
-    <h1>titel</h1>
-    <div>description</div>
+    <h1>{{chosenTask.title}}</h1>
+    <div>{{chosenTask.description}}</div>
     <div>
       <label class="field-name">Due date:</label>
-      <div>Date</div>
+      <div>{{convertDate(chosenTask.dueDate)}}</div>
     </div>
     <div>
       <label>Priority:</label>
-      <div>Mediuim <img src="img/add_task/medium.svg" alt="" /></div>
+      <div>{{chosenTask.prio}} <img src="img/add_task/{{chosenTask.prio}}.svg" alt="" /></div>
     </div>
     <div>
       <label>Assigend To:</label>
-      <ul>
+      <ul *ngFor="let contact of chosenTask.assignedTo let i = index">
         <li>
-          <div class="shortcut--small">EM</div>
-          <span>Emmanuel Mauer</span>
+          <div class="shortcut--small" [style.backgroundColor]="contact.color">{{contact.shortcut}}</div>
+          <span>{{contact.name}}</span>
         </li>
       </ul>
     </div>

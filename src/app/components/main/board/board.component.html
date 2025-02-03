@@ -21,7 +21,7 @@
       </button>
     </div>
     <div class="board-content_cards">
-    <div *ngFor="let task of tasks let i=index " class="card">
+    <div *ngFor="let task of tasksTodo let i=index " class="card" (click)="openDetailCard('taskTodo', i)">
       <div class="category-headline--{{task.category.toLocaleLowerCase().split(' ').join('')}}">{{task.category}}</div>
       <h4>{{task.title}}</h4>
       <div class="task-description">{{task.description}}</div>
@@ -30,7 +30,7 @@
         <div class="progress-subtaks_status"> 0/{{task.subtasks.length}} Subtasks </div>
       </div>
       <div class="contact-priority">
-        <div *ngFor="let contact of task.assignedTo let i=index" >
+        <div *ngFor="let contact of task.assignedTo let i=index" class="shortcut--small" [style.backgroundColor]="contact.color">
           {{contact.shortcut}}
         </div>
         <img src="img/add_task/{{task.prio.toLocaleLowerCase()}}.svg" alt="">
@@ -48,6 +48,23 @@
       <button class="btn-add-task">
         <img src="img/plus.svg" alt="plus" />
       </button>
+    </div>
+    <div class="board-content_cards">
+      <div *ngFor="let task of tasksInProgress let i=index " class="card" (click)="openDetailCard('taskInProgress',i)">
+        <div class="category-headline--{{task.category.toLocaleLowerCase().split(' ').join('')}}">{{task.category}}</div>
+        <h4>{{task.title}}</h4>
+        <div class="task-description">{{task.description}}</div>
+        <div class="progress-subtaks">
+          <mat-progress-bar value="0"></mat-progress-bar>
+          <div class="progress-subtaks_status"> 0/{{task.subtasks.length}} Subtasks </div>
+        </div>
+        <div class="contact-priority">
+          <div *ngFor="let contact of task.assignedTo let i=index" class="shortcut--small" [style.backgroundColor]="contact.color">
+            {{contact.shortcut}}
+          </div>
+          <img src="img/add_task/{{task.prio.toLocaleLowerCase()}}.svg" alt="">
+        </div>
+      </div>
     </div>
     <div class="no-task">
         no Task To do
@@ -136,7 +153,7 @@
       </div>
     </div>    
   </div>
-</div>
+</div>-->
 <div
   class="add-task"
   (click)="showAddTask = false"
@@ -157,5 +174,6 @@
 >
   <app-task-detail
   (hideDetails)="showTaskDetails = false" 
-  (click)="$event.stopPropagation()"></app-task-detail>
-</div> -->
+  (click)="$event.stopPropagation()"
+  [chosenTask]="chosenTask"></app-task-detail>
+</div>

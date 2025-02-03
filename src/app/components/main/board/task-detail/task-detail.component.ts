@@ -1,12 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, input, Input, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { UserDatasService } from '../../../../services/user-datas.service';
-import { Contact } from '../../../../interfaces/interfaces';
+import { Contact, Tasks } from '../../../../interfaces/interfaces';
 import { PriorityComponent } from '../../add-task-templates/priority/priority.component';
 
 @Component({
@@ -24,6 +24,7 @@ import { PriorityComponent } from '../../add-task-templates/priority/priority.co
   styleUrl: './task-detail.component.scss',
 })
 export class TaskDetailComponent {
+  @Input() chosenTask!:Tasks
   @Output() hideDetails = new EventEmitter<void>();
   detailsContent: boolean = true;
   editDetails: boolean = false;
@@ -93,5 +94,10 @@ export class TaskDetailComponent {
     this.filteredContacts = this.contacts.filter((contact) =>
       contact.name.toLowerCase().includes(lowerCaseQuery)
     );
+  }
+
+  convertDate(timestamp:number):string{
+    const formattedDate = new Date(timestamp).toDateString()
+    return formattedDate
   }
 }

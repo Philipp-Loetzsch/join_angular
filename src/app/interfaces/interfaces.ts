@@ -9,7 +9,7 @@ export interface Contact {
 
 export interface Tasks {
   assignedTo: Assigned[];
-  subtasks:string[];
+  subtasks:Subtask[];
   description: string;
   dueDate: number;
   prio: string;
@@ -24,4 +24,9 @@ export interface Assigned{
   id:string;
   color:string;
   shortcut:string;
+}
+
+export interface Subtask{
+  title:string;
+  complete: boolean;
 }

@@ -51,7 +51,7 @@ export class AddTaskComponent implements OnInit {
       priority: ['Medium'],
       category: ['', Validators.required],
       subtasks: this.fb.array([]), 
-      status: [this.status]
+      status: [this.status, false]
     });
   }
   
@@ -90,7 +90,7 @@ export class AddTaskComponent implements OnInit {
     console.log(this.addTaskForm.value);
     
     if (this.addTaskForm.valid && this.haveCategory) {
-      this.addTaskForm.patchValue({status: this.status})
+      this.addTaskForm.patchValue({status: this.status, complete:false})
       console.log(this.addTaskForm.value);
       
       const formValue = this.addTaskForm.value;

@@ -9,7 +9,7 @@ import {
   deleteDoc,
 } from '@angular/fire/firestore';
 import { FormGroup } from '@angular/forms';
-import { Assigned, Contact, Tasks } from '../interfaces/interfaces';
+import { Assigned, Contact, Subtask, Tasks } from '../interfaces/interfaces';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Injectable({
@@ -64,7 +64,7 @@ export class UserDatasService {
       );
       const tasks = querySnapshot.docs.map((doc) => ({
         assignedTo: doc.data()['assigned'] as Assigned[],
-        subtasks: doc.data()['subtasks'] as string[],
+        subtasks: doc.data()['subtasks'] as Subtask[],
         description: doc.data()['description'] as string,
         dueDate: doc.data()['dueDate'] as number,
         prio: doc.data()['priority'] as string,

@@ -4,40 +4,59 @@ import { CommonModule } from '@angular/common';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { Tasks } from '../../../interfaces/interfaces';
 import { AddTaskComponent } from '../add-task/add-task.component';
+import { TaskDetailComponent } from './task-detail/task-detail.component';
 
 @Component({
   selector: 'app-board',
   standalone: true,
-  imports: [CommonModule, MatProgressBarModule, AddTaskComponent],
+  imports: [CommonModule, MatProgressBarModule, AddTaskComponent, TaskDetailComponent],
   templateUrl: './board.component.html',
   styleUrls: ['./board.component.scss'],
   providers: [],
 })
 export class BoardComponent implements OnInit {
-  tasks: Tasks[] = [];
+  allTasks: Tasks[] = [];
+  tasksTodo:Tasks[]=[]
+  tasksInProgress:Tasks[]=[]
+  tasksAwaitFeedback:Tasks[]=[]
+  tasksDone:Tasks[]=[]
   showAddTask: boolean = false;
+  showTaskDetails:boolean = false
   status!: string;
+  chosenTask!:Tasks
+
   constructor(private userDataService: UserDatasService) {}
 
   ngOnInit(): void {
-    this.getTasks();
+    const checkTasks = () => {
+            if (this.userDataService.tasks.length > 0) {
+              this.getTasks();
+            } else {
+              setTimeout(checkTasks, 200);
+            }
+          };
+          checkTasks()
+
   }
 
   getTasks() {
-    this.tasks = this.userDataService.tasks;
-    if (this.tasks.length === 0) {
-      const contactInterval = setInterval(() => {
-        this.tasks = this.userDataService.tasks;
-        if (this.tasks.length >= 0) {
-          clearInterval(contactInterval);
-        }
-      }, 1000);
-    }
+    const allTasks = this.userDataService.tasks; // Fetch all tasks
+    this.tasksTodo = allTasks.filter((task) => task.status === 'todo');
+    this.tasksInProgress = allTasks.filter((task) => task.status === 'inProgress');
+    this.tasksAwaitFeedback = allTasks.filter((task) => task.status === 'feedback');
+    this.tasksDone = allTasks.filter((task) => task.status === 'done');
   }
 
   openAddTask(status: string) {
     this.showAddTask = true;
     this.status = status;
+  }
+
+  openDetailCard(task: string , i:number){
+    this.chosenTask = this.tasksDone[i];
+    console.log(this.chosenTask + '' + i);
+    
+    this.showTaskDetails=true
   }
 }
 
