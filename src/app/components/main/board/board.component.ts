@@ -25,6 +25,8 @@ export class BoardComponent implements OnInit {
   status!: string;
   chosenTask!:Tasks
 
+
+
   constructor(private userDataService: UserDatasService) {}
 
   ngOnInit(): void {
@@ -52,8 +54,11 @@ export class BoardComponent implements OnInit {
     this.status = status;
   }
 
-  openDetailCard(task: string , i:number){
-    this.chosenTask = this.tasksTodo[i];
+  openDetailCard(task: string , i:number):void{
+    const taskNames = ['tasksTodo', 'tasksInProgress', 'tasksAwaitFeedback', 'tasksDone']
+    const validTask = this[task as keyof BoardComponent] as Tasks[]
+    if(taskNames.includes(task)) this.chosenTask = validTask[i];
+   
     console.log(this.chosenTask.title + '' + i);
     
     this.showTaskDetails=true

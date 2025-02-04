@@ -36,11 +36,8 @@ export class SummaryComponent implements OnInit {
   constructor(public userDataService: UserDatasService) {}
 
   async ngOnInit(): Promise<void> {
-    console.log('hello');
-    
     this.greetingName = await this.userDataService.getUserName();
     if (this.userDataService.tasks.length === 0) {
-   
       const load = setInterval(() => {
         this.getAmountTasks();
         this.getUrgentDate();
@@ -54,13 +51,14 @@ export class SummaryComponent implements OnInit {
     this.getUrgentDate();
     this.getGreetingText()
   }
+
   getAmountTasks() {
     this.userDataService.tasks.forEach(({ status, prio }) => {
       if (status in this.taskAmount) {
         this.taskAmount[status as keyof Amount]++;
         this.taskAmount.additional++;
       }
-      if (prio === 'urgent') {
+      if (prio === 'Urgent') {
         this.taskAmount.urgent++;
       }
     });  

@@ -21,7 +21,7 @@
       </button>
     </div>
     <div class="board-content_cards">
-    <div *ngFor="let task of tasksTodo let i=index " class="card" (click)="openDetailCard('taskTodo', i)">
+    <div *ngFor="let task of tasksTodo let i=index " class="card" (click)="openDetailCard('tasksTodo', i)">
       <div class="category-headline--{{task.category.toLocaleLowerCase().split(' ').join('')}}">{{task.category}}</div>
       <h4>{{task.title}}</h4>
       <div class="task-description">{{task.description}}</div>
@@ -30,13 +30,19 @@
         <div class="progress-subtaks_status"> 0/{{task.subtasks.length}} Subtasks </div>
       </div>
       <div class="contact-priority">
-        <div *ngFor="let contact of task.assignedTo let i=index" class="shortcut--small" [style.backgroundColor]="contact.color">
+        <div class="shortcuts">
+        <div *ngFor="let contact of task.assignedTo let i=index" 
+             class="shortcut--small" 
+             [style.backgroundColor]="contact.color" 
+             [style.transform]="'translateX(' + (-10 * i) + 'px)'"
+        >
           {{contact.shortcut}}
+        </div>
         </div>
         <img src="img/add_task/{{task.prio.toLocaleLowerCase()}}.svg" alt="">
       </div>
     </div>
-    <div class="no-task" >
+    <div class="no-task" *ngIf="tasksTodo.length == 0">
       No tasks To do
   </div>
   </div>
@@ -50,23 +56,30 @@
       </button>
     </div>
     <div class="board-content_cards">
-      <div *ngFor="let task of tasksInProgress let i=index " class="card" (click)="openDetailCard('taskInProgress',i)">
+      <div *ngFor="let task of tasksInProgress let i=index " class="card" (click)="openDetailCard('tasksInProgress',i)">
         <div class="category-headline--{{task.category.toLocaleLowerCase().split(' ').join('')}}">{{task.category}}</div>
         <h4>{{task.title}}</h4>
         <div class="task-description">{{task.description}}</div>
-        <div class="progress-subtaks">
+        <div class="progress-subtaks" *ngIf="task.subtasks.length > 0">
           <mat-progress-bar value="0"></mat-progress-bar>
           <div class="progress-subtaks_status"> 0/{{task.subtasks.length}} Subtasks </div>
         </div>
         <div class="contact-priority">
-          <div *ngFor="let contact of task.assignedTo let i=index" class="shortcut--small" [style.backgroundColor]="contact.color">
-            {{contact.shortcut}}
+          <div class="shortcuts">
+          <div 
+              *ngFor="let contact of task.assignedTo let i=index" 
+              [style.transform]="'translateX(' + (-10 * i) + 'px)'"
+              class="shortcut--small" 
+              [style.backgroundColor]="contact.color" 
+          >
+                {{contact.shortcut}}
           </div>
+        </div>
           <img src="img/add_task/{{task.prio.toLocaleLowerCase()}}.svg" alt="">
         </div>
       </div>
     </div>
-    <div class="no-task">
+    <div class="no-task" *ngIf="tasksInProgress.length == 0">
         no Task To do
     </div>
   </div>
@@ -77,7 +90,7 @@
         <img src="img/plus.svg" alt="plus" />
       </button>
     </div>
-    <div class="no-task">
+    <div class="no-task" *ngIf="tasksAwaitFeedback.length == 0">
         no Task To do
     </div>
   </div>
@@ -85,7 +98,7 @@
     <div class="board-content_header">
       <h2>Done</h2>
     </div>
-    <div class="no-task">
+    <div class="no-task" *ngIf="tasksDone.length == 0">
         no Task To do
     </div>
   </div>

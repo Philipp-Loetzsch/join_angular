@@ -150,6 +150,7 @@ export class AddTaskComponent implements OnInit {
   
    addSubtask(content: HTMLInputElement):void{
     const subtaskValue = content.value.trim();
+    if(subtaskValue === '') return content.focus()
     const complete = false
     this.subtasks.push(this.fb.control({subtaskValue, complete}))
     content.value = ''

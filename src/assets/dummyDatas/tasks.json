@@ -21,7 +21,7 @@
       "title": "Database Migration",
       "description": "Migrate the database to the new server",
       "dueDate": 1738623600000,
-      "priority": "High",
+      "priority": "Urgent",
       "category": "Technical Task",
       "subtasks": [{"title": "Backup old database", "complete":"false"}, {"title": "Run migration scripts", "complete":"false"}],
       "status": "todo"

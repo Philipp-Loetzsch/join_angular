@@ -156,3 +156,20 @@ app-board {
 .mdc-circular-progress__indeterminate-circle-graphic {
   stroke: #29ABE2 !important;
 }
+
+::-webkit-scrollbar{
+  width: 8px;
+  background-color: white;
+}
+
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 1px grey; 
+  border-radius: 10px;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #A8A8A8; 
+  border-radius: 10px;
+  cursor: s-resize;
+}
