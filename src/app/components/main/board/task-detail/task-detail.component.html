@@ -8,7 +8,7 @@
 
   <div class="details-content">
     <h1>{{chosenTask.title}}</h1>
-    <div>{{chosenTask.description}}</div>
+    <div class="details-text">{{chosenTask.description}}</div>
     <div class="details-field">
       <label class="field-name">Due date:</label>
       <div>{{convertDate(chosenTask.dueDate)}}</div>
@@ -37,9 +37,9 @@
     </div>
   </div>
   <div class="details-footer">
-    <button>Delete</button>
+    <button> <img src="/img/delete.svg" alt=""> Delete</button>
     <div class="separator"></div>
-    <button (click)="showEditMode()">Edit</button>
+    <button (click)="showEditMode()"> <img src="/img/edit.svg" alt=""> Edit</button>
   </div>
 </div>
 
@@ -54,7 +54,7 @@
       <label for="title">Title</label>
       <input type="text" id="title" name="title" class="input-field" value="{{editTaskForm.get('title')?.value}}"/>
       <label for="description">Description</label>
-      <textarea name="description" id="description" value="{{editTaskForm.get('description')?.value}}"></textarea>
+      <textarea name="description" id="description" value="{{editTaskForm.get('description')?.value}}"  class="input-field"></textarea>
       <label for="dueDate">Due date</label>
       <mat-form-field appearance="fill" class="input-field--nopadding"> 
          <mat-label>{{editTaskForm.get('dueDate')?.value}}</mat-label>
@@ -127,13 +127,13 @@
             </li>
           </ul>
         </div>
-        <div class="chosen-contacts">
-          <ul *ngFor="let chosenContact of assigned.value">
-            <li class="single-contact"> 
-              <span class="shortcut--small" [style.backgroundColor]="chosenContact.color">{{ chosenContact.shortcut }}</span> 
-              <span>{{chosenContact.name}}</span></li>
-          </ul>
-        </div>
+      </div>
+      <div class="chosen-contacts">
+        <ul *ngFor="let chosenContact of assigned.value">
+          <li class="single-contact"> 
+            <span class="shortcut--small" [style.backgroundColor]="chosenContact.color">{{ chosenContact.shortcut }}</span> 
+            <span>{{chosenContact.name}}</span></li>
+        </ul>
       </div>
     </div>
   </form>
