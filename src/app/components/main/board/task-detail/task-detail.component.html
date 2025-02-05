@@ -15,7 +15,7 @@
     </div>
     <div class="details-field">
       <label class="field-name">Priority:</label>
-      <div>{{chosenTask.prio}} <img src="img/add_task/{{chosenTask.prio}}.svg" alt="" /></div>
+      <div class="detail-prio">{{chosenTask.prio}} <img src="img/add_task/{{chosenTask.prio.toLocaleLowerCase()}}.svg" alt="" /></div>
     </div>
     <div>
       <label class="field-name">Assigend To:</label>
@@ -44,7 +44,7 @@
 </div>
 
 <div *ngIf="editDetails">
-  <div>
+  <div class="edit-header">
     <button (click)="closeDetails()">
       <img src="img/add_task/close.svg" alt="" />
     </button>

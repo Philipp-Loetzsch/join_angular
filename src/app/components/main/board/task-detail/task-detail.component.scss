@@ -8,22 +8,35 @@
 
 .details-header {
   @include arrangement($jc: space-between);
+  > button {
+    &:hover {
+      cursor: pointer;
+      transform: scale(1.1);
+    }
+  }
 }
 
 .details-content {
   flex: 1;
   overflow-y: auto;
-  .details-field{
-    display: flex ;
+  .details-field {
+    display: flex;
     align-items: center;
     margin-bottom: 20px;
     gap: 2rem;
   }
-  .details-text{
+  .details-text {
     margin: 10px 0;
   }
-  .field-name{
-    color: #42526E;
+  .field-name {
+    color: #42526e;
+  }
+  .detail-prio {
+    display: flex;
+    gap: 10px;
+    > img {
+      width: 1rem;
+    }
   }
 }
 
@@ -32,19 +45,41 @@
   width: 100%;
   justify-content: end;
   margin-top: 10px;
-  >button{
+  > button {
     display: flex;
     align-items: center;
-    gap: 8px;
+    padding: 10px;
+    box-sizing: border-box;
+    gap: 10px;
+    width: 80px;
+    &:hover {
+      cursor: pointer;
+      color: #29abe2;
+      font-weight: 700;
+      filter: invert(58%) sepia(28%) saturate(1464%) hue-rotate(158deg)
+        brightness(96%) contrast(83%);
+    }
   }
 }
 
-ul{
-  >li{
+ul {
+  > li {
     display: flex;
     align-items: center;
     gap: 20px;
     padding: 10px 0;
     box-sizing: border-box;
+  }
+}
+
+.edit-header {
+  width: 100%;
+  display: flex;
+  justify-content: end;
+  > button {
+    &:hover {
+      cursor: pointer;
+      transform: scale(1.1);
+    }
   }
 }
