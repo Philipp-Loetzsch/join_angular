@@ -104,7 +104,7 @@
   </div>
 </div>
 <div class="add-task" (click)="showAddTask=false" *ngIf="showAddTask">
-<app-add-task [board]="true" [status]="'todo'" (hideAddTask)="showAddTask = false" (click)="$event.stopPropagation()"></app-add-task>
+<app-add-task [board]="true" [status]="'todo'" (hideAddTask)="showAddTask = false"   (click)="$event.stopPropagation()"></app-add-task>
 </div>
 
 <!-- <div class="board">
@@ -186,6 +186,7 @@
   (click)="showTaskDetails = false"
 >
   <app-task-detail
+  (reloadBoard)="getTasks()"
   (hideDetails)="showTaskDetails = false" 
   (click)="$event.stopPropagation()"
   [chosenTask]="chosenTask"></app-task-detail>

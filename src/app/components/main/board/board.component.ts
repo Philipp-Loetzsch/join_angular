@@ -63,6 +63,7 @@ export class BoardComponent implements OnInit {
     
     this.showTaskDetails=true
   }
+  
 }
 
 // import { Component, OnInit } from '@angular/core';

@@ -21,7 +21,6 @@ import { TitleDescriptionComponent } from '../add-task-templates/title-descripti
             MatInputModule, 
             MatNativeDateModule,
             PriorityComponent,
-            TitleDescriptionComponent
            ],
   templateUrl: './add-task.component.html',
   styleUrls: ['./add-task.component.scss'],
@@ -63,9 +62,9 @@ export class AddTaskComponent implements OnInit {
     return this.addTaskForm.get('subtasks') as FormArray;
   }
   
-  get textFormGroup(): FormGroup {
-    return this.addTaskForm.get('text') as FormGroup;
-  }
+  // get textFormGroup(): FormGroup {
+  //   return this.addTaskForm.get('text') as FormGroup;
+  // }
   
 
   async ngOnInit(): Promise<void> {

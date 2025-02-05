@@ -26,6 +26,7 @@ import { PriorityComponent } from '../../add-task-templates/priority/priority.co
 export class TaskDetailComponent implements OnInit{
   @Input() chosenTask!:Tasks
   @Output() hideDetails = new EventEmitter<void>();
+  @Output() reloadBoard = new EventEmitter<void>();
   detailsContent: boolean = true;
   editDetails: boolean = false;
   chosenPrio: string = 'Medium';
@@ -65,6 +66,18 @@ export class TaskDetailComponent implements OnInit{
   showEditMode() {
     this.detailsContent = false;
     this.editDetails = true;
+  }
+
+  async deleteTask(){
+    const deleted = await this.userDataService.deleteTask(this.chosenTask.id)
+    if(deleted === true){
+      this.closeDetails()
+      this.reloadBoard.emit();
+    }
+    else if (deleted === false){
+      console.error('not deleted');
+      
+    }
   }
 
   chooseContact(

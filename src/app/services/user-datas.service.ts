@@ -93,6 +93,19 @@ export class UserDatasService {
     }
   }
 
+  async deleteTask(taskId: string):Promise<boolean>{
+    try {
+      await deleteDoc(
+        doc(this.firestore, `${this.RefDatabase('tasks')}/${taskId}`)
+      );
+      this.getUsertasks()
+      return true;
+    } catch (err) {
+      console.log('delete contact failed', err);
+      return false;
+    }
+  }
+
   async createContact(contactData: FormGroup): Promise<string> {
     try {
       const contact = contactData.value;
