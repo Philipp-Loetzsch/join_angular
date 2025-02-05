@@ -5,11 +5,18 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { Tasks } from '../../../interfaces/interfaces';
 import { AddTaskComponent } from '../add-task/add-task.component';
 import { TaskDetailComponent } from './task-detail/task-detail.component';
+import {
+  CdkDragDrop,
+  moveItemInArray,
+  transferArrayItem,
+  CdkDrag,
+  CdkDropList,
+} from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-board',
   standalone: true,
-  imports: [CommonModule, MatProgressBarModule, AddTaskComponent, TaskDetailComponent],
+  imports: [CommonModule, MatProgressBarModule, AddTaskComponent, TaskDetailComponent, CdkDropList, CdkDrag],
   templateUrl: './board.component.html',
   styleUrls: ['./board.component.scss'],
   providers: [],
@@ -43,10 +50,15 @@ export class BoardComponent implements OnInit {
 
   getTasks() {
     const allTasks = this.userDataService.tasks; // Fetch all tasks
-    this.tasksTodo = allTasks.filter((task) => task.status === 'todo');
-    this.tasksInProgress = allTasks.filter((task) => task.status === 'inProgress');
-    this.tasksAwaitFeedback = allTasks.filter((task) => task.status === 'feedback');
-    this.tasksDone = allTasks.filter((task) => task.status === 'done');
+    const filterAndSortTasks = (status:string) => {
+      return allTasks
+        .filter((task) => task.status === status)
+        .sort((a, b) => a.position - b.position);
+    };
+    this.tasksTodo = filterAndSortTasks('todo');
+    this.tasksInProgress = filterAndSortTasks('inProgress');
+    this.tasksAwaitFeedback = filterAndSortTasks('feedback');
+    this.tasksDone = filterAndSortTasks('done');
   }
 
   openAddTask(status: string) {
@@ -63,145 +75,40 @@ export class BoardComponent implements OnInit {
     
     this.showTaskDetails=true
   }
-  
+
+  drop(event: CdkDragDrop<Tasks[]>) {
+    if (event.previousContainer === event.container) {
+      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+      event.container.data.forEach((task, index) => {
+        task.position = index;
+        console.log(task.title + '  ' + task.position);
+      });
+    } else {
+      transferArrayItem(
+        event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex,
+      );
+      const movedTask = event.container.data[event.currentIndex];
+      if (event.container.data === this.tasksTodo) {
+        movedTask.status = 'todo';
+        console.log(this.tasksTodo[event.currentIndex].status + ' ' + this.tasksTodo[event.currentIndex].title);
+      } else if (event.container.data === this.tasksInProgress) {
+        movedTask.status = 'inProgress';
+        console.log(this.tasksInProgress[event.currentIndex].status);
+      } else if (event.container.data === this.tasksAwaitFeedback) {
+        movedTask.status = 'feedback';
+        console.log(this.tasksAwaitFeedback[event.currentIndex].status);
+      } else if (event.container.data === this.tasksDone) {
+        movedTask.status = 'done';
+        console.log(this.tasksDone[event.currentIndex].status);
+      }
+    }
+
+    setTimeout(() => {
+      // this.userDataService.updateTask()
+    }, 2000);
+
+  }
 }
-
-// import { Component, OnInit } from '@angular/core';
-// import { UserDatasService } from '../../../services/user-datas.service';
-// import { CommonModule } from '@angular/common';
-// import { MatProgressBarModule } from '@angular/material/progress-bar';
-// import {
-//   DragDropModule,
-//   CdkDragDrop,
-//   moveItemInArray,
-//   transferArrayItem,
-// } from '@angular/cdk/drag-drop';
-// import { Tasks } from '../../../interfaces/interfaces';
-// import { AddTaskComponent } from '../add-task/add-task.component';
-// import { TaskDetailComponent } from './task-detail/task-detail.component';
-
-// type TaskGroup = {
-//   id: string;
-//   title: string;
-//   tasks: Tasks[];
-// };
-// @Component({
-//   selector: 'app-board',
-//   standalone: true,
-//   imports: [
-//     CommonModule,
-//     MatProgressBarModule,
-//     DragDropModule,
-//     AddTaskComponent,
-//     TaskDetailComponent
-//   ],
-//   templateUrl: './board.component.html',
-//   styleUrls: ['./board.component.scss'],
-// })
-// export class BoardComponent implements OnInit {
-//   tasksTodo: Tasks[] = [];
-//   tasksInProgress: Tasks[] = [];
-//   tasksAwaitFeedback: Tasks[] = [];
-//   tasksDone: Tasks[] = [];
-//   showAddTask: boolean = false;
-//   status!: string;
-//   tasks: TaskGroup[] = [];
-//   showTaskDetails:boolean = false 
-//   chosenTask!:Tasks
-//   constructor(private userDataService: UserDatasService) {}
-
-//   ngOnInit(): void {
-//     const checkTasks = () => {
-//       if (this.userDataService.tasks.length > 0) {
-//         this.getTasks();
-//       } else {
-//         setTimeout(checkTasks, 200);
-//       }
-//     };
-//     checkTasks();
-//   }
-
-//   /**
-//    * Fetch tasks from the service and group them by their status.
-//    */
-//   getTasks() {
-//     const allTasks = this.userDataService.tasks; // Fetch all tasks
-//     this.tasksTodo = allTasks.filter((task) => task.status === 'todo');
-//     this.tasksInProgress = allTasks.filter((task) => task.status === 'inProgress');
-//     this.tasksAwaitFeedback = allTasks.filter((task) => task.status === 'feedback');
-//     this.tasksDone = allTasks.filter((task) => task.status === 'done');
-//     this.tasks = [
-//       { id: 'todo', title: 'To do', tasks: this.tasksTodo },
-//       {
-//         id: 'in Progress',
-//         title: 'In progress',
-//         tasks: this.tasksInProgress,
-//       },
-//       {
-//         id: 'feedback',
-//         title: 'Await feedback',
-//         tasks: this.tasksAwaitFeedback,
-//       },
-//       { id: 'done', title: 'Done', tasks: this.tasksDone },
-//     ];
-//     console.log(this.tasks);
-//   }
-
-//   drop(event: CdkDragDrop<Tasks[]>) {
-//     if (event.previousContainer === event.container) {
-//       // Sortieren innerhalb derselben Liste
-//       moveItemInArray(
-//         event.container.data,
-//         event.previousIndex,
-//         event.currentIndex
-//       );
-//     } else {
-//       // Verschieben zwischen verschiedenen Listen
-//       transferArrayItem(
-//         event.previousContainer.data,
-//         event.container.data,
-//         event.previousIndex,
-//         event.currentIndex
-//       );
-//       const movedTask = event.container.data[event.currentIndex];
-//       movedTask.status = this.getStatusFromContainerId(event.container.id);
-//     }
-//   }
-
-//   // Status des Tasks aktualisieren
-//   getStatusFromContainerId(containerId: string): string {
-//     switch (containerId) {
-//       case 'todo':
-//         return 'todo';
-//       case 'inProgress':
-//         return 'inprogress';
-//       case 'awaitFeedback':
-//         return 'feedback';
-//       case 'done':
-//         return 'done';
-//       default:
-//         return '';
-//     }
-//   }
-
-//   /**
-//    * Opens the Add Task dialog with the given status.
-//    */
-//   openAddTask(status: string) {
-//     this.showAddTask = true;
-//     this.status = status;
-//     console.log(status);
-    
-//   }
-
-//   openCardDetail(i:number){
-//     this.showTaskDetails = true
-//   }
-
-  // updateTaskStatus(updatedTask: Tasks) {
-  //   const index = this.tasks.findIndex(task => task.id === updatedTask.id);
-  //   if (index !== -1) {
-  //     this.tasks[index] = updatedTask;
-  //   }
-  // }
-//}

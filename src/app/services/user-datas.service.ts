@@ -71,6 +71,7 @@ export class UserDatasService {
         status: doc.data()['status'] as string,
         title: doc.data()['title'] as string,
         category: doc.data()['category'] as string,
+        position: doc.data()['position'] as number,
         id: doc.id,
       }));
       this.tasks = tasks;

@@ -16,6 +16,7 @@ export interface Tasks {
   status: string;
   title: string;
   category:string;
+  position: number;
   id: string;
 }
 
