@@ -9,16 +9,16 @@
   <div class="details-content">
     <h1>{{chosenTask.title}}</h1>
     <div>{{chosenTask.description}}</div>
-    <div>
+    <div class="details-field">
       <label class="field-name">Due date:</label>
       <div>{{convertDate(chosenTask.dueDate)}}</div>
     </div>
-    <div>
-      <label>Priority:</label>
+    <div class="details-field">
+      <label class="field-name">Priority:</label>
       <div>{{chosenTask.prio}} <img src="img/add_task/{{chosenTask.prio}}.svg" alt="" /></div>
     </div>
     <div>
-      <label>Assigend To:</label>
+      <label class="field-name">Assigend To:</label>
       <ul *ngFor="let contact of chosenTask.assignedTo let i = index">
         <li>
           <div class="shortcut--small" [style.backgroundColor]="contact.color">{{contact.shortcut}}</div>

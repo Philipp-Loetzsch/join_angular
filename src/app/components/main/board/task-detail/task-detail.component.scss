@@ -12,6 +12,15 @@
 
 .details-content {
   flex: 1;
+  .details-field{
+    display: flex ;
+    align-items: center;
+    margin-bottom: 20px;
+    gap: 2rem;
+  }
+  .field-name{
+    color: #42526E;
+  }
 }
 
 .details-footer {
