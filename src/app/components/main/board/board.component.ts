@@ -16,41 +16,46 @@ import {
 @Component({
   selector: 'app-board',
   standalone: true,
-  imports: [CommonModule, MatProgressBarModule, AddTaskComponent, TaskDetailComponent, CdkDropList, CdkDrag],
+  imports: [
+    CommonModule,
+    MatProgressBarModule,
+    AddTaskComponent,
+    TaskDetailComponent,
+    CdkDropList,
+    CdkDrag,
+  ],
   templateUrl: './board.component.html',
   styleUrls: ['./board.component.scss'],
   providers: [],
 })
 export class BoardComponent implements OnInit {
   allTasks: Tasks[] = [];
-  tasksTodo:Tasks[]=[]
-  tasksInProgress:Tasks[]=[]
-  tasksAwaitFeedback:Tasks[]=[]
-  tasksDone:Tasks[]=[]
+  tasksTodo: Tasks[] = [];
+  tasksInProgress: Tasks[] = [];
+  tasksAwaitFeedback: Tasks[] = [];
+  tasksDone: Tasks[] = [];
   showAddTask: boolean = false;
-  showTaskDetails:boolean = false
+  showTaskDetails: boolean = false;
   status!: string;
-  chosenTask!:Tasks
-
-
+  chosenTask!: Tasks;
+  private updateTimeout: any;
 
   constructor(private userDataService: UserDatasService) {}
 
   ngOnInit(): void {
     const checkTasks = () => {
-            if (this.userDataService.tasks.length > 0) {
-              this.getTasks();
-            } else {
-              setTimeout(checkTasks, 200);
-            }
-          };
-          checkTasks()
-
+      if (this.userDataService.tasks.length > 0) {
+        this.getTasks();
+      } else {
+        setTimeout(checkTasks, 200);
+      }
+    };
+    checkTasks();
   }
 
   getTasks() {
-    const allTasks = this.userDataService.tasks; // Fetch all tasks
-    const filterAndSortTasks = (status:string) => {
+    const allTasks = this.userDataService.tasks;
+    const filterAndSortTasks = (status: string) => {
       return allTasks
         .filter((task) => task.status === status)
         .sort((a, b) => a.position - b.position);
@@ -66,49 +71,67 @@ export class BoardComponent implements OnInit {
     this.status = status;
   }
 
-  openDetailCard(task: string , i:number):void{
-    const taskNames = ['tasksTodo', 'tasksInProgress', 'tasksAwaitFeedback', 'tasksDone']
-    const validTask = this[task as keyof BoardComponent] as Tasks[]
-    if(taskNames.includes(task)) this.chosenTask = validTask[i];
-   
+  openDetailCard(task: string, i: number): void {
+    const taskNames = [
+      'tasksTodo',
+      'tasksInProgress',
+      'tasksAwaitFeedback',
+      'tasksDone',
+    ];
+    const validTask = this[task as keyof BoardComponent] as Tasks[];
+    if (taskNames.includes(task)) this.chosenTask = validTask[i];
+
     console.log(this.chosenTask.title + '' + i);
-    
-    this.showTaskDetails=true
+
+    this.showTaskDetails = true;
   }
 
   drop(event: CdkDragDrop<Tasks[]>) {
     if (event.previousContainer === event.container) {
-      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-      event.container.data.forEach((task, index) => {
-        task.position = index;
-        console.log(task.title + '  ' + task.position);
-      });
+      moveItemInArray(
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex
+      );
     } else {
       transferArrayItem(
         event.previousContainer.data,
         event.container.data,
         event.previousIndex,
-        event.currentIndex,
+        event.currentIndex
       );
-      const movedTask = event.container.data[event.currentIndex];
-      if (event.container.data === this.tasksTodo) {
-        movedTask.status = 'todo';
-        console.log(this.tasksTodo[event.currentIndex].status + ' ' + this.tasksTodo[event.currentIndex].title);
-      } else if (event.container.data === this.tasksInProgress) {
-        movedTask.status = 'inProgress';
-        console.log(this.tasksInProgress[event.currentIndex].status);
-      } else if (event.container.data === this.tasksAwaitFeedback) {
-        movedTask.status = 'feedback';
-        console.log(this.tasksAwaitFeedback[event.currentIndex].status);
-      } else if (event.container.data === this.tasksDone) {
-        movedTask.status = 'done';
-        console.log(this.tasksDone[event.currentIndex].status);
-      }
+      this.updateStatus(event);
     }
+    event.container.data.forEach((task, index) => {
+      task.position = index;
+    });
+    this.setAllTasks();
+  }
 
-    setTimeout(() => {
-      // this.userDataService.updateTask()
-    }, 2000);
+  updateStatus(event: CdkDragDrop<Tasks[], Tasks[], any>) {
+    const statusMap = new Map([
+      [this.tasksTodo, 'todo'],
+      [this.tasksInProgress, 'inProgress'],
+      [this.tasksAwaitFeedback, 'feedback'],
+      [this.tasksDone, 'done'],
+    ]);
+    const movedTask = event.container.data[event.currentIndex];
+    const newStatus = statusMap.get(event.container.data);
+    if (newStatus) {
+      movedTask.status = newStatus;
+    }
+  }
 
+  setAllTasks() {
+    clearTimeout(this.updateTimeout);
+      this.updateTimeout = setTimeout(() => {
+      this.allTasks = [
+        ...this.tasksTodo,
+        ...this.tasksInProgress,
+        ...this.tasksAwaitFeedback,
+        ...this.tasksDone,
+      ];
+      this.userDataService.updateTasks(this.allTasks);
+    }, 800);
   }
 }

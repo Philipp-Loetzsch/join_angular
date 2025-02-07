@@ -16,9 +16,12 @@
   <div class="board-content">
     <div class="board-content_header">
       <h2>To do</h2>
-      <button class="btn-add-task">
+      <button class="btn-add-task" (click)="openAddTask('todo')">
         <img src="img/plus.svg" alt="plus" />
       </button>
+    </div>
+    <div class="no-task" *ngIf="tasksTodo.length == 0">
+      No tasks To do
     </div>
     <div class="board-content_cards"
     cdkDropList
@@ -47,19 +50,20 @@
         <img src="img/add_task/{{task.prio.toLocaleLowerCase()}}.svg" alt="">
       </div>
     </div>
-    <div class="no-task" *ngIf="tasksTodo.length == 0">
-      No tasks To do
-  </div>
+  
   </div>
    
   </div>
   <div class="board-content">
     <div class="board-content_header">
       <h2>In progress</h2>
-      <button class="btn-add-task">
+      <button class="btn-add-task" (click)="openAddTask('inProgress')">
         <img src="img/plus.svg" alt="plus" />
       </button>
     </div>
+    <div class="no-task" *ngIf="tasksInProgress.length == 0">
+      no Task To do
+  </div>
     <div class="board-content_cards"
          cdkDropList
          #inProgressList="cdkDropList"
@@ -90,17 +94,18 @@
         </div>
       </div>
     </div>
-    <div class="no-task" *ngIf="tasksInProgress.length == 0">
-        no Task To do
-    </div>
+ 
   </div>
   <div class="board-content">
     <div class="board-content_header">
       <h2>Await feedback</h2>
-      <button class="btn-add-task">
+      <button class="btn-add-task" (click)="openAddTask('feedback')">
         <img src="img/plus.svg" alt="plus" />
       </button>
     </div>
+    <div class="no-task" *ngIf="tasksAwaitFeedback.length == 0">
+      no Task To do
+  </div>
     <div class="board-content_cards"
         cdkDropList
         #AwaitFeedbackList="cdkDropList"
@@ -131,15 +136,14 @@
         </div>
       </div>
     </div>
-    <div class="no-task" *ngIf="tasksAwaitFeedback.length == 0">
-        no Task To do
-    </div>
+    
   </div>
-  <div class="board-content"
-  
-  >
+  <div class="board-content">
     <div class="board-content_header">
       <h2>Done</h2>
+    </div>
+    <div class="no-task" *ngIf="tasksDone.length == 0">
+      no Task To do
     </div>
     <div class="board-content_cards"
          cdkDropList
@@ -171,9 +175,7 @@
         </div>
       </div>
     </div>
-    <div class="no-task" *ngIf="tasksDone.length == 0">
-        no Task To do
-    </div>
+    
   </div>
 </div>
 <div class="add-task" (click)="showAddTask=false" *ngIf="showAddTask">

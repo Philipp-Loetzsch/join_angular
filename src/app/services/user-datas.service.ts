@@ -7,6 +7,7 @@ import {
   getDoc,
   getDocs,
   deleteDoc,
+  updateDoc
 } from '@angular/fire/firestore';
 import { FormGroup } from '@angular/forms';
 import { Assigned, Contact, Subtask, Tasks } from '../interfaces/interfaces';
@@ -93,6 +94,31 @@ export class UserDatasService {
       console.error('Error adding document: ', error);
     }
   }
+
+  async updateTasks(allTasks: Tasks[]) {
+    const updates = allTasks.map(async (task) => {
+      try {
+        await updateDoc(doc(this.firestore, `${this.RefDatabase('tasks')}/${task.id}`), {
+          assignedTo: task.assignedTo,
+          subtasks: task.subtasks,
+          description: task.description,
+          dueDate: task.dueDate,
+          prio: task.prio,
+          status: task.status,
+          title: task.title,
+          category: task.category,
+          position: task.position,
+        });
+        console.log(`Task ${task.id} erfolgreich aktualisiert`);
+      } catch (error) {
+        console.error(`Fehler beim Aktualisieren von Task ${task.id}:`, error);
+      }
+    });
+  
+    await Promise.all(updates); // Alle Updates parallel ausführen
+    console.log('Alle Tasks wurden aktualisiert');
+  }
+  
 
   async deleteTask(taskId: string):Promise<boolean>{
     try {

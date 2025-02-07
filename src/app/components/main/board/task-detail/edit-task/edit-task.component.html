@@ -1,0 +1,65 @@
+<div class="edit-header">
+    <button (click)="closeDetails()">
+      <img src="img/add_task/close.svg" alt="" />
+    </button>
+  </div>
+  <form class="details-content">
+    <div>
+      <label for="title">Title</label>
+      <input type="text" id="title" name="title" class="input-field" value="{{editTaskForm.get('title')?.value}}"/>
+      <label for="description">Description</label>
+      <textarea name="description" id="description" value="{{editTaskForm.get('description')?.value}}"  class="input-field"></textarea>
+      <label for="dueDate">Due date</label>
+      <mat-form-field appearance="fill" class="input-field--nopadding"> 
+         <mat-label>{{editTaskForm.get('dueDate')?.value}}</mat-label>
+        <input
+          matInput
+          [matDatepicker]="picker"
+          id="dueDate"
+          formControlName="dueDate"
+        />
+        <mat-datepicker-toggle matSuffix [for]="picker"> </mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+       </mat-form-field> 
+       <label for="priority"><b>Priority</b></label>
+       <app-priority formControlName="priority" [chosenPrio]="chosenPrio"></app-priority>
+      <label for="assigned">Assigend To</label>
+      <div 
+        class="input-field contact-field">
+        <input
+          (focus)="showContactList = true"
+          type="text"
+          id="assigned"
+          placeholder="Select contacts to assign"
+          class="font-black"
+          #assingedInput
+          (keyup)="filterContacts(assingedInput.value)"
+        />
+        <button type="button" (click)="toggleContactList()"> 
+          <img  [src]="'img/add_task/arrow_drop_down.svg'" [ngClass]="{ 'rotated': showContactList }" alt=""/>
+        </button>
+       
+        <div *ngIf="showContactList" class="contact-list">
+          <ul *ngFor="let contact of filteredContacts let i = index" >
+            <li 
+              class="single-contact" 
+              [ngClass]="{'single-contact--chosen' : chosen[i] }" 
+              (click)="chooseContact(contact.name, contact.color, contact.id, i, contact.shortcut)" >
+              <div>
+                <span class="shortcut--small" [style.backgroundColor]="contact.color">{{contact.shortcut }}</span> 
+                <span>{{contact.name}}</span>
+              </div>
+              <img [src]="(chosen[i]) ? 'img/add_task/check_button_checked.svg' : 'img/add_task/check_button.svg'" alt="">
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="chosen-contacts">
+        <ul *ngFor="let chosenContact of assigned.value">
+          <li class="single-contact"> 
+            <span class="shortcut--small" [style.backgroundColor]="chosenContact.color">{{ chosenContact.shortcut }}</span> 
+            <span>{{chosenContact.name}}</span></li>
+        </ul>
+      </div>
+    </div>
+  </form>
