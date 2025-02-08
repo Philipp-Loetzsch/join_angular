@@ -38,24 +38,30 @@ export class EditTaskComponent implements OnInit {
     private userDataService: UserDatasService
   ) {}
 
-  ngOnInit(): void {
+  ngOnInit(): void {    
+    this.contacts = this.userDataService.contactsList
+    this.filteredContacts = this.contacts
     this.editTaskForm = this.fb.group({
-      title: [this.chosenTask.title, Validators.required],
+      title: [this.chosenTask.title, { validators: [Validators.required] }],
       description: [this.chosenTask.description],
       assigned: this.fb.array(
-        [this.chosenTask.assignedTo],
-        Validators.required
+        this.chosenTask.assignedTo.map(user => this.fb.control(user)), 
+        { validators: [Validators.required] }
       ),
-      dueDate: [this.convertDate(this.chosenTask.dueDate), Validators.required],
+      dueDate: [this.convertDate(this.chosenTask.dueDate), { validators: [Validators.required] }],
       priority: [this.chosenTask.prio],
-      category: [this.chosenTask.category, Validators.required],
-      subtasks: this.fb.array([]),
-      status: [this.chosenTask.status],
-    });
+      subtasks: this.fb.array(
+        this.chosenTask.subtasks.map(subtask => this.fb.control(subtask))
+      )
+    });    
   }
 
   get assigned(): FormArray {
     return this.editTaskForm.get('assigned') as FormArray;
+  }
+
+  get subtasks(): FormArray{
+    return this.editTaskForm.get('subtasks') as FormArray;
   }
 
   closeDetails(): void {
@@ -83,6 +89,10 @@ export class EditTaskComponent implements OnInit {
 
   toggleContactList() {
     this.showContactList = !this.showContactList;
+  }
+
+  closeCotactList(){
+    this.showContactList = false
   }
 
   filterContacts(value: string) {

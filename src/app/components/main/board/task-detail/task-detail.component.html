@@ -43,6 +43,6 @@
   </div>
 </div>
 
-<div *ngIf="editDetails">
+<div *ngIf="editDetails" style="height: 100%;">
   <app-edit-task [chosenTask]="chosenTask" (hideDetails)="closeDetails()"></app-edit-task>
 </div>

@@ -1,1 +1,64 @@
 @import "./../task-detail.component.scss";
+
+.contact-field {
+  position: relative;
+  z-index: 4;
+  > button {
+    padding: 10px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    &:hover {
+      background-color: #0c2e621f;
+
+      cursor: pointer;
+    }
+  }
+}
+
+.contact-list {
+  ul {
+    list-style: none;
+    padding: 0;
+    li {
+      > div {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
+    }
+  }
+  position: absolute;
+  z-index: 1;
+  top: 45px;
+  left: 0;
+  background-color: white;
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+  max-height: 200px;
+  overflow-y: auto;
+  .single-contact {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 10px 10px;
+    border-radius: 10px;
+    margin-bottom: 8px;
+    &--chosen {
+      @extend .single-contact;
+      background-color: #47494d;
+      color: white;
+    }
+    &:hover {
+      cursor: pointer;
+      background-color: #eeeeee;
+      color: black;
+    }
+  }
+}

@@ -1,10 +1,10 @@
-<div class="edit-header">
+<div class="edit-header" (click)="closeCotactList()">
     <button (click)="closeDetails()">
       <img src="img/add_task/close.svg" alt="" />
     </button>
   </div>
-  <form class="details-content">
-    <div>
+  <form class="details-content" (click)="closeCotactList()">  
+    <div >
       <label for="title">Title</label>
       <input type="text" id="title" name="title" class="input-field" value="{{editTaskForm.get('title')?.value}}"/>
       <label for="description">Description</label>
@@ -25,7 +25,8 @@
        <app-priority formControlName="priority" [chosenPrio]="chosenPrio"></app-priority>
       <label for="assigned">Assigend To</label>
       <div 
-        class="input-field contact-field">
+        class="input-field contact-field"
+        (click)="$event.stopPropagation()">
         <input
           (focus)="showContactList = true"
           type="text"
@@ -61,5 +62,14 @@
             <span>{{chosenContact.name}}</span></li>
         </ul>
       </div>
+      <div *ngIf="editTaskForm.get('subtasks')?.value.length > 0">
+        <label for="subtasks">Subtasks</label>
+        <ul *ngFor="let subtask of subtasks.value let i=index">
+            <li>
+                <span>{{subtask.title}}</span>
+            </li>
+        </ul>
+      </div>
+
     </div>
   </form>
