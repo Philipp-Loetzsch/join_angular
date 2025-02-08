@@ -21,6 +21,9 @@ button{
     &--default {
       @extend .btn-primary;
       background-color: #2A3647;
+      >img{
+        margin-left: 10px;
+      }
       &:hover {
         transition: all ease-in 100ms;
         background-color: #29ABE2;
@@ -45,6 +48,7 @@ button{
       @extend .btn-secondary;
       background-color: #FFFFFF;
       border: 1px solid #2A3647;
+     
       &:hover {
         transition: all ease-in 100ms;
         color: #29ABE2;

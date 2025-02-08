@@ -176,6 +176,22 @@ export class UserDatasService {
     }
   }
 
+  async updateContact(contactData:FormGroup, id:string){
+    const contact = contactData.value
+      try {
+        await updateDoc(doc(this.firestore, `${this.RefDatabase('contacts')}/${id}`), {
+          name: contact.name,
+          email: contact.email,
+          phone: contact.phone
+        })
+        console.log('erfolgreich bearbeitet');
+        
+      } catch (error) {
+        console.log(error);
+        
+      }
+  }
+
   async deleteContact(id: string): Promise<boolean> {
     try {
       await deleteDoc(

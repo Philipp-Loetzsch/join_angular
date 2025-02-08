@@ -68,9 +68,9 @@
       >{{editContactForm.get('phone')?.touched && editContactForm.get('phone')?.invalid ? "This field is required" :""}}</label>
 
       <div class="edit-input_form-button">
-        <button class="btn-secondary--default" type="button" (click)="contact.closeEdit()">Cancel</button>
+        <button class="btn-secondary--default" type="button" (click)="cancleEdit()">{{editMode? 'Delete' :'Cancel X'}}</button>
         <button class="btn-primary--default" type="submit">
-          Create contact
+          {{editMode? 'Save' : 'Create contact'}} <img src="img/check.svg" alt="">
         </button>
       </div>
     </form>

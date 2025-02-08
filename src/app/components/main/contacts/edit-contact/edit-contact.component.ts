@@ -32,7 +32,8 @@ export class EditContactComponent implements OnInit {
   ) {
     this.editContactForm = this.fb.group({
       name: ['', Validators.required],
-      email: ['',
+      email: [
+        '',
         [
           Validators.required,
           Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$'),
@@ -43,9 +44,7 @@ export class EditContactComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.editMode);
     this.editMode ? (this.headline = 'Edit contact') : 'Add contact';
-    console.log(this.chosenContact);
     if (this.chosenContact === undefined || !this.editMode)
       this.chosenContact = new ChosenContact();
     this.editContactForm.patchValue({
@@ -53,19 +52,24 @@ export class EditContactComponent implements OnInit {
       email: this.chosenContact.email,
       phone: this.chosenContact.phone,
     });
-
-    console.log(this.editContactForm.value);
   }
 
-
   async onSubmit(): Promise<void> {
-    if(this.editContactForm.valid && !this.editMode){
-       const newContactId = await this.userDataService.createContact(this.editContactForm)
-       await this.userDataService.getUserContacts()
-       await this.contact.loadContacts()
-       this.contact.markNewContact(newContactId)
-       this.contact.closeEdit()
-    }
-    this.editContactForm.markAllAsTouched();
+    if (this.editContactForm.invalid) 
+      return this.editContactForm.markAllAsTouched();
+    const contactId = this.editMode ? this.chosenContact.id : await this.userDataService.createContact(this.editContactForm);
+    if (this.editMode) 
+      await this.userDataService.updateContact(this.editContactForm, contactId);
+    await this.userDataService.getUserContacts();
+    await this.contact.loadContacts();
+    this.contact.markNewContact(contactId);
+    this.contact.closeEdit();
+  }
+
+  cancleEdit() {
+    this.contact.closeEdit();
+    setTimeout(() => {
+      if (this.editMode) this.contact.deleteContact();
+    }, 900);
   }
 }
