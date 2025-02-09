@@ -21,17 +21,21 @@
       <label class="field-name">Assigend To:</label>
       <ul *ngFor="let contact of chosenTask.assignedTo let i = index">
         <li>
+        <div class="list-item">
           <div class="shortcut--small" [style.backgroundColor]="contact.color">{{contact.shortcut}}</div>
           <span>{{contact.name}}</span>
+        </div>
         </li>
       </ul>
     </div>
-    <div>
+    <div *ngIf="chosenTask.subtasks.length > 0">
       <label>Subtasks</label>
       <ul *ngFor="let subtask of chosenTask.subtasks let i = index">
         <li>
-          <img [src]="subtask.complete ? 'img/Property checked.svg' : 'img/Property Default.svg' " alt="" />
-          <span>{{subtask.title}}</span>
+          <div class="list-item">
+            <img [src]="subtask.complete ? 'img/Property checked.svg' : 'img/Property Default.svg' " alt="" />
+            <span>{{subtask.title}}</span>
+          </div>
         </li>
       </ul>
     </div>
@@ -46,3 +50,4 @@
 <div *ngIf="editDetails" style="height: 100%;">
   <app-edit-task [chosenTask]="chosenTask" (hideDetails)="closeDetails()"></app-edit-task>
 </div>
+

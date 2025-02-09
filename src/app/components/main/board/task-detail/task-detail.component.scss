@@ -1,4 +1,4 @@
-@import "./../board.component.scss";
+@import "./../../../../../assets/styles/mixins.scss";
 
 .detail-task {
   display: flex;
@@ -62,14 +62,15 @@
   }
 }
 
-ul {
-  > li {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    padding: 10px 0;
-    box-sizing: border-box;
-  }
+ul{
+  list-style: none;
+}
+
+.list-item {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 10px 0;
 }
 
 .edit-header {

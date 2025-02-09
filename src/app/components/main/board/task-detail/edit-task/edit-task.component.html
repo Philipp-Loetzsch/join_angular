@@ -3,8 +3,8 @@
       <img src="img/add_task/close.svg" alt="" />
     </button>
   </div>
-  <form class="details-content" (click)="closeCotactList()">  
-    <div >
+  <form class="edit-content" (click)="closeCotactList()">  
+    <div>
       <label for="title">Title</label>
       <input type="text" id="title" name="title" class="input-field" value="{{editTaskForm.get('title')?.value}}"/>
       <label for="description">Description</label>
@@ -57,19 +57,38 @@
       </div>
       <div class="chosen-contacts">
         <ul *ngFor="let chosenContact of assigned.value">
-          <li class="single-contact"> 
+          <li class="list-item"> 
             <span class="shortcut--small" [style.backgroundColor]="chosenContact.color">{{ chosenContact.shortcut }}</span> 
             <span>{{chosenContact.name}}</span></li>
         </ul>
       </div>
-      <div *ngIf="editTaskForm.get('subtasks')?.value.length > 0">
-        <label for="subtasks">Subtasks</label>
-        <ul *ngFor="let subtask of subtasks.value let i=index">
+      <label for="subtasks">Subtasks</label>
+      <div class="subtask">
+        <div  class="input-field">
+          <input
+            type="text"
+            id="subtasks"
+            placeholder="Add new subtask"
+            #subtasksInput
+          />
+          <img class="add-subtask" (click)="addSubtask(subtasksInput)" src="img/plus.svg" alt="">
+        </div>
+       
+        <div  class="subtask-list">
+         <ul *ngFor="let subtask of subtasks.value let i=index">
             <li>
-                <span>{{subtask.title}}</span>
+             <div class="subtask-list_item">
+              <span>{{subtask.title}}</span>
+              <div>
+                <button type="button" (click)="editSubtask(i)"><img src="img/edit.svg" alt=""></button>
+                <button type="button" (click)="deleteSubtask(i)"><img src="img/delete.svg" alt=""></button>
+              </div>
+             </div>
             </li>
-        </ul>
+          </ul>
+        </div>
       </div>
-
     </div>
+    <button type="submit" class="btn-primary--default submit-edit" >OK</button>
   </form>
+
