@@ -2,6 +2,7 @@
 
 header {
   width: 100%;
+  min-height: 5rem;
   @include arrangement($jc: end);
 }
 
@@ -17,12 +18,18 @@ header {
   position: absolute;
   top: 0;
   animation: remove 1s 0.5s forwards;
+  
 }
 
 @keyframes remove {
   0%{opacity: 1;}
-  100%{ opacity:  0;}
+  50%{opacity: 0;}
+  100%{
+    z-index: -100;
+    }
 }
+
+
 .logo {
   position: absolute;
   top: 50%;
@@ -30,6 +37,9 @@ header {
   transform: scale(3);
   animation: greetingScreen 0.5s 0.5s linear forwards;
   width: 80px;
+  @media screen and (max-width: 700px) {
+    width: 40px;
+  }
 }
 
 @keyframes greetingScreen {

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { RouterModule, Router } from '@angular/router';
 import {
   ReactiveFormsModule,
@@ -8,17 +8,18 @@ import {
 } from '@angular/forms';
 import { AuthService } from '../../../services/auth.service';
 import { UserDatasService } from '../../../services/user-datas.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-log-in',
   standalone: true,
-  imports: [RouterModule, ReactiveFormsModule],
+  imports: [RouterModule, ReactiveFormsModule, CommonModule],
   templateUrl: './log-in.component.html',
   styleUrl: './log-in.component.scss',
 })
 export class LogInComponent {
   constructor(private router: Router, private authService: AuthService, private userDatasService:UserDatasService) {}
-
+  innerWidth:number = window.innerWidth
   logInFailed:boolean=false
   loginForm = new FormGroup({
     email: new FormControl('jointester@havefun.com', [
@@ -44,5 +45,12 @@ export class LogInComponent {
       }
     }
     this.loginForm.markAllAsTouched();
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize() {
+  this.innerWidth = window.innerWidth;
+  console.log(this.innerWidth);
+  
   }
 }

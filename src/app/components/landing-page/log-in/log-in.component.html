@@ -2,7 +2,7 @@
   <div class="logo-bg" ></div>
   <header>
     <img class="logo" src="img/join_logo_header.svg" alt="">
-    <div class="gap">
+    <div class="gap" *ngIf="innerWidth > 700">
       <span>Not a Join user?</span>
       <button class="btn-primary--default" [routerLink]="['sign_in']">Sign up</button>
     </div>
@@ -66,6 +66,10 @@
       </div>
     </form>
   </section>
+  <div class="gap" *ngIf="innerWidth <= 701">
+    <span>Not a Join user?</span>
+    <button class="btn-primary--default" [routerLink]="['sign_in']">Sign up</button>
+  </div>
   <div class="footer">
     <a [routerLink]="['main/privacy_policy']">Privacy Policy</a>
     <a [routerLink]="['main/legal_notice']">Legal notice</a>
