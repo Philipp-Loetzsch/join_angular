@@ -112,6 +112,10 @@ app-add-task {
   padding: 110px 0 0 90px;
   box-sizing: border-box;
   overflow: hidden;
+  @media screen and (max-width: 700px) {
+    padding: 10px 0 0 10px;
+    
+  }
 }
 
 app-legal-notice, app-privacy-policy, app-help{

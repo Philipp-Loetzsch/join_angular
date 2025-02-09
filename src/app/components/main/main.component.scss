@@ -110,3 +110,20 @@
   height: calc(100% - 80px);
 }
 
+.main-container_nav_bottom_navigation{
+  background-color: #2a3647;
+  display: flex;
+  justify-content: space-around;
+  position: sticky;
+  bottom: 0;
+  >a{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    border-radius: 10px;
+    color: white;
+    text-decoration: none;
+  }
+}
+

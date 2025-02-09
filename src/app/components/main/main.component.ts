@@ -1,10 +1,10 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { CommonModule } from '@angular/common';
-import { filter } from 'rxjs/operators';
-import {MatMenuModule} from '@angular/material/menu';
-import {MatButtonModule} from '@angular/material/button';
+import { filter, windowWhen } from 'rxjs/operators';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatButtonModule } from '@angular/material/button';
 import { UserDatasService } from '../../services/user-datas.service';
 
 interface Links {
@@ -15,15 +15,21 @@ interface Links {
 @Component({
   selector: 'app-main',
   standalone: true,
-  imports: [RouterModule, MatSidenavModule, CommonModule, MatButtonModule, MatMenuModule],
+  imports: [
+    RouterModule,
+    MatSidenavModule,
+    CommonModule,
+    MatButtonModule,
+    MatMenuModule,
+  ],
   templateUrl: './main.component.html',
   styleUrl: './main.component.scss',
 })
 export class MainComponent implements OnInit {
-
-
-  constructor(private router: Router, public userDataService: UserDatasService) {
-  }
+  constructor(
+    private router: Router,
+    public userDataService: UserDatasService
+  ) {}
   nameLinks: Array<Links> = [
     { name: 'Summary', img: 'summary' },
     { name: 'Add Task', img: 'add_task' },
@@ -32,35 +38,40 @@ export class MainComponent implements OnInit {
   ];
   activeUrl: string = '';
   showMenu: boolean = false;
-  initials:string = '?'
+  initials: string = '?';
+  innerWidth:number = window.innerWidth
 
- async ngOnInit(): Promise<void> {
+  async ngOnInit(): Promise<void> {
     this.activeUrl = this.router.url;
     this.router.events
-      .pipe(filter((event): event is NavigationEnd => event instanceof NavigationEnd))
+      .pipe(
+        filter(
+          (event): event is NavigationEnd => event instanceof NavigationEnd
+        )
+      )
       .subscribe((event: NavigationEnd) => {
         this.activeUrl = event.urlAfterRedirects;
       });
-    const userName = await this.userDataService.getUserName()
-    this.initials =  this.getInitials(userName)    
+    const userName = await this.userDataService.getUserName();
+    this.initials = this.getInitials(userName);
   }
 
   isActive(linkImg: string): boolean {
     return this.activeUrl.includes(`/main/${linkImg}`);
   }
 
-  toggleMenu(event:MouseEvent): void{
-    this.showMenu = !this.showMenu
-    event?.preventDefault()
+  toggleMenu(event: MouseEvent): void {
+    this.showMenu = !this.showMenu;
+    event?.preventDefault();
     event?.stopPropagation();
   }
-  notClose(event:MouseEvent){
+  notClose(event: MouseEvent) {
     event?.stopPropagation();
   }
-  closePopup(){
+  closePopup() {
     this.showMenu = false;
   }
-  getInitials(name:string):string{
+  getInitials(name: string): string {
     const parts = name.split(' ');
     if (parts.length === 0) {
       return '?';
@@ -69,5 +80,10 @@ export class MainComponent implements OnInit {
     const lastPart = parts[parts.length - 1];
     const initials = firstPart.charAt(0) + lastPart.charAt(0);
     return initials.toUpperCase();
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize() {
+    this.innerWidth = window.innerWidth;
   }
 }
