@@ -127,3 +127,13 @@
   }
 }
 
+@media screen and (max-width: $mediaWidth) {
+  .main-container_content_routes{
+    height: auto;
+    flex:1;
+  }
+  .main-container_content{
+    display: flex;
+    flex-direction: column;
+  }
+}

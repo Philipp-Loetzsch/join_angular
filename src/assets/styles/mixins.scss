@@ -1,3 +1,5 @@
+$mediaWidth: 910px;
+
 @mixin arrangement($d: flex, $jc: center, $ai: center, $g: 0, $fd: unset) {
   display: $d;
   justify-content: $jc;
