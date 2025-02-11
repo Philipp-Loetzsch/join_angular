@@ -70,7 +70,7 @@
           </ul>
         </div>
         <div class="chosen-contacts">
-          <ul *ngFor="let chosenContact of assigned.value">
+          <ul *ngFor="let chosenContact of assignedTo.value">
             <li class="single-contact"> 
               <span class="shortcut--small" [style.backgroundColor]="chosenContact.color">{{ chosenContact.shortcut }}</span> 
               <span>{{chosenContact.name}}</span></li>

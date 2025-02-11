@@ -5,7 +5,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { PriorityComponent } from '../../../add-task-templates/priority/priority.component';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, FormsModule, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Contact, Tasks } from '../../../../../interfaces/interfaces';
 import { UserDatasService } from '../../../../../services/user-datas.service';
 
@@ -19,6 +19,8 @@ import { UserDatasService } from '../../../../../services/user-datas.service';
     MatInputModule,
     MatNativeDateModule,
     PriorityComponent,
+    FormsModule,
+    ReactiveFormsModule
   ],
   templateUrl: './edit-task.component.html',
   styleUrl: './edit-task.component.scss',
@@ -44,7 +46,7 @@ export class EditTaskComponent implements OnInit {
     this.editTaskForm = this.fb.group({
       title: [this.chosenTask.title, { validators: [Validators.required] }],
       description: [this.chosenTask.description],
-      assigned: this.fb.array(
+      assignedTo: this.fb.array(
         this.chosenTask.assignedTo.map(user => this.fb.control(user)), 
         { validators: [Validators.required] }
       ),
@@ -56,12 +58,19 @@ export class EditTaskComponent implements OnInit {
     });    
   }
 
-  get assigned(): FormArray {
-    return this.editTaskForm.get('assigned') as FormArray;
+  get assignedTo(): FormArray {
+    return this.editTaskForm.get('assignedTo') as FormArray;
   }
 
   get subtasks(): FormArray{
     return this.editTaskForm.get('subtasks') as FormArray;
+  }
+
+  updateTask(){
+    const formValue = this.editTaskForm.value;
+    formValue.dueDate = new Date(formValue.dueDate).getTime();
+    console.log(this.editTaskForm.value);
+    
   }
 
   closeDetails(): void {
@@ -75,7 +84,7 @@ export class EditTaskComponent implements OnInit {
     index: number,
     shortcut: string
   ) {
-    const assignedArray = this.assigned;
+    const assignedArray = this.assignedTo;
     const existingIndex = assignedArray.controls.findIndex(
       (control) => control.value.id === id
     );
@@ -98,7 +107,6 @@ export class EditTaskComponent implements OnInit {
   filterContacts(value: string) {
     console.log(this.filteredContacts);
     console.log(value);
-
     const lowerCaseQuery = value.toLowerCase();
     this.filteredContacts = this.contacts.filter((contact) =>
       contact.name.toLowerCase().includes(lowerCaseQuery)
@@ -116,10 +124,11 @@ export class EditTaskComponent implements OnInit {
 
 
   addSubtask(content: HTMLInputElement):void{
-    const subtaskValue = content.value.trim();
-    if(subtaskValue === '') return content.focus()
+    const title = content.value.trim();
+    if(title === '') return content.focus()
     const complete = false
-    this.subtasks.push(this.fb.control({subtaskValue, complete}))
+    this.subtasks.push(this.fb.control({title, complete}))
+    console.log(this.subtasks.value);
     content.value = ''
     content.focus()
   }

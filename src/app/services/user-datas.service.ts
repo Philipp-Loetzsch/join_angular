@@ -123,12 +123,14 @@ export class UserDatasService {
   async updateSubtask(task:Tasks, i:number){
     try {
       const updatedSubtasks = [...task.subtasks];
-      updatedSubtasks[i] = { ...updatedSubtasks[i], complete: task.subtasks[i].complete };
+      updatedSubtasks[i] = { 
+        ...updatedSubtasks[i], 
+        complete: task.subtasks[i].complete,
+        title: task.subtasks[i].title 
+      };
       await updateDoc(doc(this.firestore, `${this.RefDatabase('tasks')}/${task.id}`), {
         subtasks: updatedSubtasks,
       });
-  
-      console.log(`Subtask ${i} von Task ${task.id} wurde aktualisiert.`);
     } catch (error) {
       console.error("Fehler beim Aktualisieren des Subtasks:", error);
     }
@@ -185,6 +187,8 @@ export class UserDatasService {
       }));
       contacts.sort((a, b) => a.name.localeCompare(b.name));
       this.contactsList = contacts;
+      console.log(this.contactsList);
+      
     } catch (error) {
       console.error('Fehler beim Abrufen der Kontakte:', error);
       throw error;

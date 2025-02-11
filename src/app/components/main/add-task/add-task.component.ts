@@ -50,12 +50,12 @@ export class AddTaskComponent implements OnInit {
       priority: ['Medium'],
       category: ['', Validators.required],
       subtasks: this.fb.array([]), 
-      status: [this.status, false]
+      status: [this.status]
     });
   }
   
-  get assigned(): FormArray {
-    return this.addTaskForm.get('assigned') as FormArray;
+  get assignedTo(): FormArray {
+    return this.addTaskForm.get('assignedTo') as FormArray;
   }
 
   get subtasks(): FormArray {
@@ -68,6 +68,8 @@ export class AddTaskComponent implements OnInit {
   
 
   async ngOnInit(): Promise<void> {
+    console.log(this.userDataService.contactsList);
+    
     this.contacts = this.userDataService.contactsList
     this.filteredContacts = this.contacts
     if(this.contacts.length === 0){
@@ -89,9 +91,8 @@ export class AddTaskComponent implements OnInit {
     console.log(this.addTaskForm.value);
     
     if (this.addTaskForm.valid && this.haveCategory) {
-      this.addTaskForm.patchValue({status: this.status, complete:false})
+      this.addTaskForm.patchValue({status: this.status})
       console.log(this.addTaskForm.value);
-      
       const formValue = this.addTaskForm.value;
       formValue.dueDate = new Date(formValue.dueDate).getTime();
      this.userDataService.createTask(this.addTaskForm)
@@ -102,7 +103,7 @@ export class AddTaskComponent implements OnInit {
 
   clearForm(): void {
     this.addTaskForm.reset({ priority: 'Medium' });
-    this.assigned.clear();
+    this.assignedTo.clear();
     this.subtasks.clear();
   }
 
@@ -117,7 +118,7 @@ export class AddTaskComponent implements OnInit {
   }
 
   chooseContact(name: string, color: string, id: string, index: number, shortcut:string): void {
-    const assignedArray = this.assigned;
+    const assignedArray = this.assignedTo;
     const existingIndex = assignedArray.controls.findIndex(control => control.value.id === id);
     if (existingIndex !== -1) {
       assignedArray.removeAt(existingIndex);
@@ -148,10 +149,10 @@ export class AddTaskComponent implements OnInit {
   }
   
    addSubtask(content: HTMLInputElement):void{
-    const subtaskValue = content.value.trim();
-    if(subtaskValue === '') return content.focus()
+    const title = content.value.trim();
+    if(title === '') return content.focus()
     const complete = false
-    this.subtasks.push(this.fb.control({subtaskValue, complete}))
+    this.subtasks.push(this.fb.control({title, complete}))
     content.value = ''
     content.focus()
   }

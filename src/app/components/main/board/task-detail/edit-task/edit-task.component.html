@@ -3,7 +3,7 @@
       <img src="img/add_task/close.svg" alt="" />
     </button>
   </div>
-  <form class="edit-content" (click)="closeCotactList()">  
+  <form class="edit-content" [formGroup]="editTaskForm" (ngsubmit)="updateTask()" (click)="closeCotactList()">  
     <div>
       <label for="title">Title</label>
       <input type="text" id="title" name="title" class="input-field" value="{{editTaskForm.get('title')?.value}}"/>
@@ -17,6 +17,7 @@
           [matDatepicker]="picker"
           id="dueDate"
           formControlName="dueDate"
+          value="{{editTaskForm.get('dueDate')?.value}}"
         />
         <mat-datepicker-toggle matSuffix [for]="picker"> </mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
@@ -56,7 +57,7 @@
         </div>
       </div>
       <div class="chosen-contacts">
-        <ul *ngFor="let chosenContact of assigned.value">
+        <ul *ngFor="let chosenContact of assignedTo.value">
           <li class="list-item"> 
             <span class="shortcut--small" [style.backgroundColor]="chosenContact.color">{{ chosenContact.shortcut }}</span> 
             <span>{{chosenContact.name}}</span></li>
@@ -89,6 +90,6 @@
         </div>
       </div>
     </div>
-    <button type="submit" class="btn-primary--default submit-edit" >OK</button>
+    <button type="submit" class="btn-primary--default submit-edit" (click)="updateTask()">OK</button>
   </form>
 
