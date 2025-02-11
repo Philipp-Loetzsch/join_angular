@@ -120,6 +120,23 @@ export class UserDatasService {
     console.log('Alle Tasks wurden aktualisiert');
   }
 
+
+  async updateSingleTask(formValue:FormGroup, task:Tasks){
+    try {
+
+      const updatedTask = {
+        ...formValue, // Alle Werte aus dem Formular
+        status: task.status, // Werte aus task übernehmen
+        position: task.position,
+        category: task.category
+      }
+      await updateDoc(doc(this.firestore, `${this.RefDatabase('tasks')}/${task.id}`),updatedTask)
+    } catch (error) {
+      console.error(error);
+      
+    }
+  }
+
   async updateSubtask(task:Tasks, i:number){
     try {
       const updatedSubtasks = [...task.subtasks];

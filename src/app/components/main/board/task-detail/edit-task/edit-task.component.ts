@@ -50,7 +50,7 @@ export class EditTaskComponent implements OnInit {
         this.chosenTask.assignedTo.map(user => this.fb.control(user)), 
         { validators: [Validators.required] }
       ),
-      dueDate: [this.convertDate(this.chosenTask.dueDate), { validators: [Validators.required] }],
+      dueDate: [this.chosenTask.dueDate ? new Date(this.chosenTask.dueDate) : '', { validators: [Validators.required] }],
       priority: [this.chosenTask.prio],
       subtasks: this.fb.array(
         this.chosenTask.subtasks.map(subtask => this.fb.control(subtask))
@@ -70,7 +70,7 @@ export class EditTaskComponent implements OnInit {
     const formValue = this.editTaskForm.value;
     formValue.dueDate = new Date(formValue.dueDate).getTime();
     console.log(this.editTaskForm.value);
-    
+    this.userDataService.updateSingleTask(formValue, this.chosenTask)
   }
 
   closeDetails(): void {

@@ -3,7 +3,7 @@
       <img src="img/add_task/close.svg" alt="" />
     </button>
   </div>
-  <form class="edit-content" [formGroup]="editTaskForm" (ngsubmit)="updateTask()" (click)="closeCotactList()">  
+  <form class="edit-content" [formGroup]="editTaskForm" (ngSubmit)="updateTask()" (click)="closeCotactList()">  
     <div>
       <label for="title">Title</label>
       <input type="text" id="title" name="title" class="input-field" value="{{editTaskForm.get('title')?.value}}"/>
@@ -11,13 +11,12 @@
       <textarea name="description" id="description" value="{{editTaskForm.get('description')?.value}}"  class="input-field"></textarea>
       <label for="dueDate">Due date</label>
       <mat-form-field appearance="fill" class="input-field--nopadding"> 
-         <mat-label>{{editTaskForm.get('dueDate')?.value}}</mat-label>
+         <mat-label>DD/MM/YYYY</mat-label>
         <input
           matInput
           [matDatepicker]="picker"
           id="dueDate"
           formControlName="dueDate"
-          value="{{editTaskForm.get('dueDate')?.value}}"
         />
         <mat-datepicker-toggle matSuffix [for]="picker"> </mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
@@ -90,6 +89,6 @@
         </div>
       </div>
     </div>
-    <button type="submit" class="btn-primary--default submit-edit" (click)="updateTask()">OK</button>
+    <button class="btn-primary--default submit-edit">OK</button>
   </form>
 
