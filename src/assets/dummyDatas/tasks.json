@@ -5,7 +5,7 @@
       "dueDate": 1738623600000,
       "priority": "Urgent",
       "category": "Technical Task",
-      "subtasks": [{"title": "Debug issue", "complete":"false"}, {"title": "Test fix", "complete":"false"}],
+      "subtasks": [{"title": "Debug issue", "complete":false}, {"title": "Test fix", "complete":false}],
       "status": "todo"
     },
     {
@@ -23,7 +23,7 @@
       "dueDate": 1738623600000,
       "priority": "Urgent",
       "category": "Technical Task",
-      "subtasks": [{"title": "Backup old database", "complete":"false"}, {"title": "Run migration scripts", "complete":"false"}],
+      "subtasks": [{"title": "Backup old database", "complete":false}, {"title": "Run migration scripts", "complete":false}],
       "status": "todo"
     },
     {
@@ -32,7 +32,7 @@
       "dueDate": 1738623600000,
       "priority": "Medium",
       "category": "User Story",
-      "subtasks": [{"title": "Write API docs", "complete":"false"}, {"title": "Review content", "complete":"false"}],
+      "subtasks": [{"title": "Write API docs", "complete":false}, {"title": "Review content", "complete":false}],
       "status": "inProgress"
     },
     {
@@ -41,7 +41,7 @@
       "dueDate": 1738623600000,
       "priority": "Low",
       "category": "User Story",
-      "subtasks": [{"title": "Prepare agenda", "complete":"false"}, {"title": "Send invites" ,"complete":"false"}],
+      "subtasks": [{"title": "Prepare agenda", "complete":false}, {"title": "Send invites" ,"complete":false}],
       "status": "todo"
     }
   ]

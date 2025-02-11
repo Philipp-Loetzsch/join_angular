@@ -12,6 +12,7 @@ import {
 import { FormGroup } from '@angular/forms';
 import { Assigned, Contact, Subtask, Tasks } from '../interfaces/interfaces';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 
 @Injectable({
   providedIn: 'root',
@@ -64,7 +65,7 @@ export class UserDatasService {
         collection(this.firestore, this.RefDatabase('tasks'))
       );
       const tasks = querySnapshot.docs.map((doc) => ({
-        assignedTo: doc.data()['assigned'] as Assigned[],
+        assignedTo: doc.data()['assignedTo'] as Assigned[],
         subtasks: doc.data()['subtasks'] as Subtask[],
         description: doc.data()['description'] as string,
         dueDate: doc.data()['dueDate'] as number,
@@ -117,6 +118,20 @@ export class UserDatasService {
   
     await Promise.all(updates); // Alle Updates parallel ausführen
     console.log('Alle Tasks wurden aktualisiert');
+  }
+
+  async updateSubtask(task:Tasks, i:number){
+    try {
+      const updatedSubtasks = [...task.subtasks];
+      updatedSubtasks[i] = { ...updatedSubtasks[i], complete: task.subtasks[i].complete };
+      await updateDoc(doc(this.firestore, `${this.RefDatabase('tasks')}/${task.id}`), {
+        subtasks: updatedSubtasks,
+      });
+  
+      console.log(`Subtask ${i} von Task ${task.id} wurde aktualisiert.`);
+    } catch (error) {
+      console.error("Fehler beim Aktualisieren des Subtasks:", error);
+    }
   }
   
 

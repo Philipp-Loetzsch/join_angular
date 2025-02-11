@@ -45,7 +45,7 @@ export class AddTaskComponent implements OnInit {
         title: ['', Validators.required],
         description: [''],
     //  }),
-      assigned: this.fb.array([], Validators.required), 
+      assignedTo: this.fb.array([], Validators.required), 
       dueDate: ['', Validators.required],
       priority: ['Medium'],
       category: ['', Validators.required],

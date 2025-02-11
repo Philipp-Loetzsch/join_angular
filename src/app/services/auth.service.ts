@@ -56,8 +56,8 @@ export class AuthService {
   async saveTasks(userRef: any, contacts: any[]) {
     const tasksRef = collection(userRef, 'tasks');
     for (const task of tasksData) {
-      const assigned = this.getRandomContacts(contacts);
-      await addDoc(tasksRef, { ...task, assigned });
+      const assignedTo = this.getRandomContacts(contacts);
+      await addDoc(tasksRef, { ...task, assignedTo });
     }
   }
 

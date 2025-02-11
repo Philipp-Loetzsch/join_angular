@@ -34,7 +34,6 @@ export class TaskDetailComponent{
   contacts: Contact[] = [];
   status: string = '';
   constructor(
-    private fb: FormBuilder,
     private userDataService: UserDatasService
   ) {}
   
@@ -66,5 +65,10 @@ export class TaskDetailComponent{
       year: 'numeric'
     });
     return formattedDate
+  }
+
+  toggleCompleteSubtask(i:number){
+    this.chosenTask.subtasks[i].complete = !this.chosenTask.subtasks[i].complete
+    this.userDataService.updateSubtask(this.chosenTask, i)
   }
 }

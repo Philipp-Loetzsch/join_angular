@@ -33,7 +33,7 @@
       <ul *ngFor="let subtask of chosenTask.subtasks let i = index">
         <li>
           <div class="list-item">
-            <img [src]="subtask.complete ? 'img/Property checked.svg' : 'img/Property Default.svg' " alt="" />
+            <img (click)="toggleCompleteSubtask(i)" [src]="subtask.complete ? 'img/Property checked.svg' : 'img/Property Default.svg' " alt="" />
             <span>{{subtask.title}}</span>
           </div>
         </li>
