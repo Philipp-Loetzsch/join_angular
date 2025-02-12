@@ -147,15 +147,16 @@
             id="subtasks"
             placeholder="Add new subtask"
             #subtasksInput
+            (keydown.enter)="addSubtask( $event, subtasksInput)"
           />
-          <img class="add-subtask" (click)="addSubtask(subtasksInput)" src="img/plus.svg" alt="">
+          <img class="add-subtask" (click)="addSubtask($event, subtasksInput )" src="img/plus.svg" alt="">
         </div>
        
         <div  class="subtask-list">
           <ul *ngFor="let subtask of subtasks.value let i=index">
             <li>
              <div class="subtask-list_item">
-              <span>{{subtask.subtaskValue}}</span>
+              <span>{{subtask.title}}</span>
               <div>
                 <button type="button" (click)="editSubtask(i)"><img src="img/edit.svg" alt=""></button>
                 <button type="button" (click)="deleteSubtask(i)"><img src="img/delete.svg" alt=""></button>

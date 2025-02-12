@@ -178,3 +178,11 @@ app-board {
   border-radius: 10px;
   cursor: s-resize;
 }
+
+.mdc-linear-progress__bar-inner{
+  border-color: #29ABE2 !important;
+}
+
+.mat-mdc-progress-bar{
+  border-radius: 100% !important;
+}

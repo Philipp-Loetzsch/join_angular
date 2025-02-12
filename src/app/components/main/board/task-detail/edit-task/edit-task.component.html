@@ -6,9 +6,9 @@
   <form class="edit-content" [formGroup]="editTaskForm" (ngSubmit)="updateTask()" (click)="closeCotactList()">  
     <div>
       <label for="title">Title</label>
-      <input type="text" id="title" name="title" class="input-field" value="{{editTaskForm.get('title')?.value}}"/>
+      <input type="text" id="title" name="title" class="input-field" formControlName="title"/>
       <label for="description">Description</label>
-      <textarea name="description" id="description" value="{{editTaskForm.get('description')?.value}}"  class="input-field"></textarea>
+      <textarea name="description" id="description" formControlName="description"  class="input-field"></textarea>
       <label for="dueDate">Due date</label>
       <mat-form-field appearance="fill" class="input-field--nopadding"> 
          <mat-label>DD/MM/YYYY</mat-label>

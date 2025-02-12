@@ -54,9 +54,9 @@ export class BoardComponent implements OnInit {
   }
 
   getTasks() {
-    const allTasks = this.userDataService.tasks;
+    this.allTasks = this.userDataService.tasks;
     const filterAndSortTasks = (status: string) => {
-      return allTasks
+      return this.allTasks
         .filter((task) => task.status === status)
         .sort((a, b) => a.position - b.position);
     };
@@ -134,4 +134,16 @@ export class BoardComponent implements OnInit {
       this.userDataService.updateTasks(this.allTasks);
     }, 800);
   }
+
+  getCompletedSubtasks(task: any): number {
+    return task.subtasks.filter((subtask: any) => subtask.complete).length;
+  }
+
+  getProgress(task: any): number {
+    if (!task.subtasks || task.subtasks.length === 0) return 0;
+    const completed = task.subtasks.filter((subtask: any) => subtask.complete).length;
+    return (completed / task.subtasks.length) * 100;
+  }
+  
+  
 }

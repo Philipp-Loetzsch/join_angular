@@ -47,7 +47,7 @@ export class UserDatasService {
     }
   }
 
-  async getUserName() {
+  async getUserName():Promise<string> {
     const docRef = doc(this.firestore, this.RefDatabase(''));
     const docSnapshot = await getDoc(docRef);
     if (docSnapshot.exists()) {
@@ -57,6 +57,11 @@ export class UserDatasService {
       this.router.navigate(['/']);
       return '';
     }
+  }
+
+  async getUserDatas(){
+    const docRef = doc(this.firestore, this.RefDatabase(''));
+
   }
 
   async getUsertasks() {

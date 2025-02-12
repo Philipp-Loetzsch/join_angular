@@ -96,7 +96,9 @@
     color: #a8a8a8;
   }
   .progress-subtaks {
-    @include arrangement($jc: space-between);
+    @include arrangement($jc: space-between, $g:1rem);
+    
+    
     .progress-subtaks_status {
       display: flex;
       white-space: nowrap;

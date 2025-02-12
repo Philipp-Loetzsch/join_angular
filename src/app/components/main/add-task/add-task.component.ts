@@ -9,6 +9,8 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { Contact } from '../../../interfaces/interfaces';
 import { PriorityComponent } from '../add-task-templates/priority/priority.component';
 import { TitleDescriptionComponent } from '../add-task-templates/title-description/title-description.component';
+import { getAuth } from '@angular/fire/auth';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-add-task',
@@ -39,7 +41,7 @@ export class AddTaskComponent implements OnInit {
   haveCategory:boolean = false
   textCategory:string='Select contacts to assign'
 
-  constructor(private fb: FormBuilder, private userDataService: UserDatasService,) {
+  constructor(private fb: FormBuilder, private userDataService: UserDatasService, private authService:AuthService) {
     this.addTaskForm = this.fb.group({
       // text: this.fb.group({
         title: ['', Validators.required],
@@ -68,20 +70,34 @@ export class AddTaskComponent implements OnInit {
   
 
   async ngOnInit(): Promise<void> {
+    debugger;
     console.log(this.userDataService.contactsList);
-    
-    this.contacts = this.userDataService.contactsList
-    this.filteredContacts = this.contacts
-    if(this.contacts.length === 0){
+    const currentUserName = await this.userDataService.getUserName()
+   
+    const currentUserDatas: Contact = {
+      name: currentUserName + ' ' + '(Yourself)', 
+      email:'', 
+      phone: '',   
+      color: 'gold',  
+      id: this.userDataService.currentUserID, 
+      shortcut: this.userDataService.getShortcut(currentUserName)
+    };
+    this.contacts = [currentUserDatas, ...this.userDataService.contactsList];
+    this.filteredContacts = this.contacts;
+  
+    if (this.contacts.length === 1) {
       const contactInterval = setInterval(() => {
-        this.contacts = this.userDataService.contactsList
-        this.filteredContacts = this.contacts
-        if(this.contacts.length >= 0) {
-          clearInterval(contactInterval)          
+        this.contacts = [currentUserDatas, ...this.userDataService.contactsList];  
+        if (this.contacts.length > 1) {
+          this.filteredContacts = this.contacts;
+          clearInterval(contactInterval);
         }
       }, 1000);
     }
-  }
+    console.log(this.filteredContacts);
+}
+  
+  
 
   hideTask():void{
     this.hideAddTask.emit();
@@ -129,10 +145,7 @@ export class AddTaskComponent implements OnInit {
   }
   
   filterContacts(value:string){
-    console.log(this.filteredContacts);
-    console.log(value);
-    
-    const lowerCaseQuery = value.toLowerCase();
+     const lowerCaseQuery = value.toLowerCase();
     this.filteredContacts = this.contacts.filter(contact =>
     contact.name.toLowerCase().includes(lowerCaseQuery));
   }
@@ -148,13 +161,16 @@ export class AddTaskComponent implements OnInit {
     this.haveCategory = true;
   }
   
-   addSubtask(content: HTMLInputElement):void{
+   addSubtask(event:Event, content: HTMLInputElement ):void{
+    event.preventDefault();
     const title = content.value.trim();
-    if(title === '') return content.focus()
+     if(title === '') return content.focus()
     const complete = false
     this.subtasks.push(this.fb.control({title, complete}))
     content.value = ''
     content.focus()
+    console.log(this.subtasks.value);
+    
   }
    
    editSubtask(i:number){
