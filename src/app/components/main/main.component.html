@@ -1,5 +1,5 @@
 <div class="main-container" (click)="closePopup()">
-  <div class="main-container_nav_side" *ngIf="innerWidth > 921">
+  <div class="main-container_nav_side" *ngIf="innerWidth > 911">
     <div class="main-container_nav_side_navigation">
       <img class="logo" src="img/join_logo.svg" alt="" />
       <a
@@ -34,7 +34,7 @@
     <div class="main-container_content_routes">
       <router-outlet></router-outlet>
     </div>
-    <div class="main-container_nav_bottom_navigation" *ngIf="innerWidth <= 920">
+    <div class="main-container_nav_bottom_navigation" *ngIf="innerWidth <= 910">
       <a
       [routerLink]="'/main/' + link.img" [queryParams]="{ UID: userDataService.currentUserID }"
         *ngFor="let link of nameLinks; index as i"

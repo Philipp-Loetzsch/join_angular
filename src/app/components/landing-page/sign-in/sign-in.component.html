@@ -1,6 +1,6 @@
 <main>
   <header>
-    <div class="logo">
+    <div class="logo-signin">
       <img src="img/join_logo_header.svg" alt="" />
     </div>
   </header>
@@ -23,7 +23,7 @@
         <img src="img/person.svg" alt="name" />
       </div>
 
-      @if (signupForm.get('name')?.errors?.['required'] && signupForm.touched) {
+      @if (signupForm.get('name')?.errors?.['required'] && signupForm.get('name')?.touched) {
       <label for="name" class="error-label">This field is required</label>
       } @else(){
       <label for="name" class="empty-label"></label>
@@ -39,7 +39,7 @@
         <img src="img/mail.svg" alt="mail" />
       </div>
 
-      @if (signupForm.get('email')?.errors?.['required'] && signupForm.touched)
+      @if (signupForm.get('email')?.errors?.['required'] && signupForm.get('email')?.touched)
       {
       <label for="email" class="error-label">This field is required</label>
       } @else if(signupForm.get('email')?.errors?.['pattern'] &&
@@ -62,7 +62,7 @@
       </div>
 
       @if (signupForm.get('password')?.errors?.['required'] &&
-      signupForm.touched) {
+      signupForm.get('password')?.touched) {
       <label for="password" class="error-label">This field is required</label>
       } @else if (signupForm.get('password')?.errors?.['minlength'] &&
       signupForm.touched) {
@@ -82,7 +82,7 @@
       </div>
 
       @if (signupForm.get('conf_password')?.errors?.['required'] &&
-      signupForm.touched) {
+      signupForm.get('conf_password')?.touched) {
       <label for="conf_password" class="error-label"
         >This field is required</label
       >

@@ -2,14 +2,11 @@
 <h1>Add Task</h1>
 <button *ngIf="board" (click)="hideTask()"><img src="img/add_task/close.svg" alt="" ></button>
 </div>
-<form [formGroup]="addTaskForm" (ngSubmit)="onSubmit()">
+<form [formGroup]="addTaskForm" (ngSubmit)="onSubmit()" (click)="closeContactList()">
   <div>
    
     <div>
        <!-- <app-title-description [formGroup]="textFormGroup"></app-title-description>  -->
-    
-    
-
       <label for="title">Title<span class="required">*</span></label>
       <input
       type="text"
@@ -41,7 +38,8 @@
       <label for="assigned">Assigned to<span class="required">*</span></label>
       <div 
         class="input-field contact-field"
-        [ngClass]="{ 'input-field--required': isFieldInvalid('assigned') }">
+        [ngClass]="{ 'input-field--required': isFieldInvalid('assigned') }"
+        (click)="$event.stopPropagation()">
         <input
           (focus)="showContactList = true"
           type="text"

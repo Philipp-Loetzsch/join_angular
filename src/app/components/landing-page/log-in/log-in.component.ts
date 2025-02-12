@@ -21,6 +21,8 @@ export class LogInComponent {
   constructor(private router: Router, private authService: AuthService, private userDatasService:UserDatasService) {}
   innerWidth:number = window.innerWidth
   logInFailed:boolean=false
+  rememberLogIn:boolean = true
+
   loginForm = new FormGroup({
     email: new FormControl('jointester@havefun.com', [
       Validators.required,
@@ -47,10 +49,14 @@ export class LogInComponent {
     this.loginForm.markAllAsTouched();
   }
 
+  toggleRemember(){
+    this.rememberLogIn = !this.rememberLogIn
+  }
+
+
   @HostListener('window:resize', ['$event'])
   onResize() {
   this.innerWidth = window.innerWidth;
   console.log(this.innerWidth);
-  
   }
 }

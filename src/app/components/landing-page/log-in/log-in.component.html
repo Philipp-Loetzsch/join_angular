@@ -58,6 +58,11 @@
       <label for="password" class="empty-label"></label>
       }
 
+      <div class="remember-me"> 
+        <button type="button" (click)="toggleRemember()"><img [src]="rememberLogIn ? 'img/Property checked.svg' : 'img/Property Default.svg' " alt=""></button> 
+        Remember me
+      </div>
+      
       <div class="btns-log-in">
         <button class="btn-primary--default" type="submit">Log in</button>
         <button class="btn-secondary--default" type="button">

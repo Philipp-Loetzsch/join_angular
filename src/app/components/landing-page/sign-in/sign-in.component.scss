@@ -13,6 +13,15 @@ section{
   }
 }
 
+.logo-signin{
+  position: absolute;
+  top: 40px;
+  left: 40px;
+  >img{
+    width: 80px;
+  }
+}
+
 .accept-terms {
   @include arrangement($g: 8px);
   button {

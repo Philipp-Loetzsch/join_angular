@@ -1,6 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { ReactiveFormsModule, FormBuilder, FormGroup, Validators, FormArray, FormsModule } from '@angular/forms';
+import {
+  ReactiveFormsModule,
+  FormBuilder,
+  FormGroup,
+  Validators,
+  FormArray,
+  FormsModule,
+} from '@angular/forms';
 import { UserDatasService } from '../../../services/user-datas.service';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -15,47 +22,52 @@ import { AuthService } from '../../../services/auth.service';
 @Component({
   selector: 'app-add-task',
   standalone: true,
-  imports: [CommonModule,
-            FormsModule, 
-            ReactiveFormsModule,
-            MatDatepickerModule, 
-            MatFormFieldModule, 
-            MatInputModule, 
-            MatNativeDateModule,
-            PriorityComponent,
-           ],
+  imports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatDatepickerModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatNativeDateModule,
+    PriorityComponent,
+  ],
   templateUrl: './add-task.component.html',
   styleUrls: ['./add-task.component.scss'],
 })
 export class AddTaskComponent implements OnInit {
-  @Input() board!:boolean
-  @Input() status:string = 'todo'
+  @Input() board!: boolean;
+  @Input() status: string = 'todo';
   @Output() hideAddTask = new EventEmitter<void>();
 
   addTaskForm: FormGroup;
-  showContactList:boolean = false
-  contacts:Contact[]=[]
-  filteredContacts!: Contact[]
-  chosen:boolean[] = [];
-  showCategorySelector:boolean=false
-  haveCategory:boolean = false
-  textCategory:string='Select contacts to assign'
+  showContactList: boolean = false;
+  contacts: Contact[] = [];
+  filteredContacts!: Contact[];
+  chosen: boolean[] = [];
+  showCategorySelector: boolean = false;
+  haveCategory: boolean = false;
+  textCategory: string = 'Select contacts to assign';
 
-  constructor(private fb: FormBuilder, private userDataService: UserDatasService, private authService:AuthService) {
+  constructor(
+    private fb: FormBuilder,
+    private userDataService: UserDatasService,
+    private authService: AuthService
+  ) {
     this.addTaskForm = this.fb.group({
       // text: this.fb.group({
-        title: ['', Validators.required],
-        description: [''],
-    //  }),
-      assignedTo: this.fb.array([], Validators.required), 
+      title: ['', Validators.required],
+      description: [''],
+      //  }),
+      assignedTo: this.fb.array([], Validators.required),
       dueDate: ['', Validators.required],
       priority: ['Medium'],
       category: ['', Validators.required],
-      subtasks: this.fb.array([]), 
-      status: [this.status]
+      subtasks: this.fb.array([]),
+      status: [this.status],
     });
   }
-  
+
   get assignedTo(): FormArray {
     return this.addTaskForm.get('assignedTo') as FormArray;
   }
@@ -63,55 +75,48 @@ export class AddTaskComponent implements OnInit {
   get subtasks(): FormArray {
     return this.addTaskForm.get('subtasks') as FormArray;
   }
-  
+
   // get textFormGroup(): FormGroup {
   //   return this.addTaskForm.get('text') as FormGroup;
   // }
-  
 
   async ngOnInit(): Promise<void> {
-    debugger;
-    console.log(this.userDataService.contactsList);
-    const currentUserName = await this.userDataService.getUserName()
-   
+    const currentUserName = await this.userDataService.getUserName();
     const currentUserDatas: Contact = {
-      name: currentUserName + ' ' + '(Yourself)', 
-      email:'', 
-      phone: '',   
-      color: 'gold',  
-      id: this.userDataService.currentUserID, 
-      shortcut: this.userDataService.getShortcut(currentUserName)
+      name: currentUserName + ' ' + '(Yourself)',
+      email: '',
+      phone: '',
+      color: 'gold',
+      id: this.userDataService.currentUserID,
+      shortcut: this.userDataService.getShortcut(currentUserName),
     };
     this.contacts = [currentUserDatas, ...this.userDataService.contactsList];
     this.filteredContacts = this.contacts;
-  
+
     if (this.contacts.length === 1) {
       const contactInterval = setInterval(() => {
-        this.contacts = [currentUserDatas, ...this.userDataService.contactsList];  
+        this.contacts = [
+          currentUserDatas,
+          ...this.userDataService.contactsList,
+        ];
         if (this.contacts.length > 1) {
           this.filteredContacts = this.contacts;
           clearInterval(contactInterval);
         }
       }, 1000);
     }
-    console.log(this.filteredContacts);
-}
-  
-  
+  }
 
-  hideTask():void{
+  hideTask(): void {
     this.hideAddTask.emit();
   }
 
   onSubmit(): void {
-    console.log(this.addTaskForm.value);
-    
     if (this.addTaskForm.valid && this.haveCategory) {
-      this.addTaskForm.patchValue({status: this.status})
-      console.log(this.addTaskForm.value);
+      this.addTaskForm.patchValue({ status: this.status });
       const formValue = this.addTaskForm.value;
       formValue.dueDate = new Date(formValue.dueDate).getTime();
-     this.userDataService.createTask(this.addTaskForm)
+      this.userDataService.createTask(this.addTaskForm);
     } else {
       this.addTaskForm.markAllAsTouched();
     }
@@ -123,19 +128,30 @@ export class AddTaskComponent implements OnInit {
     this.subtasks.clear();
   }
 
-  isFieldInvalid(field:string): boolean{
+  isFieldInvalid(field: string): boolean {
     const control = this.addTaskForm.get(field);
     return (control?.touched && control?.invalid) || false;
-
   }
 
-  toggleContactList(){
-     this.showContactList = !this.showContactList
+  toggleContactList() {
+    this.showContactList = !this.showContactList;
   }
 
-  chooseContact(name: string, color: string, id: string, index: number, shortcut:string): void {
+  closeContactList() {
+    this.showContactList = false;
+  }
+
+  chooseContact(
+    name: string,
+    color: string,
+    id: string,
+    index: number,
+    shortcut: string
+  ): void {
     const assignedArray = this.assignedTo;
-    const existingIndex = assignedArray.controls.findIndex(control => control.value.id === id);
+    const existingIndex = assignedArray.controls.findIndex(
+      (control) => control.value.id === id
+    );
     if (existingIndex !== -1) {
       assignedArray.removeAt(existingIndex);
     } else {
@@ -143,15 +159,16 @@ export class AddTaskComponent implements OnInit {
     }
     this.chosen[index] = !this.chosen[index];
   }
-  
-  filterContacts(value:string){
-     const lowerCaseQuery = value.toLowerCase();
-    this.filteredContacts = this.contacts.filter(contact =>
-    contact.name.toLowerCase().includes(lowerCaseQuery));
+
+  filterContacts(value: string) {
+    const lowerCaseQuery = value.toLowerCase();
+    this.filteredContacts = this.contacts.filter((contact) =>
+      contact.name.toLowerCase().includes(lowerCaseQuery)
+    );
   }
 
-  toggleCategorySelector(){
-    this.showCategorySelector = !this.showCategorySelector
+  toggleCategorySelector() {
+    this.showCategorySelector = !this.showCategorySelector;
   }
 
   chooseCategory(chosenCategory: string) {
@@ -160,26 +177,21 @@ export class AddTaskComponent implements OnInit {
     this.showCategorySelector = false;
     this.haveCategory = true;
   }
-  
-   addSubtask(event:Event, content: HTMLInputElement ):void{
+
+  addSubtask(event: Event, content: HTMLInputElement): void {
     event.preventDefault();
     const title = content.value.trim();
-     if(title === '') return content.focus()
-    const complete = false
-    this.subtasks.push(this.fb.control({title, complete}))
-    content.value = ''
-    content.focus()
+    if (title === '') return content.focus();
+    const complete = false;
+    this.subtasks.push(this.fb.control({ title, complete }));
+    content.value = '';
+    content.focus();
     console.log(this.subtasks.value);
-    
   }
-   
-   editSubtask(i:number){
 
-   }
-   
-   deleteSubtask(i:number){
-    this.subtasks.removeAt(i)
-   }
+  editSubtask(i: number) {}
+
+  deleteSubtask(i: number) {
+    this.subtasks.removeAt(i);
+  }
 }
-
-
