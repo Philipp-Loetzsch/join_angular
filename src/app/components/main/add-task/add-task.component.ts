@@ -192,6 +192,7 @@ export class AddTaskComponent implements OnInit {
     content.focus();
     this.subtaskInputText= ""
     console.log(this.subtasks.value);
+    
   }
 
   showEditMode(content:HTMLInputElement){
