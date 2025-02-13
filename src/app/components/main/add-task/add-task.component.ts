@@ -86,13 +86,13 @@ export class AddTaskComponent implements OnInit {
     const currentUserName = await this.userDataService.getUserName();
     const currentUserDatas: Contact = {
       name: currentUserName + ' ' + '(Yourself)',
-      email: '',
-      phone: '',
+      email: 'none',
+      phone: 'none',
       color: 'gold',
       id: this.userDataService.currentUserID,
       shortcut: this.userDataService.getShortcut(currentUserName),
-    };
-    this.contacts = [currentUserDatas, ...this.userDataService.contactsList];
+    };    
+    this.contacts = [currentUserDatas, ...this.userDataService.contactsList];  
     this.filteredContacts = this.contacts;
 
     if (this.contacts.length === 1) {
@@ -113,7 +113,7 @@ export class AddTaskComponent implements OnInit {
     this.hideAddTask.emit();
   }
 
-  onSubmit(): void {
+  onSubmit(): void {   
     if (this.addTaskForm.valid && this.haveCategory) {
       this.addTaskForm.patchValue({ status: this.status });
       const formValue = this.addTaskForm.value;
@@ -192,7 +192,7 @@ export class AddTaskComponent implements OnInit {
     content.focus();
     this.subtaskInputText= ""
     console.log(this.subtasks.value);
-    
+
   }
 
   showEditMode(content:HTMLInputElement){

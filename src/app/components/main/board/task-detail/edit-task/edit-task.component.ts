@@ -8,6 +8,7 @@ import { PriorityComponent } from '../../../add-task-templates/priority/priority
 import { FormArray, FormBuilder, FormGroup, FormsModule, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Contact, Tasks } from '../../../../../interfaces/interfaces';
 import { UserDatasService } from '../../../../../services/user-datas.service';
+import { GlobalPositionStrategy } from '@angular/cdk/overlay';
 
 @Component({
   selector: 'app-edit-task',
@@ -41,8 +42,8 @@ export class EditTaskComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {    
-    this.contacts = this.userDataService.contactsList
-    this.filteredContacts = this.contacts
+    this.setContactList()
+  
     this.editTaskForm = this.fb.group({
       title: [this.chosenTask.title, { validators: [Validators.required] }],
       description: [this.chosenTask.description],
@@ -52,10 +53,27 @@ export class EditTaskComponent implements OnInit {
       ),
       dueDate: [this.chosenTask.dueDate ? new Date(this.chosenTask.dueDate) : '', { validators: [Validators.required] }],
       priority: [this.chosenTask.prio],
-      subtasks: this.fb.array(
-        this.chosenTask.subtasks.map(subtask => this.fb.control(subtask))
-      )
+      subtasks: this.fb.array(this.chosenTask.subtasks.map(subtask => this.fb.control(subtask))),
+      status:[this.chosenTask.status],
+      position:[this.chosenTask.position],
+      category:[this.chosenTask.category]
     });    
+  }
+
+  async setContactList(){
+    // this.contacts = this.userDataService.contactsList
+    // this.filteredContacts = this.contacts
+    const currentUserName = await this.userDataService.getUserName();
+    const currentUserDatas: Contact = {
+      name: currentUserName + ' ' + '(Yourself)',
+      email: 'none',
+      phone: 'none',
+      color: 'gold',
+      id: this.userDataService.currentUserID,
+      shortcut: this.userDataService.getShortcut(currentUserName),
+    };    
+    this.contacts = [currentUserDatas, ...this.userDataService.contactsList];  
+    this.filteredContacts = this.contacts;
   }
 
   get assignedTo(): FormArray {
@@ -70,7 +88,7 @@ export class EditTaskComponent implements OnInit {
     const formValue = this.editTaskForm.value;
     formValue.dueDate = new Date(formValue.dueDate).getTime();
     console.log(this.editTaskForm.value);
-    this.userDataService.updateSingleTask(formValue, this.chosenTask)
+    this.userDataService.updateSingleTask(formValue, this.chosenTask.id)
   }
 
   closeDetails(): void {

@@ -33,7 +33,7 @@
       <div class="category-headline--{{task.category.toLocaleLowerCase().split(' ').join('')}}">{{task.category}}</div>
       <h4>{{task.title}}</h4>
       <div class="task-description">{{task.description}}</div>
-      <div class="progress-subtaks">
+      <div class="progress-subtaks" *ngIf="task.subtasks.length > 0">
         <mat-progress-bar  [value]="getProgress(task)"></mat-progress-bar>
         <div class="progress-subtaks_status">
           {{ getCompletedSubtasks(task) }} /{{task.subtasks.length}} Subtasks 

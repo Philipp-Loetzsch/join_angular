@@ -1,13 +1,13 @@
 @import "./../../../../assets/styles/mixins.scss";
-.add-task_header{
+.add-task_header {
   @include arrangement($jc: space-between);
   width: 100%;
-  >button{
+  > button {
     cursor: pointer;
     padding: 8px;
     border-radius: 50%;
     @include arrangement();
-    &:hover{
+    &:hover {
       background-color: #47494d25;
     }
   }
@@ -107,8 +107,8 @@ form {
     height: 20px;
     border-radius: 50%;
     &:hover {
-      background-color: #0C2E621F;
-     
+      background-color: #0c2e621f;
+
       cursor: pointer;
     }
   }
@@ -193,20 +193,23 @@ form {
       button {
         cursor: pointer;
       }
+      &:hover {
+        background-color: rgba(128, 128, 128, 0.288);
+        border-radius: 10px;
+      }
     }
   }
 }
 
-.subtasks-editor{
+.subtasks-editor {
   display: flex;
   gap: 10px;
-  
-  >img{
-    &:hover{
+
+  > img {
+    &:hover {
       cursor: pointer;
       transform: scale(1.5);
     }
-    
   }
 }
 
