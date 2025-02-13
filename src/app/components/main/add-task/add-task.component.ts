@@ -48,6 +48,8 @@ export class AddTaskComponent implements OnInit {
   showCategorySelector: boolean = false;
   haveCategory: boolean = false;
   textCategory: string = 'Select contacts to assign';
+  subtaskInputText: string = "";
+  prepareSubtask:number | null= null
 
   constructor(
     private fb: FormBuilder,
@@ -178,6 +180,8 @@ export class AddTaskComponent implements OnInit {
     this.haveCategory = true;
   }
 
+
+
   addSubtask(event: Event, content: HTMLInputElement): void {
     event.preventDefault();
     const title = content.value.trim();
@@ -189,7 +193,38 @@ export class AddTaskComponent implements OnInit {
     console.log(this.subtasks.value);
   }
 
-  editSubtask(i: number) {}
+  showEditMode(content:HTMLInputElement){
+    this.subtaskInputText = content.value.trim();    
+  }
+
+  clearInput(content: HTMLInputElement){
+    this.subtaskInputText = ""
+    content.value = ""
+  }
+
+  editSubtask(i: number) {
+    this.prepareSubtask = i
+    
+  }
+  changeSubtask(event: Event, index: number, input: HTMLInputElement): void {
+    event.preventDefault();
+    const title = input.value.trim();
+    if (title === '') return input.focus(); // Falls leer, Fokus setzen und abbrechen
+    
+    // Subtask im FormArray aktualisieren
+    const subtask = this.subtasks.at(index).value; 
+    this.subtasks.at(index).setValue({ ...subtask, title });
+  
+    // Bearbeitungsmodus verlassen
+    this.prepareSubtask = null;
+    console.log(this.subtasks.value); // Debugging
+  }
+  
+  
+  cancelEdit() {
+    this.prepareSubtask = null; // Schließt den Bearbeitungsmodus
+  }
+    
 
   deleteSubtask(i: number) {
     this.subtasks.removeAt(i);

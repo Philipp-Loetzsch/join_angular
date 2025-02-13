@@ -145,14 +145,20 @@
             id="subtasks"
             placeholder="Add new subtask"
             #subtasksInput
+            (keyup)="showEditMode(subtasksInput)"
             (keydown.enter)="addSubtask( $event, subtasksInput)"
           />
-          <img class="add-subtask" (click)="addSubtask($event, subtasksInput )" src="img/plus.svg" alt="">
+          <img class="add-subtask" (click)="subtasksInput.focus()" src="img/plus.svg" alt="" *ngIf="subtaskInputText.length === 0">
+          <div class="subtasks-editor" *ngIf="subtaskInputText.length > 0">
+            <img src="img/add_task/close.svg" alt="clear Subtask" (click)="clearInput(subtasksInput) ">
+            <div class="separator"></div>
+            <img src="img/add_task/check_black.svg" alt="confirm Subatask" (click)="addSubtask($event, subtasksInput )">
+          </div>
         </div>
        
-        <div  class="subtask-list">
+        <!-- <div  class="subtask-list">
           <ul *ngFor="let subtask of subtasks.value let i=index">
-            <li>
+            <li *ngIf="prepareSubtask === null">
              <div class="subtask-list_item">
               <span>{{subtask.title}}</span>
               <div>
@@ -161,8 +167,64 @@
               </div>
              </div>
             </li>
+            <div class="input-field" *ngIf="prepareSubtask === i">
+              <input 
+                type="text" 
+                name="prepareSubtask" 
+                id="prepareSubtask" 
+                #subtask[i]
+              
+                (keydown.enter)="changeSubtask($event, i, subtask[i])"
+              >
+              <div class="subtasks-editor">
+                <button type="button"><img src="img/delete.svg" alt="delete"></button>
+                <div class="separator"></div>
+                <button type="button" (click)="changeSubtask($event ,i, subtask[i])"><img src="img/add_task/check_black.svg" alt="confirm"></button>
+              </div>
+            </div>
+          </ul>
+        </div> -->
+
+        <div class="subtask-list">
+          <ul>
+            <li *ngFor="let subtask of subtasks.value; let i = index">
+              <!-- Normaler Modus -->
+              <div class="subtask-list_item" *ngIf="prepareSubtask !== i">
+                <span>{{ subtask.title }}</span>
+                <div>
+                  <button type="button" (click)="editSubtask(i)">
+                    <img src="img/edit.svg" alt="edit">
+                  </button>
+                  <button type="button" (click)="deleteSubtask(i)">
+                    <img src="img/delete.svg" alt="delete">
+                  </button>
+                </div>
+              </div>
+        
+              <!-- Bearbeitungsmodus -->
+              <div class="input-field" *ngIf="prepareSubtask === i">
+                <input 
+                  type="text" 
+                  name="prepareSubtask" 
+                  id="prepareSubtask" 
+                  #subtaskInput
+                  [value]="subtask.title"
+                  (keydown.enter)="changeSubtask($event, i, subtaskInput)"
+                >
+                <div class="subtasks-editor">
+                  <button type="button" (click)="cancelEdit()">
+                    <img src="img/delete.svg" alt="cancel">
+                  </button>
+                  <div class="separator"></div>
+                  <button type="button" (click)="changeSubtask($event, i, subtaskInput)">
+                    <img src="img/add_task/check_black.svg" alt="confirm">
+                  </button>
+                </div>
+              </div>
+            </li>
           </ul>
         </div>
+        
       </div>
     </div>
   </div>

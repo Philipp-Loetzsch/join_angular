@@ -195,6 +195,19 @@ form {
   }
 }
 
+.subtasks-editor{
+  display: flex;
+  gap: 10px;
+  
+  >img{
+    &:hover{
+      cursor: pointer;
+      transform: scale(1.5);
+    }
+    
+  }
+}
+
 .rotated {
   transform: rotate(180deg);
 }
