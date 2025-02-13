@@ -13,6 +13,7 @@ import { FormGroup } from '@angular/forms';
 import { Assigned, Contact, Subtask, Tasks } from '../interfaces/interfaces';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -23,6 +24,10 @@ export class UserDatasService {
   tasks: Tasks[] = [];
   userName: string = '?';
   currentUserID: string = '';
+
+  private tasksSubject = new BehaviorSubject<Tasks[]>([]);
+  tasks$ = this.tasksSubject.asObservable();
+
   constructor(private route: ActivatedRoute, private router: Router) {
     this.init();
   }
@@ -81,7 +86,8 @@ export class UserDatasService {
         position: doc.data()['position'] as number,
         id: doc.id,
       }));
-      this.tasks = tasks;
+      this.tasksSubject.next(tasks)
+      this.tasks = tasks
     } catch (error) {
       console.error('Fehler beim Abrufen der Kontakte:', error);
       throw error;
@@ -128,14 +134,10 @@ export class UserDatasService {
 
   async updateSingleTask(formValue:FormGroup, id:string){
     try {
-
-      const updatedTask = {
-        ...formValue, // Alle Werte aus dem Formular
-        // status: task.status, // Werte aus task übernehmen
-        // position: task.position,
-        // category: task.category
-      }
-      await updateDoc(doc(this.firestore, `${this.RefDatabase('tasks')}/${id}`),updatedTask)
+      await updateDoc(doc(this.firestore, `${this.RefDatabase('tasks')}/${id}`),{
+        ...formValue
+      })
+      this.getUsertasks()
     } catch (error) {
       console.error(error);
       

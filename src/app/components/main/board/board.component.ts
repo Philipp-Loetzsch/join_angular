@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { UserDatasService } from '../../../services/user-datas.service';
 import { CommonModule } from '@angular/common';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
@@ -12,6 +12,7 @@ import {
   CdkDrag,
   CdkDropList,
 } from '@angular/cdk/drag-drop';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-board',
@@ -28,7 +29,7 @@ import {
   styleUrls: ['./board.component.scss'],
   providers: [],
 })
-export class BoardComponent implements OnInit {
+export class BoardComponent implements OnInit, OnDestroy {
   allTasks: Tasks[] = [];
   tasksTodo: Tasks[] = [];
   tasksInProgress: Tasks[] = [];
@@ -38,23 +39,19 @@ export class BoardComponent implements OnInit {
   showTaskDetails: boolean = false;
   status!: string;
   chosenTask!: Tasks;
+  private tasksSubscription!: Subscription;
   private updateTimeout: any;
 
   constructor(private userDataService: UserDatasService) {}
 
   ngOnInit(): void {
-    const checkTasks = () => {
-      if (this.userDataService.tasks.length > 0) {
-        this.getTasks();
-      } else {
-        setTimeout(checkTasks, 200);
-      }
-    };
-    checkTasks();
+    this.tasksSubscription = this.userDataService.tasks$.subscribe((tasks) => {
+      this.allTasks = tasks;
+      this.getTasks();
+    });
   }
 
   getTasks() {
-    this.allTasks = this.userDataService.tasks;
     const filterAndSortTasks = (status: string) => {
       return this.allTasks
         .filter((task) => task.status === status)
@@ -64,6 +61,12 @@ export class BoardComponent implements OnInit {
     this.tasksInProgress = filterAndSortTasks('inProgress');
     this.tasksAwaitFeedback = filterAndSortTasks('feedback');
     this.tasksDone = filterAndSortTasks('done');
+  }
+
+  ngOnDestroy(): void {
+    if (this.tasksSubscription) {
+      this.tasksSubscription.unsubscribe();
+    }
   }
 
   openAddTask(status: string) {
