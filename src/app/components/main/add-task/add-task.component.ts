@@ -190,6 +190,7 @@ export class AddTaskComponent implements OnInit {
     this.subtasks.push(this.fb.control({ title, complete }));
     content.value = '';
     content.focus();
+    this.subtaskInputText= ""
     console.log(this.subtasks.value);
   }
 
@@ -209,24 +210,22 @@ export class AddTaskComponent implements OnInit {
   changeSubtask(event: Event, index: number, input: HTMLInputElement): void {
     event.preventDefault();
     const title = input.value.trim();
-    if (title === '') return input.focus(); // Falls leer, Fokus setzen und abbrechen
-    
-    // Subtask im FormArray aktualisieren
+    if (title === '') return input.focus();
     const subtask = this.subtasks.at(index).value; 
     this.subtasks.at(index).setValue({ ...subtask, title });
-  
-    // Bearbeitungsmodus verlassen
     this.prepareSubtask = null;
-    console.log(this.subtasks.value); // Debugging
   }
   
   
   cancelEdit() {
-    this.prepareSubtask = null; // Schließt den Bearbeitungsmodus
+    this.prepareSubtask = null;
   }
     
 
   deleteSubtask(i: number) {
     this.subtasks.removeAt(i);
+    if(this.prepareSubtask != null){
+      this.prepareSubtask = null
+    }
   }
 }
