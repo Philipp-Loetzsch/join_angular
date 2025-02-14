@@ -1,5 +1,5 @@
 <div class="main-container" (click)="closePopup()">
-  <div class="main-container_nav_side" *ngIf="innerWidth > 911">
+  <div class="main-container_nav_side">
     <div class="main-container_nav_side_navigation">
       <img class="logo" src="img/join_logo.svg" alt="" />
       <a
@@ -18,12 +18,14 @@
   </div>
   <div class="main-container_content">
     <div class="main-container_content_nav_header">
-      <span>Kanban Project Management Tool</span>
+      <img src="img/join_logo_header.svg" alt="logo" class="header-logo">
+      <span class="slogan">Kanban Project Management Tool</span>
       <div>
-        <a [routerLink]="['/main/help']" [queryParams]="{ UID: userDataService.currentUserID }"><img src="img/help.svg" alt="" /></a>
+        <a [routerLink]="['/main/help']" [queryParams]="{ UID: userDataService.currentUserID }" class="help-btn"><img src="img/help.svg" alt=""/></a>
         <div class="menu">
           <button (click)="toggleMenu($event)">{{initials}}</button>
             <div *ngIf="showMenu" class="menu-navigation" (click)="notClose($event)">
+              <a [routerLink]="['/main/help']" [queryParams]="{ UID: userDataService.currentUserID }" class="help-btn--responsive"> Help</a>
               <a [routerLink]="['/main/privacy_policy']" [queryParams]="{ UID: userDataService.currentUserID }" (click)="toggleMenu($event)">Privacy Policy</a>
               <a [routerLink]="['/main/legal_notice']" [queryParams]="{ UID: userDataService.currentUserID }" (click)="toggleMenu($event)">Legal notice</a>
               <a [routerLink]="['/']">Log out</a>
@@ -34,7 +36,7 @@
     <div class="main-container_content_routes">
       <router-outlet></router-outlet>
     </div>
-    <div class="main-container_nav_bottom_navigation" *ngIf="innerWidth <= 910">
+    <div class="main-container_nav_bottom_navigation">
       <a
       [routerLink]="'/main/' + link.img" [queryParams]="{ UID: userDataService.currentUserID }"
         *ngFor="let link of nameLinks; index as i"

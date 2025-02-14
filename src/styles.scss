@@ -2,7 +2,7 @@
 @import "./assets/styles/buttons.scss";
 @import "./assets/styles/mixins.scss";
 
-$mediaWidth: 910px;
+
 
 * {
   margin: 0;
@@ -114,8 +114,9 @@ app-add-task {
   padding: 110px 0 0 90px;
   box-sizing: border-box;
   overflow: hidden;
-  @media screen and (max-width: 910px) {
-    padding: 10px 0 0 10px;
+  @media screen and (max-width : $mediaWidth) {
+    padding: 10px 10px 0 10px;
+    width: 100%;
   }
 }
 
@@ -185,4 +186,10 @@ app-board {
 
 .mat-mdc-progress-bar{
   border-radius: 10px !important;
+}
+
+@media screen and (max-width: $mediaWidth) {
+  h1{
+    font-size: 47px;
+  }
 }

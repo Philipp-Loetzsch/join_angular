@@ -39,7 +39,6 @@ export class MainComponent implements OnInit {
   activeUrl: string = '';
   showMenu: boolean = false;
   initials: string = '?';
-  innerWidth:number = window.innerWidth
 
   async ngOnInit(): Promise<void> {
     this.activeUrl = this.router.url;
@@ -80,10 +79,5 @@ export class MainComponent implements OnInit {
     const lastPart = parts[parts.length - 1];
     const initials = firstPart.charAt(0) + lastPart.charAt(0);
     return initials.toUpperCase();
-  }
-
-  @HostListener('window:resize', ['$event'])
-  onResize() {
-    this.innerWidth = window.innerWidth;
   }
 }

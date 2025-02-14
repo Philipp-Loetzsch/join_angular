@@ -1,4 +1,4 @@
-@import "./../../../styles.scss";
+@import "./../../../assets/styles/mixins.scss";
 
 .main-container {
   display: flex;
@@ -111,8 +111,8 @@
 }
 
 .main-container_nav_bottom_navigation{
+  display: none;
   background-color: #2a3647;
-  display: flex;
   justify-content: space-around;
   position: sticky;
   bottom: 0;
@@ -127,6 +127,13 @@
   }
 }
 
+.header-logo{
+  display: none;
+}
+.help-btn--responsive{
+  display: none;
+}
+
 @media screen and (max-width: $mediaWidth) {
   .main-container_content_routes{
     height: auto;
@@ -136,4 +143,23 @@
     display: flex;
     flex-direction: column;
   }
+  .main-container_nav_side{
+    display: none !important;
+  }
+  .main-container_nav_bottom_navigation{
+    display: flex;
+  }
+  .slogan{
+    display: none !important;
+  }
+  .header-logo{
+    display: block;
+  }
+  .help-btn{
+    display: none;
+  }
+  .help-btn--responsive{
+    display: block;
+  }
+
 }
