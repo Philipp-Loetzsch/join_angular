@@ -114,6 +114,8 @@ app-add-task {
   padding: 110px 0 0 90px;
   box-sizing: border-box;
   overflow: hidden;
+  width: 100%;
+  max-width: 1440px;
   @media screen and (max-width : $mediaWidth) {
     padding: 10px 10px 0 10px;
     width: 100%;

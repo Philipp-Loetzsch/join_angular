@@ -48,8 +48,14 @@ h4 {
   }
 
   .content_greeting {
-    width: 50%;
+    min-width: 50%;
+    opacity: 0;
     @include arrangement();
+    animation: fadeIn 0.5s forwards ease-in-out;
+  }
+  @keyframes fadeIn {
+    from{opacity: 0;}
+    to{opacity: 1;}
   }
 }
 

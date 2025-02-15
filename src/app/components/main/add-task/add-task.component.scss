@@ -216,3 +216,18 @@ form {
 .rotated {
   transform: rotate(180deg);
 }
+
+@media screen and (max-width: 740px) {
+  form {
+    width: 100%;
+    
+    > div {
+      display: grid;
+      gap:0px;
+    }
+  }
+  .separator {
+    display: none;
+  }
+  
+}
