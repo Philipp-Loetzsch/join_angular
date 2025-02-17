@@ -19,10 +19,11 @@ form {
   width: max-content;
   height: calc(100% - 74px);
   justify-content: space-around;
-  > div {
+  .form-content {
     display: flex;
     width: 100%;
     gap: 30px;
+    overflow-y: auto;
   }
 }
 
@@ -220,10 +221,10 @@ form {
 @media screen and (max-width: 740px) {
   form {
     width: 100%;
-    
-    > div {
+    .form-content {
       display: grid;
       gap:0px;
+      height: calc(100% - 180px) ;
     }
   }
   .separator {
