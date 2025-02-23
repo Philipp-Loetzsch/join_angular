@@ -48,6 +48,7 @@
 .contacts-details {
   padding: 110px 0 0 90px;
   box-sizing: border-box;
+
   .contacts-details_header {
     display: flex;
     gap: 20px;
@@ -56,6 +57,9 @@
       min-height: 100%;
       display: flex;
       align-items: center;
+    }
+    .btn-responsive{
+    display: none;
     }
   }
   .contacts-details_content {
@@ -142,9 +146,11 @@ app-edit-contact {
     background-color: white;
     width: 100%;
     height: 100%;
-    z-index: -10;
   }
-
+  .btn-responsive{
+    display: block !important;
+    font-size: 30px;
+  }
   .contacts-sidebar{
     width: 100vw;
     padding: unset;
@@ -168,4 +174,5 @@ app-edit-contact {
     right: 10%;
     bottom: 10%;
   }
+
 }

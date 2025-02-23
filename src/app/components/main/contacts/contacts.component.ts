@@ -27,6 +27,7 @@ export class ContactsComponent implements OnInit {
   editMode: boolean = false;
   hideAnimation: boolean = false;
   chosen!: number;
+  showDetails: boolean = true
 
   constructor(public userDatas: UserDatasService) {}
 
@@ -65,6 +66,7 @@ export class ContactsComponent implements OnInit {
   showDetailContact(i: number) {
     this.chosenContact = this.userDatas.contactsList[i];
     this.chosen = i;
+    this.showDetails = true
   }
 
   showEditField(option: boolean) {

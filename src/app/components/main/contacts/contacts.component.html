@@ -27,11 +27,12 @@
     </div>
   </div>
 </div>
-<div class="contacts-details">
-  <div class="contacts-details_header">
+<div class="contacts-details" *ngIf="showDetails">
+  <div class="contacts-details_header" >
     <h1>Contacts</h1>
     <div class="separator--blue"></div>
     <span>Better with a team</span>
+    <button (click)="showDetails = false" class="btn-responsive">X</button>
   </div>
   <div class="contacts-details_content" *ngIf="chosenContact">
     <div class="content_menu">
