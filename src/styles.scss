@@ -25,7 +25,7 @@ body {
 }
 
 h1 {
-  font-size: 61px;
+  font-size: clamp(3rem, 4vw, 61px);
   font-weight: 700;
 }
 
@@ -96,9 +96,9 @@ textarea {
   @include arrangement();
   &--big {
     @extend .shortcut;
-    font-size: 40px;
-    width: 120px;
-    height: 120px;
+    font-size: clamp(2rem, 3vw, 40px);
+    width: clamp(5.75rem, 8vw, 120px);
+    height: clamp(5.75rem, 8vw, 120px);
   }
   &--small {
     @extend .shortcut;

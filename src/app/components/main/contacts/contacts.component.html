@@ -1,6 +1,6 @@
 <div class="contacts-sidebar">
   <button class="btn-primary--default" (click)="showEditField(false)">
-    Add new contact <img src="img/person_add.svg" alt="" />
+    <span>Add new contact</span> <img src="img/person_add.svg" alt="" />
   </button>
   <div class="contacts-list" #contactList>
     <div *ngFor="let contact of userDatas.contactsList; let i = index"
