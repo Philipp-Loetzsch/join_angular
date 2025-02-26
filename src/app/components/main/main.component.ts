@@ -34,7 +34,7 @@ export class MainComponent implements OnInit {
   activeUrl: string = '';
   showMenu: boolean = false;
   initials: string = '?';
-  hideMenu:boolean = false;
+  noUser:boolean = false;
 
   async ngOnInit(): Promise<void> {
     this.activeUrl = this.router.url;
@@ -79,6 +79,7 @@ export class MainComponent implements OnInit {
   }
 
   showMenuLinks(){
+    this.noUser = true
     this.nameLinks = [
       { name: 'Summary', img: 'summary' },
       { name: 'Add Task', img: 'add_task' },

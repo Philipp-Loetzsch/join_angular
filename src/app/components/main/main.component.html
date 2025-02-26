@@ -28,7 +28,7 @@
               <a [routerLink]="['/main/help']" [queryParams]="{ UID: userDataService.currentUserID }" class="help-btn--responsive"> Help</a>
               <a [routerLink]="['/main/privacy_policy']" [queryParams]="{ UID: userDataService.currentUserID }" (click)="toggleMenu($event)">Privacy Policy</a>
               <a [routerLink]="['/main/legal_notice']" [queryParams]="{ UID: userDataService.currentUserID }" (click)="toggleMenu($event)">Legal notice</a>
-              <a [routerLink]="['/']">Log out</a>
+              <a [routerLink]="['/']">{{noUser ? 'Log out' : 'Log in'}}</a>
             </div>
         </div>
       </div>
