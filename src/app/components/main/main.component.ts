@@ -30,15 +30,11 @@ export class MainComponent implements OnInit {
     private router: Router,
     public userDataService: UserDatasService
   ) {}
-  nameLinks: Array<Links> = [
-    { name: 'Summary', img: 'summary' },
-    { name: 'Add Task', img: 'add_task' },
-    { name: 'Board', img: 'board' },
-    { name: 'Contacts', img: 'contacts' },
-  ];
+  nameLinks: Array<Links> = [];
   activeUrl: string = '';
   showMenu: boolean = false;
   initials: string = '?';
+  hideMenu:boolean = false;
 
   async ngOnInit(): Promise<void> {
     this.activeUrl = this.router.url;
@@ -53,6 +49,7 @@ export class MainComponent implements OnInit {
       });
     const userName = await this.userDataService.getUserName();
     this.initials = this.getInitials(userName);
+    if(userName !== '?') this.showMenuLinks()
   }
 
   isActive(linkImg: string): boolean {
@@ -72,12 +69,21 @@ export class MainComponent implements OnInit {
   }
   getInitials(name: string): string {
     const parts = name.split(' ');
-    if (parts.length === 0) {
+    if (parts.length === 0 || name === '?') {
       return '?';
     }
     const firstPart = parts[0];
     const lastPart = parts[parts.length - 1];
     const initials = firstPart.charAt(0) + lastPart.charAt(0);
     return initials.toUpperCase();
+  }
+
+  showMenuLinks(){
+    this.nameLinks = [
+      { name: 'Summary', img: 'summary' },
+      { name: 'Add Task', img: 'add_task' },
+      { name: 'Board', img: 'board' },
+      { name: 'Contacts', img: 'contacts' },
+    ];
   }
 }

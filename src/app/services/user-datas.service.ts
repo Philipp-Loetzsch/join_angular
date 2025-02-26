@@ -34,24 +34,57 @@ export class UserDatasService {
 
   init(): void {
     this.getCurrentUserId();
+    console.log('init');
+    
   }
 
-  getCurrentUserId() {
-    console.log(this.currentUserID);
+  // getCurrentUserId() {
+  //   console.log(this.currentUserID);
+  //   this.route.queryParams.subscribe((params) => {
+  //     this.currentUserID = params['UID'];
+  //   });
+  //   if (this.currentUserID != '' && this.currentUserID != undefined) {
+  //     console.log(this.currentUserID);
+  //     this.getUserContacts();
+  //     this.getUsertasks();
+  //   } else {
+  //     this.router.navigate(['/']);
+  //     return;
+  //   }
+  // }
+  async getCurrentUserId() {
+    const allowedRoutes = ['/summary', '/add_task', '/contacts', '/board']; 
+  
     this.route.queryParams.subscribe((params) => {
       this.currentUserID = params['UID'];
+      if (!this.currentUserID) {
+        this.redirectIfNotAllowed(allowedRoutes);
+        return;
+      }
+      this.checkUserInFirestore(this.currentUserID, allowedRoutes);
     });
-    if (this.currentUserID != '' && this.currentUserID != undefined) {
-      console.log(this.currentUserID);
+  }
+  
+  async checkUserInFirestore(uid: string, allowedRoutes: string[]) {
+    const docRef = doc(this.firestore, `userDatas/${uid}`);
+    const docSnapshot = await getDoc(docRef);
+  
+    if (!docSnapshot.exists()) {
+      this.redirectIfNotAllowed(allowedRoutes);
+    } else {
       this.getUserContacts();
       this.getUsertasks();
-    } else {
-      this.router.navigate(['/']);
-      console.log(this.tasks);
-      return;
     }
   }
 
+  redirectIfNotAllowed(allowedRoutes: string[]) {
+    const currentPath = this.router.url.split('?')[0]; 
+    if (!allowedRoutes.includes(currentPath)) {
+      this.router.navigate(['/']);
+    }
+  }
+  
+  
   async getUserName():Promise<string> {
     const docRef = doc(this.firestore, this.RefDatabase(''));
     const docSnapshot = await getDoc(docRef);
@@ -59,8 +92,7 @@ export class UserDatasService {
       const data = docSnapshot.data();
       return data['userName'];
     } else {
-      this.router.navigate(['/']);
-      return '';
+      return '?';
     }
   }
 
