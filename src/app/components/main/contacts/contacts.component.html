@@ -57,6 +57,13 @@
       <a href="tel:{{ chosenContact.phone }}">{{ chosenContact.phone }}</a>
     </div>
   </div>
+  <div class="menu-edit--responsive" (click)="toggleEditResponsive()">
+    <img src="img/more_vert.svg" alt="">
+    <div class="menu_buttons--responsive" *ngIf="editResponsive">
+      <button (click)="showEditField(true)"><img src="img/edit.svg" alt="pen" /> Edit</button>
+      <button (click)="deleteContact()"><img src="img/delete.svg" alt="delete" /> Delete</button>
+    </div>
+  </div>
 </div>
 
 <app-edit-contact

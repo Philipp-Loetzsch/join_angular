@@ -194,4 +194,8 @@ app-board {
   h1{
     font-size: 47px;
   }
+
+  app-add-task{
+    max-height: calc(100vh - 130px);
+  }
 }

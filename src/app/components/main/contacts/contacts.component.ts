@@ -28,6 +28,7 @@ export class ContactsComponent implements OnInit {
   hideAnimation: boolean = false;
   chosen!: number;
   showDetails: boolean = true
+  editResponsive = false
 
   constructor(public userDatas: UserDatasService) {}
 
@@ -103,5 +104,9 @@ export class ContactsComponent implements OnInit {
       this.chosen = -1
       this.chosenContact = this.userDatas.contactsList[-1]
     }
+  }
+
+  toggleEditResponsive(){
+    this.editResponsive = !this.editResponsive
   }
 }
