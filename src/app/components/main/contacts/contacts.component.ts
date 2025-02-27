@@ -38,8 +38,7 @@ export class ContactsComponent implements OnInit {
     } else {
       this.prepareContactFirstLetters();
     }
-    console.log(this.userDatas.currentUserID);
-    
+    if(window.innerWidth <= 1000) this.showDetails = false 
   }
 
   async loadContacts() {

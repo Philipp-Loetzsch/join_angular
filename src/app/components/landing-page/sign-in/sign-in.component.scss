@@ -1,6 +1,6 @@
 @import "./../log-in/log-in.component.scss";
 
-section{
+section {
   position: relative;
 }
 .headline {
@@ -13,11 +13,11 @@ section{
   }
 }
 
-.logo-signin{
+.logo-signin {
   position: absolute;
   top: 40px;
   left: 40px;
-  >img{
+  > img {
     width: 80px;
   }
 }
@@ -35,16 +35,16 @@ section{
       }
     }
   }
-  >a{
+  > a {
     text-decoration: none;
-    color: #29ABE2;
-    &:hover{
+    color: #29abe2;
+    &:hover {
       text-decoration: underline;
     }
   }
 }
 
-.message{
+.message {
   position: absolute;
   bottom: -80px;
   padding: 25px;
@@ -54,22 +54,26 @@ section{
   width: 200px;
   text-align: center;
   white-space: nowrap;
-  &--success{
+  &--success {
     @extend .message;
-    background-color: #2A3647;
+    background-color: #2a3647;
   }
-  &--error{
+  &--error {
     @extend .message;
     background-color: red;
   }
 }
 
 @keyframes slideIn {
-  from{right: -100%;}
-  to{right: 25%;}
+  from {
+    right: -100%;
+  }
+  to {
+    right: 25%;
+  }
 }
 
-.loadingData{
+.loadingData {
   position: absolute;
   top: 0;
   left: 0;
@@ -82,9 +86,22 @@ section{
   align-items: center;
   justify-content: center;
   background-color: rgba(128, 128, 128, 0.5);
-  >span{
+  > span {
     font-size: 2rem;
   }
-
 }
 
+@media screen and (max-width: $mediaWidth) {
+  .logo-signin {
+    top: 10px;
+    left: 10px;
+    > img {
+      width: 30px;
+    }
+  }
+  .headline {
+    > a {
+      left: -95px;
+    }
+  }
+}

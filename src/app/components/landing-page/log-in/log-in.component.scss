@@ -73,7 +73,7 @@ section {
 }
 
 h1 {
-  font-size: 48px;
+  font-size: clamp(1rem, 2rem, 48px);
 }
 
 .underline {
@@ -123,5 +123,18 @@ h1 {
     &:hover {
       text-decoration: underline;
     }
+  }
+}
+
+@media screen and (max-width: $mediaWidth) {
+  header{
+    min-height: 2rem;
+  }
+  section{
+    padding: 8px 10px ;
+    width: 100vw;
+  }
+  main{
+    padding: 0;
   }
 }

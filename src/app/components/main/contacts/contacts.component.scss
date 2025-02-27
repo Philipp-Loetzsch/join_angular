@@ -68,7 +68,7 @@
     .content_menu {
       display: flex;
       align-items: center;
-      gap: 54px;
+      gap: clamp(2rem, 2vw ,54px);
     }
     h3 {
       font-size: clamp(2.75rem, 4vw, 3rem);

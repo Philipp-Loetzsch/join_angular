@@ -96,9 +96,9 @@ textarea {
   @include arrangement();
   &--big {
     @extend .shortcut;
-    font-size: clamp(2rem, 3vw, 40px);
-    width: clamp(5.75rem, 8vw, 120px);
-    height: clamp(5.75rem, 8vw, 120px);
+    font-size: clamp(1rem, 3vw, 40px);
+    width: clamp(3.75rem, 8vw, 120px);
+    height: clamp(3.75rem, 8vw, 120px);
   }
   &--small {
     @extend .shortcut;
