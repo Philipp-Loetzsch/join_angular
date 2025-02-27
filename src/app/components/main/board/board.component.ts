@@ -13,6 +13,7 @@ import {
   CdkDropList,
 } from '@angular/cdk/drag-drop';
 import { Subscription } from 'rxjs';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-board',
@@ -24,6 +25,7 @@ import { Subscription } from 'rxjs';
     TaskDetailComponent,
     CdkDropList,
     CdkDrag,
+    FormsModule,
   ],
   templateUrl: './board.component.html',
   styleUrls: ['./board.component.scss'],
@@ -41,6 +43,8 @@ export class BoardComponent implements OnInit, OnDestroy {
   chosenTask!: Tasks;
   private tasksSubscription!: Subscription;
   private updateTimeout: any;
+  filteredTasks: Tasks[] = [];
+  searchQuery: string = '';
 
   constructor(private userDataService: UserDatasService) {}
 
@@ -63,6 +67,21 @@ export class BoardComponent implements OnInit, OnDestroy {
     this.tasksDone = filterAndSortTasks('done');
   }
 
+  filterTasks() {
+    const query = this.searchQuery.toLowerCase();
+    if (!query) {
+      this.getTasks();
+      return;
+    }   
+    const matchesQuery = (task: Tasks) =>
+      task.title.toLowerCase().includes(query) ||
+      task.description.toLowerCase().includes(query);
+    this.tasksTodo = this.allTasks.filter(task => task.status === 'todo' && matchesQuery(task));
+    this.tasksInProgress = this.allTasks.filter(task => task.status === 'inProgress' && matchesQuery(task));
+    this.tasksAwaitFeedback = this.allTasks.filter(task => task.status === 'feedback' && matchesQuery(task));
+    this.tasksDone = this.allTasks.filter(task => task.status === 'done' && matchesQuery(task));
+  }
+
   ngOnDestroy(): void {
     if (this.tasksSubscription) {
       this.tasksSubscription.unsubscribe();
@@ -83,9 +102,6 @@ export class BoardComponent implements OnInit, OnDestroy {
     ];
     const validTask = this[task as keyof BoardComponent] as Tasks[];
     if (taskNames.includes(task)) this.chosenTask = validTask[i];
-
-    console.log(this.chosenTask.title + '' + i);
-
     this.showTaskDetails = true;
   }
 
@@ -147,6 +163,4 @@ export class BoardComponent implements OnInit, OnDestroy {
     const completed = task.subtasks.filter((subtask: any) => subtask.complete).length;
     return (completed / task.subtasks.length) * 100;
   }
-  
-  
 }
