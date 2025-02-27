@@ -97,7 +97,6 @@ export class ContactsComponent implements OnInit {
     const id = this.chosenContact.id
     const deleted =await this.userDatas.deleteContact(id)
     if(deleted){
-      console.log('succses');
       await this.userDatas.getUserContacts()
       this.loadContacts()
       this.chosen = -1

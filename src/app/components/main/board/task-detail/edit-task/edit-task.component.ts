@@ -87,7 +87,6 @@ export class EditTaskComponent implements OnInit {
   updateTask(){
     const formValue = this.editTaskForm.value;
     formValue.dueDate = new Date(formValue.dueDate).getTime();
-    console.log(this.editTaskForm.value);
     this.userDataService.updateSingleTask(formValue, this.chosenTask.id)
   }
 
@@ -123,8 +122,6 @@ export class EditTaskComponent implements OnInit {
   }
 
   filterContacts(value: string) {
-    console.log(this.filteredContacts);
-    console.log(value);
     const lowerCaseQuery = value.toLowerCase();
     this.filteredContacts = this.contacts.filter((contact) =>
       contact.name.toLowerCase().includes(lowerCaseQuery)
@@ -146,7 +143,6 @@ export class EditTaskComponent implements OnInit {
     if(title === '') return content.focus()
     const complete = false
     this.subtasks.push(this.fb.control({title, complete}))
-    console.log(this.subtasks.value);
     content.value = ''
     content.focus()
   }

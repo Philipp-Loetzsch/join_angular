@@ -21,8 +21,7 @@ export class TitleDescriptionComponent implements OnInit{
   // @Input() description: string = '';
   @Input() requiered: boolean = false;
   @Input() formGroup!: FormGroup
-  ngOnInit(): void {
-    console.log(this.formGroup.value)    
+  ngOnInit(): void {  
   }
   // onChange: (value: any) => void = () => {};
   // onTouched: () => void = () => {};

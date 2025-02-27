@@ -73,9 +73,7 @@ export class BoardComponent implements OnInit, OnDestroy {
       this.getTasks();
       return;
     }   
-    const matchesQuery = (task: Tasks) =>
-      task.title.toLowerCase().includes(query) ||
-      task.description.toLowerCase().includes(query);
+    const matchesQuery = (task: Tasks) =>  task.title.toLowerCase().includes(query) || task.description.toLowerCase().includes(query);
     this.tasksTodo = this.allTasks.filter(task => task.status === 'todo' && matchesQuery(task));
     this.tasksInProgress = this.allTasks.filter(task => task.status === 'inProgress' && matchesQuery(task));
     this.tasksAwaitFeedback = this.allTasks.filter(task => task.status === 'feedback' && matchesQuery(task));

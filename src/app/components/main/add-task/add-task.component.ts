@@ -191,7 +191,6 @@ export class AddTaskComponent implements OnInit {
     content.value = '';
     content.focus();
     this.subtaskInputText= ""
-    console.log(this.subtasks.value);
 
   }
 

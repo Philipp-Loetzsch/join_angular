@@ -31,7 +31,6 @@ export class PriorityComponent implements ControlValueAccessor {
     this.chosenPrio = priority;
     this.onChange(priority);
     this.onTouched();
-    console.log(this.chosenPrio);
   }
 
   writeValue(value: string): void {

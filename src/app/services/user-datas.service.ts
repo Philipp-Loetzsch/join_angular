@@ -34,7 +34,6 @@ export class UserDatasService {
 
   init(): void {
     this.getCurrentUserId();
-    console.log('init');
     
   }
 
@@ -133,7 +132,6 @@ export class UserDatasService {
         collection(this.firestore, this.RefDatabase('tasks')),
         taskData
       );
-      console.log('Document written with ID: ', docRef.id);
     } catch (error) {
       console.error('Error adding document: ', error);
     }
@@ -153,14 +151,12 @@ export class UserDatasService {
           category: task.category,
           position: task.position,
         });
-        console.log(`Task ${task.id} erfolgreich aktualisiert`);
       } catch (error) {
         console.error(`Fehler beim Aktualisieren von Task ${task.id}:`, error);
       }
     });
   
-    await Promise.all(updates); // Alle Updates parallel ausführen
-    console.log('Alle Tasks wurden aktualisiert');
+    await Promise.all(updates);
   }
 
 
@@ -201,7 +197,6 @@ export class UserDatasService {
       this.getUsertasks()
       return true;
     } catch (err) {
-      console.log('delete contact failed', err);
       return false;
     }
   }
@@ -242,9 +237,7 @@ export class UserDatasService {
         id: doc.id as string,
       }));
       contacts.sort((a, b) => a.name.localeCompare(b.name));
-      this.contactsList = contacts;
-      console.log(this.contactsList);
-      
+      this.contactsList = contacts;     
     } catch (error) {
       console.error('Fehler beim Abrufen der Kontakte:', error);
       throw error;
@@ -258,12 +251,9 @@ export class UserDatasService {
           name: contact.name,
           email: contact.email,
           phone: contact.phone
-        })
-        console.log('erfolgreich bearbeitet');
-        
+        }) 
       } catch (error) {
-        console.log(error);
-        
+       return
       }
   }
 
@@ -274,7 +264,6 @@ export class UserDatasService {
       );
       return true;
     } catch (err) {
-      console.log('delete contact failed', err);
       return false;
     }
   }

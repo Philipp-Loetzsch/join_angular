@@ -57,6 +57,5 @@ export class LogInComponent {
   @HostListener('window:resize', ['$event'])
   onResize() {
   this.innerWidth = window.innerWidth;
-  console.log(this.innerWidth);
   }
 }

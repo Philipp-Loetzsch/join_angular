@@ -75,7 +75,6 @@ export class AuthService {
         password
       );
       const uid = userCredential.user?.uid;
-      console.log('Anmeldung erfolgreich:', uid);
       return uid;
     } catch (error) {
       console.error('Anmeldefehler:', error);
