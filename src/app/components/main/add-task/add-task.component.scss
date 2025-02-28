@@ -226,6 +226,7 @@ form {
       display: grid;
       gap:0px;
       height: calc(100% - 180px) ;
+      overflow-y: auto;
     }
   }
   .separator {
