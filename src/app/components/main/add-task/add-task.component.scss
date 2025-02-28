@@ -18,12 +18,13 @@ form {
   flex-direction: column;
   width: max-content;
   height: calc(100% - 74px);
-  justify-content: space-around;
+  justify-content: space-between;
   .form-content {
     display: flex;
     width: 100%;
     gap: 30px;
-    overflow-y: auto;
+    overflow-y: hidden;
+    height: 100%;
   }
 }
 
@@ -47,6 +48,7 @@ form {
   display: flex;
   width: 100%;
   justify-content: space-between;
+  padding-bottom: 20px;
   > div {
     display: flex;
     gap: 10px;
@@ -155,23 +157,22 @@ form {
       }
     }
   }
-  .chosen-contacts {
-    position: absolute;
-    top: 60px;
-    left: 0;
-    max-height: 150px;
-    overflow-y: auto;
-    width: 100%;
-    ul {
-      list-style: none;
-      padding: 0;
+  
+}
+.chosen-contacts {
+  margin-top: 10px;
+  max-height: 150px;
+  overflow-y: auto;
+  width: 100%;
+  ul {
+    list-style: none;
+    padding: 0;
 
-      li {
-        display: flex;
-        align-items: center;
-        gap: 20px;
-        padding-bottom: 10px;
-      }
+    li {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding-bottom: 10px;
     }
   }
 }
@@ -229,6 +230,15 @@ form {
   }
   .separator {
     display: none;
+  }
+  .single-contact_name{
+    display: none;
+  }
+  .chosen-contacts{
+    margin-top: 10px;
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
   }
   
 }
