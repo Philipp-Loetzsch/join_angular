@@ -156,3 +156,45 @@ app-task-detail{
   height: 80%;
   width: 30%;
 }
+
+@media screen and (max-width: $mediaWidth) {
+  .board-header{
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    .btn-primary--default{
+      position: absolute;
+      top: 0.7rem;
+      right: 0;
+      padding: 10px;
+      >img{
+        margin: 0;
+      }
+    }
+  }
+
+  .btn-text{
+    display: none;
+  }
+  
+  .board{
+    flex-direction: column;
+    gap: 40px;
+    overflow-y: auto;
+
+    .board-content{
+      overflow: unset;
+
+    }
+    .board-content_cards{
+      display: flex;
+      min-height: 100%;
+      gap: 20px;
+      overflow-x: auto;
+      width: 100%;
+      .card{
+        min-width: 250px;
+      }
+    }
+  }
+}

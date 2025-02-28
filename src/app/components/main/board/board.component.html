@@ -1,11 +1,6 @@
  <div class="board-header">
   <h1>Board</h1>
   <div class="board-header_search">
-    <!-- <div class="input-field">
-      <input type="text" placeholder="Find Task" />
-      <div class="separator"></div>
-      <img class="search-icon" src="img/board/search.svg" alt="" />
-    </div> -->
     <div class="input-field">
       <input type="text" placeholder="Find Task" (input)="filterTasks()" [(ngModel)]="searchQuery"/>
       <div class="separator"></div>
@@ -13,7 +8,7 @@
     </div>
     
     <button class="btn-primary--default" (click)="openAddTask('todo')">
-      Add task <img src="img/board/add.svg" alt="" />
+      <span class="btn-text">Add task</span> <img src="img/board/add.svg" alt="" />
     </button>
   </div>
 </div>

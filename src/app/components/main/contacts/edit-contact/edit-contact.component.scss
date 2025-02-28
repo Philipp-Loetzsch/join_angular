@@ -35,3 +35,29 @@ section{
     }
     
 }
+
+@media screen and (max-width: $mediaWidth) {
+    section{
+        flex-direction: column;
+        height: 100vh;
+        width: 100%;
+    }
+    .edit-title, .edit-input{
+        border-radius: 0;
+    }
+    .edit-title{
+        >img{
+            display: none;
+        }
+    }
+    .edit-input{
+        flex: 1;
+        position: relative;
+        .shortcut--big{
+            position: absolute;
+            top: -3rem;
+            left: 50%;
+        }
+    }
+
+}

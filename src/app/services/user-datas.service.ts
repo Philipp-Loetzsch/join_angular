@@ -37,20 +37,6 @@ export class UserDatasService {
     
   }
 
-  // getCurrentUserId() {
-  //   console.log(this.currentUserID);
-  //   this.route.queryParams.subscribe((params) => {
-  //     this.currentUserID = params['UID'];
-  //   });
-  //   if (this.currentUserID != '' && this.currentUserID != undefined) {
-  //     console.log(this.currentUserID);
-  //     this.getUserContacts();
-  //     this.getUsertasks();
-  //   } else {
-  //     this.router.navigate(['/']);
-  //     return;
-  //   }
-  // }
   async getCurrentUserId() {
     const allowedRoutes = ['/summary', '/add_task', '/contacts', '/board']; 
   
