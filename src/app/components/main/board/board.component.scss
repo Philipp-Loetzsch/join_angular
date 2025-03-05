@@ -56,7 +56,7 @@
       padding: 20px;
       text-align: center;
     }
-    .board-content_cards{
+    .board-content_cards {
       height: 100%;
       overflow-y: auto;
     }
@@ -96,37 +96,36 @@
     color: #a8a8a8;
   }
   .progress-subtaks {
-    @include arrangement($jc: space-between, $g:1rem);
-    
-    
+    @include arrangement($jc: space-between, $g: 1rem);
+
     .progress-subtaks_status {
       display: flex;
       white-space: nowrap;
     }
   }
-  .contact-priority{
+  .contact-priority {
     display: flex;
     justify-content: space-between;
-    .shortcuts{
+    .shortcuts {
       display: flex;
       justify-content: start;
     }
   }
-  &:hover{
+  &:hover {
     cursor: pointer;
-    transform: scale(1.02)
+    transform: scale(1.02);
   }
 }
 
-.add-task{
+.add-task {
   @include popover();
   @include arrangement();
-app-add-task{
-  background-color: white;
-  padding: 40px;
-  border-radius: 20px;
-  height: 70%;
-}
+  app-add-task {
+    background-color: white;
+    padding: 40px;
+    border-radius: 20px;
+    height: 70%;
+  }
 }
 
 .cdk-drag-preview {
@@ -142,11 +141,11 @@ app-add-task{
 .cdk-drag-animating {
   transition: transform 200ms cubic-bezier(0.25, 0.8, 0.25, 1);
 }
-.task-details{
+.task-details {
   @include popover();
   @include arrangement();
 }
-app-task-detail{
+app-task-detail {
   display: flex;
   flex-direction: column;
   background-color: white;
@@ -158,43 +157,53 @@ app-task-detail{
 }
 
 @media screen and (max-width: $mediaWidth) {
-  .board-header{
+  .board-header {
     display: flex;
     flex-direction: column;
     position: relative;
-    .btn-primary--default{
+    .btn-primary--default {
       position: absolute;
       top: 0.7rem;
       right: 0;
       padding: 10px;
-      >img{
+      > img {
         margin: 0;
       }
     }
   }
 
-  .btn-text{
+  .btn-text {
     display: none;
   }
-  
-  .board{
+
+  .board {
     flex-direction: column;
     gap: 40px;
     overflow-y: auto;
 
-    .board-content{
+    .board-content {
       overflow: unset;
-
     }
-    .board-content_cards{
+    .board-content_cards {
       display: flex;
       min-height: 100%;
       gap: 20px;
       overflow-x: auto;
       width: 100%;
-      .card{
+      .card {
         min-width: 250px;
       }
     }
+  }
+  app-task-detail {
+    width: 90%;
+    padding: 20px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  app-task-detail {
+    width: 100%;
+    padding: 10px;
   }
 }

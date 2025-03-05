@@ -94,13 +94,21 @@ button{
       box-sizing: border-box;
       border-radius: 10px;
       background-color: #ffffff;
-      min-width: 120px;
       gap: 10px;
       border: 0.1px solid rgba(0, 0, 0, 0.1);
       
       &:hover {
         box-shadow: 0 4px 4px #00000040;
         cursor: pointer;
+      }
+    }
+  }
+
+  @media screen and (max-width: 1000px) {
+    .btn-prio{
+      >button{
+        padding: 10px 6px;
+        font-size: 16px;
       }
     }
   }
