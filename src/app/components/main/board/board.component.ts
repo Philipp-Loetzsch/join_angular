@@ -44,7 +44,8 @@ export class BoardComponent implements OnInit, OnDestroy {
   private tasksSubscription!: Subscription;
   private updateTimeout: any;
   filteredTasks: Tasks[] = [];
-  searchQuery: string = '';
+  searchQuery: string = '';  
+  draggedIndex: number | null = null;
 
   constructor(private userDataService: UserDatasService) {}
 
@@ -160,5 +161,16 @@ export class BoardComponent implements OnInit, OnDestroy {
     if (!task.subtasks || task.subtasks.length === 0) return 0;
     const completed = task.subtasks.filter((subtask: any) => subtask.complete).length;
     return (completed / task.subtasks.length) * 100;
+  }
+
+
+  onDragStarted(index: number) {
+    this.draggedIndex = index;
+  }
+
+  onDragEnded(index: number) {
+    if (this.draggedIndex === index) {
+      this.draggedIndex = null;
+    }
   }
 }

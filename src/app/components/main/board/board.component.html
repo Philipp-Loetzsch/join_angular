@@ -30,7 +30,7 @@
     [cdkDropListData]="tasksTodo"
     [cdkDropListConnectedTo]="[inProgressList, AwaitFeedbackList, DoneList]"
     (cdkDropListDropped)="drop($event)">
-    <div *ngFor="let task of tasksTodo let i=index " class="card" (click)="openDetailCard('tasksTodo', i)" cdkDrag>
+    <div *ngFor="let task of tasksTodo let i=index " class="card" (click)="openDetailCard('tasksTodo', i)" cdkDrag [cdkDragStartDelay]="100">
       <div class="category-headline--{{task.category.toLocaleLowerCase().split(' ').join('')}}">{{task.category}}</div>
       <h4>{{task.title}}</h4>
       <div class="task-description">{{task.description}}</div>
@@ -74,7 +74,7 @@
          [cdkDropListConnectedTo]="[todoList, AwaitFeedbackList, DoneList]"
          (cdkDropListDropped)="drop($event)"
     >
-      <div *ngFor="let task of tasksInProgress let i=index " class="card" (click)="openDetailCard('tasksInProgress',i)" cdkDrag>
+      <div *ngFor="let task of tasksInProgress let i=index " class="card" (click)="openDetailCard('tasksInProgress',i)" cdkDrag [cdkDragStartDelay]="100">
         <div class="category-headline--{{task.category.toLocaleLowerCase().split(' ').join('')}}">{{task.category}}</div>
         <h4>{{task.title}}</h4>
         <div class="task-description">{{task.description}}</div>
@@ -118,7 +118,9 @@
         [cdkDropListConnectedTo]="[todoList, inProgressList, DoneList]"
         (cdkDropListDropped)="drop($event)"
     >
-      <div *ngFor="let task of tasksAwaitFeedback let i=index " class="card" (click)="openDetailCard('tasksAwaitFeedback',i)" cdkDrag>
+      <div *ngFor="let task of tasksAwaitFeedback let i=index " class="card" (click)="openDetailCard('tasksAwaitFeedback',i)" 
+            cdkDrag 
+            [cdkDragStartDelay]="100">
         <div class="category-headline--{{task.category.toLocaleLowerCase().split(' ').join('')}}">{{task.category}}</div>
         <h4>{{task.title}}</h4>
         <div class="task-description">{{task.description}}</div>
@@ -159,7 +161,7 @@
          [cdkDropListConnectedTo]="[todoList,inProgressList, AwaitFeedbackList]"
          (cdkDropListDropped)="drop($event)"
     >
-      <div *ngFor="let task of tasksDone let i=index " class="card" (click)="openDetailCard('tasksDone',i)" cdkDrag>
+      <div *ngFor="let task of tasksDone let i=index " class="card" (click)="openDetailCard('tasksDone',i)" cdkDrag [cdkDragStartDelay]="100">
         <div class="category-headline--{{task.category.toLocaleLowerCase().split(' ').join('')}}">{{task.category}}</div>
         <h4>{{task.title}}</h4>
         <div class="task-description">{{task.description}}</div>
