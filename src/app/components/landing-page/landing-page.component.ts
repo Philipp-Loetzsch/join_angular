@@ -11,3 +11,4 @@ import { RouterModule } from '@angular/router';
 export class LandingPageComponent {
 
 }
+console.log('hi');
