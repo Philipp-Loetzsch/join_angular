@@ -81,10 +81,6 @@ export class UserDatasService {
     }
   }
 
-  async getUserDatas(){
-    const docRef = doc(this.firestore, this.RefDatabase(''));
-
-  }
 
   async getUsertasks() {
     try {

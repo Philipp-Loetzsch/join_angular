@@ -5,7 +5,14 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { PriorityComponent } from '../../../add-task-templates/priority/priority.component';
-import { FormArray, FormBuilder, FormGroup, FormsModule, Validators, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormArray,
+  FormBuilder,
+  FormGroup,
+  FormsModule,
+  Validators,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { Contact, Tasks } from '../../../../../interfaces/interfaces';
 import { UserDatasService } from '../../../../../services/user-datas.service';
 import { GlobalPositionStrategy } from '@angular/cdk/overlay';
@@ -21,7 +28,7 @@ import { GlobalPositionStrategy } from '@angular/cdk/overlay';
     MatNativeDateModule,
     PriorityComponent,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   templateUrl: './edit-task.component.html',
   styleUrl: './edit-task.component.scss',
@@ -41,26 +48,31 @@ export class EditTaskComponent implements OnInit {
     private userDataService: UserDatasService
   ) {}
 
-  ngOnInit(): void {    
-    this.setContactList()
-  
+  ngOnInit(): void {
+    this.setContactList();
+
     this.editTaskForm = this.fb.group({
       title: [this.chosenTask.title, { validators: [Validators.required] }],
       description: [this.chosenTask.description],
       assignedTo: this.fb.array(
-        this.chosenTask.assignedTo.map(user => this.fb.control(user)), 
+        this.chosenTask.assignedTo.map((user) => this.fb.control(user)),
         { validators: [Validators.required] }
       ),
-      dueDate: [this.chosenTask.dueDate ? new Date(this.chosenTask.dueDate) : '', { validators: [Validators.required] }],
+      dueDate: [
+        this.chosenTask.dueDate ? new Date(this.chosenTask.dueDate) : '',
+        { validators: [Validators.required] },
+      ],
       priority: [this.chosenTask.prio],
-      subtasks: this.fb.array(this.chosenTask.subtasks.map(subtask => this.fb.control(subtask))),
-      status:[this.chosenTask.status],
-      position:[this.chosenTask.position],
-      category:[this.chosenTask.category]
-    });    
+      subtasks: this.fb.array(
+        this.chosenTask.subtasks.map((subtask) => this.fb.control(subtask))
+      ),
+      status: [this.chosenTask.status],
+      position: [this.chosenTask.position],
+      category: [this.chosenTask.category],
+    });
   }
 
-  async setContactList(){
+  async setContactList() {
     // this.contacts = this.userDataService.contactsList
     // this.filteredContacts = this.contacts
     const currentUserName = await this.userDataService.getUserName();
@@ -71,8 +83,8 @@ export class EditTaskComponent implements OnInit {
       color: 'gold',
       id: this.userDataService.currentUserID,
       shortcut: this.userDataService.getShortcut(currentUserName),
-    };    
-    this.contacts = [currentUserDatas, ...this.userDataService.contactsList];  
+    };
+    this.contacts = [currentUserDatas, ...this.userDataService.contactsList];
     this.filteredContacts = this.contacts;
   }
 
@@ -80,14 +92,15 @@ export class EditTaskComponent implements OnInit {
     return this.editTaskForm.get('assignedTo') as FormArray;
   }
 
-  get subtasks(): FormArray{
+  get subtasks(): FormArray {
     return this.editTaskForm.get('subtasks') as FormArray;
   }
 
-  updateTask(){
+  updateTask() {
     const formValue = this.editTaskForm.value;
     formValue.dueDate = new Date(formValue.dueDate).getTime();
-    this.userDataService.updateSingleTask(formValue, this.chosenTask.id)
+    this.userDataService.updateSingleTask(formValue, this.chosenTask.id);
+    this.closeDetails();
   }
 
   closeDetails(): void {
@@ -117,8 +130,8 @@ export class EditTaskComponent implements OnInit {
     this.showContactList = !this.showContactList;
   }
 
-  closeCotactList(){
-    this.showContactList = false
+  closeCotactList() {
+    this.showContactList = false;
   }
 
   filterContacts(value: string) {
@@ -137,21 +150,18 @@ export class EditTaskComponent implements OnInit {
     return formattedDate;
   }
 
-
-  addSubtask(content: HTMLInputElement):void{
+  addSubtask(content: HTMLInputElement): void {
     const title = content.value.trim();
-    if(title === '') return content.focus()
-    const complete = false
-    this.subtasks.push(this.fb.control({title, complete}))
-    content.value = ''
-    content.focus()
+    if (title === '') return content.focus();
+    const complete = false;
+    this.subtasks.push(this.fb.control({ title, complete }));
+    content.value = '';
+    content.focus();
   }
-   
-   editSubtask(i:number){
 
-   }
+  editSubtask(i: number) {}
 
-   deleteSubtask(i:number){
-    this.subtasks.removeAt(i)
-   }
+  deleteSubtask(i: number) {
+    this.subtasks.removeAt(i);
+  }
 }
